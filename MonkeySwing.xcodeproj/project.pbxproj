@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E4DBA365187F179100F11ABA /* Rope Segment.png in Resources */ = {isa = PBXBuildFile; fileRef = E4DBA363187F179100F11ABA /* Rope Segment.png */; };
+		E4DBA366187F179100F11ABA /* Rope Segment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4DBA364187F179100F11ABA /* Rope Segment@2x.png */; };
 		E4DCD3731874E6D20040643C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4DCD3721874E6D20040643C /* Foundation.framework */; };
 		E4DCD3751874E6D20040643C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4DCD3741874E6D20040643C /* CoreGraphics.framework */; };
 		E4DCD3771874E6D20040643C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4DCD3761874E6D20040643C /* UIKit.framework */; };
@@ -17,13 +19,38 @@
 		E4DCD3881874E6D20040643C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4DCD3861874E6D20040643C /* Main.storyboard */; };
 		E4DCD38B1874E6D20040643C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4DCD38A1874E6D20040643C /* ViewController.m */; };
 		E4DCD38E1874E6D20040643C /* MyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = E4DCD38D1874E6D20040643C /* MyScene.m */; };
-		E4DCD3901874E6D20040643C /* Spaceship.png in Resources */ = {isa = PBXBuildFile; fileRef = E4DCD38F1874E6D20040643C /* Spaceship.png */; };
 		E4DCD3921874E6D20040643C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4DCD3911874E6D20040643C /* Images.xcassets */; };
 		E4DCD3991874E6D20040643C /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4DCD3981874E6D20040643C /* XCTest.framework */; };
 		E4DCD39A1874E6D20040643C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4DCD3721874E6D20040643C /* Foundation.framework */; };
 		E4DCD39B1874E6D20040643C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4DCD3761874E6D20040643C /* UIKit.framework */; };
 		E4DCD3A31874E6D20040643C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E4DCD3A11874E6D20040643C /* InfoPlist.strings */; };
 		E4DCD3A51874E6D20040643C /* MonkeySwingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E4DCD3A41874E6D20040643C /* MonkeySwingTests.m */; };
+		E4DCD3C71874ED5F0040643C /* Banana.png in Resources */ = {isa = PBXBuildFile; fileRef = E4DCD3AF1874ED5F0040643C /* Banana.png */; };
+		E4DCD3C81874ED5F0040643C /* Banana@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4DCD3B01874ED5F0040643C /* Banana@2x.png */; };
+		E4DCD3C91874ED5F0040643C /* LongBentRope.png in Resources */ = {isa = PBXBuildFile; fileRef = E4DCD3B11874ED5F0040643C /* LongBentRope.png */; };
+		E4DCD3CA1874ED5F0040643C /* LongBentRope@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4DCD3B21874ED5F0040643C /* LongBentRope@2x.png */; };
+		E4DCD3CB1874ED5F0040643C /* LongStraightRope.png in Resources */ = {isa = PBXBuildFile; fileRef = E4DCD3B31874ED5F0040643C /* LongStraightRope.png */; };
+		E4DCD3CC1874ED5F0040643C /* LongStraightRope@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4DCD3B41874ED5F0040643C /* LongStraightRope@2x.png */; };
+		E4DCD3CD1874ED5F0040643C /* Monkey.png in Resources */ = {isa = PBXBuildFile; fileRef = E4DCD3B51874ED5F0040643C /* Monkey.png */; };
+		E4DCD3CE1874ED5F0040643C /* Monkey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4DCD3B61874ED5F0040643C /* Monkey@2x.png */; };
+		E4DCD3CF1874ED5F0040643C /* ShortRope.png in Resources */ = {isa = PBXBuildFile; fileRef = E4DCD3B71874ED5F0040643C /* ShortRope.png */; };
+		E4DCD3D01874ED5F0040643C /* ShortRope@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4DCD3B81874ED5F0040643C /* ShortRope@2x.png */; };
+		E4DCD3D11874ED5F0040643C /* Sky.png in Resources */ = {isa = PBXBuildFile; fileRef = E4DCD3B91874ED5F0040643C /* Sky.png */; };
+		E4DCD3D21874ED5F0040643C /* Sky@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4DCD3BA1874ED5F0040643C /* Sky@2x.png */; };
+		E4DCD3D51874ED5F0040643C /* TreeMedium1.png in Resources */ = {isa = PBXBuildFile; fileRef = E4DCD3BD1874ED5F0040643C /* TreeMedium1.png */; };
+		E4DCD3D61874ED5F0040643C /* TreeMedium1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4DCD3BE1874ED5F0040643C /* TreeMedium1@2x.png */; };
+		E4DCD3D71874ED5F0040643C /* TreeMedium2.png in Resources */ = {isa = PBXBuildFile; fileRef = E4DCD3BF1874ED5F0040643C /* TreeMedium2.png */; };
+		E4DCD3D81874ED5F0040643C /* TreeMedium2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4DCD3C01874ED5F0040643C /* TreeMedium2@2x.png */; };
+		E4DCD3D91874ED5F0040643C /* TreeMedium3.png in Resources */ = {isa = PBXBuildFile; fileRef = E4DCD3C11874ED5F0040643C /* TreeMedium3.png */; };
+		E4DCD3DA1874ED5F0040643C /* TreeMedium3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4DCD3C21874ED5F0040643C /* TreeMedium3@2x.png */; };
+		E4DCD3DB1874ED5F0040643C /* TreeSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = E4DCD3C31874ED5F0040643C /* TreeSmall.png */; };
+		E4DCD3DC1874ED5F0040643C /* TreeSmall@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4DCD3C41874ED5F0040643C /* TreeSmall@2x.png */; };
+		E4DCD3DD1874ED5F0040643C /* TreeStandard.png in Resources */ = {isa = PBXBuildFile; fileRef = E4DCD3C51874ED5F0040643C /* TreeStandard.png */; };
+		E4DCD3DE1874ED5F0040643C /* TreeStandard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4DCD3C61874ED5F0040643C /* TreeStandard@2x.png */; };
+		E4DCD3E91874FC0B0040643C /* TreeBig.png in Resources */ = {isa = PBXBuildFile; fileRef = E4DCD3E71874FC0B0040643C /* TreeBig.png */; };
+		E4DCD3EA1874FC0B0040643C /* TreeBig@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4DCD3E81874FC0B0040643C /* TreeBig@2x.png */; };
+		E4DCD3ED1874FD120040643C /* ParticleFire.sks in Resources */ = {isa = PBXBuildFile; fileRef = E4DCD3EB1874FD120040643C /* ParticleFire.sks */; };
+		E4DCD3EE1874FD120040643C /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = E4DCD3EC1874FD120040643C /* spark.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +64,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E4DBA363187F179100F11ABA /* Rope Segment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Rope Segment.png"; sourceTree = "<group>"; };
+		E4DBA364187F179100F11ABA /* Rope Segment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Rope Segment@2x.png"; sourceTree = "<group>"; };
 		E4DCD36F1874E6D20040643C /* MonkeySwing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MonkeySwing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4DCD3721874E6D20040643C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E4DCD3741874E6D20040643C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -53,13 +82,38 @@
 		E4DCD38A1874E6D20040643C /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		E4DCD38C1874E6D20040643C /* MyScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyScene.h; sourceTree = "<group>"; };
 		E4DCD38D1874E6D20040643C /* MyScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyScene.m; sourceTree = "<group>"; };
-		E4DCD38F1874E6D20040643C /* Spaceship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship.png; sourceTree = "<group>"; };
 		E4DCD3911874E6D20040643C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E4DCD3971874E6D20040643C /* MonkeySwingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MonkeySwingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4DCD3981874E6D20040643C /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		E4DCD3A01874E6D20040643C /* MonkeySwingTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MonkeySwingTests-Info.plist"; sourceTree = "<group>"; };
 		E4DCD3A21874E6D20040643C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E4DCD3A41874E6D20040643C /* MonkeySwingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MonkeySwingTests.m; sourceTree = "<group>"; };
+		E4DCD3AF1874ED5F0040643C /* Banana.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Banana.png; sourceTree = "<group>"; };
+		E4DCD3B01874ED5F0040643C /* Banana@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Banana@2x.png"; sourceTree = "<group>"; };
+		E4DCD3B11874ED5F0040643C /* LongBentRope.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LongBentRope.png; sourceTree = "<group>"; };
+		E4DCD3B21874ED5F0040643C /* LongBentRope@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LongBentRope@2x.png"; sourceTree = "<group>"; };
+		E4DCD3B31874ED5F0040643C /* LongStraightRope.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LongStraightRope.png; sourceTree = "<group>"; };
+		E4DCD3B41874ED5F0040643C /* LongStraightRope@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LongStraightRope@2x.png"; sourceTree = "<group>"; };
+		E4DCD3B51874ED5F0040643C /* Monkey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Monkey.png; sourceTree = "<group>"; };
+		E4DCD3B61874ED5F0040643C /* Monkey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Monkey@2x.png"; sourceTree = "<group>"; };
+		E4DCD3B71874ED5F0040643C /* ShortRope.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ShortRope.png; sourceTree = "<group>"; };
+		E4DCD3B81874ED5F0040643C /* ShortRope@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ShortRope@2x.png"; sourceTree = "<group>"; };
+		E4DCD3B91874ED5F0040643C /* Sky.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sky.png; sourceTree = "<group>"; };
+		E4DCD3BA1874ED5F0040643C /* Sky@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Sky@2x.png"; sourceTree = "<group>"; };
+		E4DCD3BD1874ED5F0040643C /* TreeMedium1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TreeMedium1.png; sourceTree = "<group>"; };
+		E4DCD3BE1874ED5F0040643C /* TreeMedium1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TreeMedium1@2x.png"; sourceTree = "<group>"; };
+		E4DCD3BF1874ED5F0040643C /* TreeMedium2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TreeMedium2.png; sourceTree = "<group>"; };
+		E4DCD3C01874ED5F0040643C /* TreeMedium2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TreeMedium2@2x.png"; sourceTree = "<group>"; };
+		E4DCD3C11874ED5F0040643C /* TreeMedium3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TreeMedium3.png; sourceTree = "<group>"; };
+		E4DCD3C21874ED5F0040643C /* TreeMedium3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TreeMedium3@2x.png"; sourceTree = "<group>"; };
+		E4DCD3C31874ED5F0040643C /* TreeSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TreeSmall.png; sourceTree = "<group>"; };
+		E4DCD3C41874ED5F0040643C /* TreeSmall@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TreeSmall@2x.png"; sourceTree = "<group>"; };
+		E4DCD3C51874ED5F0040643C /* TreeStandard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TreeStandard.png; sourceTree = "<group>"; };
+		E4DCD3C61874ED5F0040643C /* TreeStandard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TreeStandard@2x.png"; sourceTree = "<group>"; };
+		E4DCD3E71874FC0B0040643C /* TreeBig.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TreeBig.png; sourceTree = "<group>"; };
+		E4DCD3E81874FC0B0040643C /* TreeBig@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TreeBig@2x.png"; sourceTree = "<group>"; };
+		E4DCD3EB1874FD120040643C /* ParticleFire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ParticleFire.sks; sourceTree = "<group>"; };
+		E4DCD3EC1874FD120040643C /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +141,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E4A7CF9318767527009CD28B /* Standard Apple Stuff */ = {
+			isa = PBXGroup;
+			children = (
+				E4DCD3911874E6D20040643C /* Images.xcassets */,
+				E4DCD3831874E6D20040643C /* AppDelegate.h */,
+				E4DCD3841874E6D20040643C /* AppDelegate.m */,
+				E4DCD3861874E6D20040643C /* Main.storyboard */,
+				E4DCD3891874E6D20040643C /* ViewController.h */,
+				E4DCD38A1874E6D20040643C /* ViewController.m */,
+			);
+			name = "Standard Apple Stuff";
+			sourceTree = "<group>";
+		};
 		E4DCD3661874E6D20040643C = {
 			isa = PBXGroup;
 			children = (
@@ -121,15 +188,9 @@
 		E4DCD37A1874E6D20040643C /* MonkeySwing */ = {
 			isa = PBXGroup;
 			children = (
-				E4DCD3831874E6D20040643C /* AppDelegate.h */,
-				E4DCD3841874E6D20040643C /* AppDelegate.m */,
-				E4DCD3861874E6D20040643C /* Main.storyboard */,
-				E4DCD3891874E6D20040643C /* ViewController.h */,
-				E4DCD38A1874E6D20040643C /* ViewController.m */,
+				E4A7CF9318767527009CD28B /* Standard Apple Stuff */,
 				E4DCD38C1874E6D20040643C /* MyScene.h */,
 				E4DCD38D1874E6D20040643C /* MyScene.m */,
-				E4DCD38F1874E6D20040643C /* Spaceship.png */,
-				E4DCD3911874E6D20040643C /* Images.xcassets */,
 				E4DCD37B1874E6D20040643C /* Supporting Files */,
 			);
 			path = MonkeySwing;
@@ -138,10 +199,13 @@
 		E4DCD37B1874E6D20040643C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E4DCD3AE1874ED5F0040643C /* Monkey Swing Graphics */,
 				E4DCD37C1874E6D20040643C /* MonkeySwing-Info.plist */,
 				E4DCD37D1874E6D20040643C /* InfoPlist.strings */,
 				E4DCD3801874E6D20040643C /* main.m */,
 				E4DCD3821874E6D20040643C /* MonkeySwing-Prefix.pch */,
+				E4DCD3EB1874FD120040643C /* ParticleFire.sks */,
+				E4DCD3EC1874FD120040643C /* spark.png */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -162,6 +226,39 @@
 				E4DCD3A11874E6D20040643C /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E4DCD3AE1874ED5F0040643C /* Monkey Swing Graphics */ = {
+			isa = PBXGroup;
+			children = (
+				E4DCD3AF1874ED5F0040643C /* Banana.png */,
+				E4DCD3B01874ED5F0040643C /* Banana@2x.png */,
+				E4DCD3B11874ED5F0040643C /* LongBentRope.png */,
+				E4DCD3B21874ED5F0040643C /* LongBentRope@2x.png */,
+				E4DCD3B31874ED5F0040643C /* LongStraightRope.png */,
+				E4DCD3B41874ED5F0040643C /* LongStraightRope@2x.png */,
+				E4DCD3B51874ED5F0040643C /* Monkey.png */,
+				E4DCD3B61874ED5F0040643C /* Monkey@2x.png */,
+				E4DBA363187F179100F11ABA /* Rope Segment.png */,
+				E4DBA364187F179100F11ABA /* Rope Segment@2x.png */,
+				E4DCD3B71874ED5F0040643C /* ShortRope.png */,
+				E4DCD3B81874ED5F0040643C /* ShortRope@2x.png */,
+				E4DCD3B91874ED5F0040643C /* Sky.png */,
+				E4DCD3BA1874ED5F0040643C /* Sky@2x.png */,
+				E4DCD3E71874FC0B0040643C /* TreeBig.png */,
+				E4DCD3E81874FC0B0040643C /* TreeBig@2x.png */,
+				E4DCD3BD1874ED5F0040643C /* TreeMedium1.png */,
+				E4DCD3BE1874ED5F0040643C /* TreeMedium1@2x.png */,
+				E4DCD3BF1874ED5F0040643C /* TreeMedium2.png */,
+				E4DCD3C01874ED5F0040643C /* TreeMedium2@2x.png */,
+				E4DCD3C11874ED5F0040643C /* TreeMedium3.png */,
+				E4DCD3C21874ED5F0040643C /* TreeMedium3@2x.png */,
+				E4DCD3C31874ED5F0040643C /* TreeSmall.png */,
+				E4DCD3C41874ED5F0040643C /* TreeSmall@2x.png */,
+				E4DCD3C51874ED5F0040643C /* TreeStandard.png */,
+				E4DCD3C61874ED5F0040643C /* TreeStandard@2x.png */,
+			);
+			path = "Monkey Swing Graphics";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -211,6 +308,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "James Paul Mason";
 				TargetAttributes = {
+					E4DCD36E1874E6D20040643C = {
+						DevelopmentTeam = Y3EC579VUK;
+					};
 					E4DCD3961874E6D20040643C = {
 						TestTargetID = E4DCD36E1874E6D20040643C;
 					};
@@ -240,10 +340,37 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4DCD3DC1874ED5F0040643C /* TreeSmall@2x.png in Resources */,
 				E4DCD37F1874E6D20040643C /* InfoPlist.strings in Resources */,
+				E4DCD3D01874ED5F0040643C /* ShortRope@2x.png in Resources */,
+				E4DCD3D51874ED5F0040643C /* TreeMedium1.png in Resources */,
+				E4DCD3CB1874ED5F0040643C /* LongStraightRope.png in Resources */,
+				E4DCD3D71874ED5F0040643C /* TreeMedium2.png in Resources */,
+				E4DCD3DD1874ED5F0040643C /* TreeStandard.png in Resources */,
+				E4DCD3CD1874ED5F0040643C /* Monkey.png in Resources */,
+				E4DCD3D81874ED5F0040643C /* TreeMedium2@2x.png in Resources */,
 				E4DCD3921874E6D20040643C /* Images.xcassets in Resources */,
-				E4DCD3901874E6D20040643C /* Spaceship.png in Resources */,
+				E4DBA365187F179100F11ABA /* Rope Segment.png in Resources */,
+				E4DCD3E91874FC0B0040643C /* TreeBig.png in Resources */,
+				E4DCD3DB1874ED5F0040643C /* TreeSmall.png in Resources */,
+				E4DCD3C71874ED5F0040643C /* Banana.png in Resources */,
+				E4DCD3EA1874FC0B0040643C /* TreeBig@2x.png in Resources */,
+				E4DCD3CC1874ED5F0040643C /* LongStraightRope@2x.png in Resources */,
 				E4DCD3881874E6D20040643C /* Main.storyboard in Resources */,
+				E4DCD3D11874ED5F0040643C /* Sky.png in Resources */,
+				E4DCD3ED1874FD120040643C /* ParticleFire.sks in Resources */,
+				E4DCD3C81874ED5F0040643C /* Banana@2x.png in Resources */,
+				E4DCD3D61874ED5F0040643C /* TreeMedium1@2x.png in Resources */,
+				E4DCD3CE1874ED5F0040643C /* Monkey@2x.png in Resources */,
+				E4DCD3D91874ED5F0040643C /* TreeMedium3.png in Resources */,
+				E4DCD3DE1874ED5F0040643C /* TreeStandard@2x.png in Resources */,
+				E4DBA366187F179100F11ABA /* Rope Segment@2x.png in Resources */,
+				E4DCD3C91874ED5F0040643C /* LongBentRope.png in Resources */,
+				E4DCD3EE1874FD120040643C /* spark.png in Resources */,
+				E4DCD3DA1874ED5F0040643C /* TreeMedium3@2x.png in Resources */,
+				E4DCD3CF1874ED5F0040643C /* ShortRope.png in Resources */,
+				E4DCD3D21874ED5F0040643C /* Sky@2x.png in Resources */,
+				E4DCD3CA1874ED5F0040643C /* LongBentRope@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,6 +519,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MonkeySwing/MonkeySwing-Prefix.pch";
 				INFOPLIST_FILE = "MonkeySwing/MonkeySwing-Info.plist";
@@ -406,6 +534,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MonkeySwing/MonkeySwing-Prefix.pch";
 				INFOPLIST_FILE = "MonkeySwing/MonkeySwing-Info.plist";
@@ -476,6 +605,7 @@
 				E4DCD3AA1874E6D20040643C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E4DCD3AB1874E6D20040643C /* Build configuration list for PBXNativeTarget "MonkeySwingTests" */ = {
 			isa = XCConfigurationList;
@@ -484,6 +614,7 @@
 				E4DCD3AD1874E6D20040643C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -11,7 +11,7 @@
 
 @implementation ViewController
 
-- (void)viewDidLoad
+/*- (void)viewDidLoad
 {
     [super viewDidLoad];
 
@@ -26,9 +26,34 @@
     
     // Present the scene.
     [skView presentScene:scene];
+}*/
+
+- (void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    
+    SKView *skView = (SKView *)self.view;
+    
+    if (!skView.scene) {
+        skView.showsFPS = YES;
+        skView.showsNodeCount = YES;
+        
+        // Create and configure the scene
+        SKScene *scene = [MyScene sceneWithSize:skView.bounds.size];
+        scene.scaleMode = SKSceneScaleModeAspectFill;
+        scene.anchorPoint = CGPointMake(0.5, 0.5);
+        
+        // Present scene
+        [skView presentScene:scene];
+    }
 }
 
 - (BOOL)shouldAutorotate
+{
+    return YES;
+}
+
+- (BOOL)prefersStatusBarHidden
 {
     return YES;
 }

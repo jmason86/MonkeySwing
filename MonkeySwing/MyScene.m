@@ -75,7 +75,7 @@ static const CGFloat k_swipeToYVelocityConversion = 0.01;
     [self addChild:skyBackground];
     
     // Add a few trees
-    SKSpriteNode *tree1 = [SKSpriteNode spriteNodeWithImageNamed:@"TreeStandard"];
+    SKSpriteNode *tree1 = [SKSpriteNode spriteNodeWithImageNamed:@"Standard Tree"];
     tree1.position = CGPointMake(farLeftSide.x + sceneWidth/11, 0);
     [self addChild:tree1];
     
@@ -102,6 +102,23 @@ static const CGFloat k_swipeToYVelocityConversion = 0.01;
     SKSpriteNode *tree7 = [SKSpriteNode spriteNodeWithImageNamed:@"TreeBig"];
     tree7.position = CGPointMake(farRightSide.x - 5, 50);
     [self addChild:tree7];
+    
+    // Add bushes
+    for (int i = 0; i < 14; i++) {
+        // Randomly select which bush image will be used
+        int randomBushIndex = (arc4random() % (5 - 1 + 1)) + 1;
+        SKSpriteNode *bush = [SKSpriteNode spriteNodeWithImageNamed:[NSString stringWithFormat:@"%@%i", @"Bush", randomBushIndex]];
+        bush.position = CGPointMake(farLeftSide.x + i/13.0 * sceneWidth, farBottomSide.y + bush.size.height * 0.4);
+        [self addChild:bush];
+        
+        // Randomly decide if new bush will go in front of or behind last bush
+        int randomIntegerBOOL = (arc4random() % (1 - 0 + 1));
+        if (i > 0 && randomIntegerBOOL == 1) {
+            bush.zPosition = 101;
+        } else {
+            bush.zPosition = 100;
+        }
+    }
 }
 
 - (void)addFire
@@ -110,6 +127,7 @@ static const CGFloat k_swipeToYVelocityConversion = 0.01;
     SKEmitterNode *fireNode = [NSKeyedUnarchiver unarchiveObjectWithFile:firePath];
     fireNode.position = CGPointMake(farLeftSide.x, farBottomSide.y);
     [self addChild:fireNode];
+    fireNode.zPosition = 102;
 }
 
 - (void)addRopes
@@ -118,7 +136,7 @@ static const CGFloat k_swipeToYVelocityConversion = 0.01;
     for (int i = 0; i < 15; i = i + 2) {
         // Add first segment image
         SKSpriteNode *ropeSegment1 = [SKSpriteNode spriteNodeWithImageNamed:@"Rope Segment"];
-        ropeSegment1.position = CGPointMake(farLeftSide.x + sceneWidth/2, farTopSide.y - i * ropeSegment1.size.height * 0.9);
+        ropeSegment1.position = CGPointMake(farLeftSide.x + sceneWidth/3, farTopSide.y - i * ropeSegment1.size.height * 0.9);
         ropeSegment1.name = [NSString stringWithFormat:@"%@%i", @"rope", i];
         [self addChild:ropeSegment1];
         
@@ -141,7 +159,7 @@ static const CGFloat k_swipeToYVelocityConversion = 0.01;
         
         // Add new ropeSegment
         SKSpriteNode *ropeSegment2 = [SKSpriteNode spriteNodeWithImageNamed:@"Rope Segment"];
-        ropeSegment2.position = CGPointMake(farLeftSide.x + sceneWidth/2, farTopSide.y - (i + 1) * ropeSegment2.size.height * 0.9);
+        ropeSegment2.position = CGPointMake(ropeSegment1.position.x, farTopSide.y - (i + 1) * ropeSegment2.size.height * 0.9);
         ropeSegment2.name = [NSString stringWithFormat:@"%@%i", @"rope", i + 1];
         [self addChild:ropeSegment2];
         

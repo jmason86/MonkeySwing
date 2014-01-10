@@ -328,12 +328,17 @@ static const uint32_t ropeCategory =  0x1 << 1;
 
 - (void)monkey:(SKPhysicsBody *)monkeyPhysicsBody didCollideWithRope:(SKPhysicsBody *)ropePhysicsBody
 {
-    SKPhysicsJointPin *jointPin = [SKPhysicsJointPin jointWithBodyA:monkeyPhysicsBody bodyB:ropePhysicsBody anchor:ropePhysicsBody.node.position];
-    jointPin.upperAngleLimit = M_PI/4;
-    jointPin.shouldEnableLimits = YES;
-    [self.physicsWorld addJoint:jointPin];
-    
-    monkeyOnRopeWithName = ropePhysicsBody.node.parent.name;
+    if (monkeyPhysicsBody.joints.count == 0) {
+        // Create a new joint between the monkey and the rope segment
+        SKPhysicsJointPin *jointPin = [SKPhysicsJointPin jointWithBodyA:monkeyPhysicsBody bodyB:ropePhysicsBody anchor:ropePhysicsBody.node.position];
+        jointPin.upperAngleLimit = M_PI/4;
+        jointPin.shouldEnableLimits = YES;
+        [self.physicsWorld addJoint:jointPin];
+        
+        // Flag the name of the fullRope that the monkey is currently on
+        monkeyOnRopeWithName = ropePhysicsBody.node.parent.name;
+    }
+
 }
 
 @end

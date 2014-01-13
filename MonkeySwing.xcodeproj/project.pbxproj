@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E47046F11880C83C00F729FE /* SadMonkey.png in Resources */ = {isa = PBXBuildFile; fileRef = E47046EF1880C83C00F729FE /* SadMonkey.png */; };
+		E47046F21880C83C00F729FE /* SadMonkey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E47046F01880C83C00F729FE /* SadMonkey@2x.png */; };
+		E49F78AE1883598900BDA47C /* JPMButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E49F78AD1883598900BDA47C /* JPMButton.m */; };
+		E49F78B118835E5500BDA47C /* MonkeyClicked.png in Resources */ = {isa = PBXBuildFile; fileRef = E49F78AF18835E5500BDA47C /* MonkeyClicked.png */; };
+		E49F78B218835E5500BDA47C /* MonkeyClicked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E49F78B018835E5500BDA47C /* MonkeyClicked@2x.png */; };
 		E4A8EA98187F8FBC00364302 /* Banana.png in Resources */ = {isa = PBXBuildFile; fileRef = E4A8EA7A187F8FBC00364302 /* Banana.png */; };
 		E4A8EA99187F8FBC00364302 /* Banana@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4A8EA7B187F8FBC00364302 /* Banana@2x.png */; };
 		E4A8EA9A187F8FBC00364302 /* Bush1.png in Resources */ = {isa = PBXBuildFile; fileRef = E4A8EA7C187F8FBC00364302 /* Bush1.png */; };
@@ -68,6 +73,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E47046EF1880C83C00F729FE /* SadMonkey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SadMonkey.png; sourceTree = "<group>"; };
+		E47046F01880C83C00F729FE /* SadMonkey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SadMonkey@2x.png"; sourceTree = "<group>"; };
+		E49F78AC1883598900BDA47C /* JPMButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPMButton.h; sourceTree = "<group>"; };
+		E49F78AD1883598900BDA47C /* JPMButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPMButton.m; sourceTree = "<group>"; };
+		E49F78AF18835E5500BDA47C /* MonkeyClicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MonkeyClicked.png; sourceTree = "<group>"; };
+		E49F78B018835E5500BDA47C /* MonkeyClicked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MonkeyClicked@2x.png"; sourceTree = "<group>"; };
 		E4A8EA7A187F8FBC00364302 /* Banana.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Banana.png; sourceTree = "<group>"; };
 		E4A8EA7B187F8FBC00364302 /* Banana@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Banana@2x.png"; sourceTree = "<group>"; };
 		E4A8EA7C187F8FBC00364302 /* Bush1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Bush1.png; sourceTree = "<group>"; };
@@ -179,8 +190,12 @@
 				E4A8EA85187F8FBC00364302 /* Bush5@2x.png */,
 				E4A8EA86187F8FBC00364302 /* Monkey.png */,
 				E4A8EA87187F8FBC00364302 /* Monkey@2x.png */,
+				E49F78AF18835E5500BDA47C /* MonkeyClicked.png */,
+				E49F78B018835E5500BDA47C /* MonkeyClicked@2x.png */,
 				E4A8EA88187F8FBC00364302 /* Rope Segment.png */,
 				E4A8EA89187F8FBC00364302 /* Rope Segment@2x.png */,
+				E47046EF1880C83C00F729FE /* SadMonkey.png */,
+				E47046F01880C83C00F729FE /* SadMonkey@2x.png */,
 				E4A8EA8A187F8FBC00364302 /* Sky.png */,
 				E4A8EA8B187F8FBC00364302 /* Sky@2x.png */,
 				E4A8EA8C187F8FBC00364302 /* Tree1.png */,
@@ -236,6 +251,8 @@
 				E4A7CF9318767527009CD28B /* Standard Apple Stuff */,
 				E4DCD38C1874E6D20040643C /* MyScene.h */,
 				E4DCD38D1874E6D20040643C /* MyScene.m */,
+				E49F78AC1883598900BDA47C /* JPMButton.h */,
+				E49F78AD1883598900BDA47C /* JPMButton.m */,
 				E4DCD37B1874E6D20040643C /* Supporting Files */,
 			);
 			path = MonkeySwing;
@@ -359,16 +376,19 @@
 				E4A8EAA7187F8FBC00364302 /* Rope Segment@2x.png in Resources */,
 				E4A8EA9D187F8FBC00364302 /* Bush2@2x.png in Resources */,
 				E4A8EA9C187F8FBC00364302 /* Bush2.png in Resources */,
+				E47046F11880C83C00F729FE /* SadMonkey.png in Resources */,
 				E4A8EAA9187F8FBC00364302 /* Sky@2x.png in Resources */,
 				E4A8EAA1187F8FBC00364302 /* Bush4@2x.png in Resources */,
 				E4A8EAAC187F8FBC00364302 /* Tree2.png in Resources */,
 				E4A8EAA2187F8FBC00364302 /* Bush5.png in Resources */,
+				E49F78B118835E5500BDA47C /* MonkeyClicked.png in Resources */,
 				E4A8EAB5187F8FBC00364302 /* Tree6@2x.png in Resources */,
 				E4DCD37F1874E6D20040643C /* InfoPlist.strings in Resources */,
 				E4DCD3921874E6D20040643C /* Images.xcassets in Resources */,
 				E4A8EAA4187F8FBC00364302 /* Monkey.png in Resources */,
 				E4A8EAB1187F8FBC00364302 /* Tree4@2x.png in Resources */,
 				E4A8EAAE187F8FBC00364302 /* Tree3.png in Resources */,
+				E49F78B218835E5500BDA47C /* MonkeyClicked@2x.png in Resources */,
 				E4A8EAAD187F8FBC00364302 /* Tree2@2x.png in Resources */,
 				E4A8EA98187F8FBC00364302 /* Banana.png in Resources */,
 				E4A8EA99187F8FBC00364302 /* Banana@2x.png in Resources */,
@@ -384,6 +404,7 @@
 				E4A8EAB0187F8FBC00364302 /* Tree4.png in Resources */,
 				E4A8EAA8187F8FBC00364302 /* Sky.png in Resources */,
 				E4A8EAAA187F8FBC00364302 /* Tree1.png in Resources */,
+				E47046F21880C83C00F729FE /* SadMonkey@2x.png in Resources */,
 				E4A8EA9B187F8FBC00364302 /* Bush1@2x.png in Resources */,
 				E4A8EAAB187F8FBC00364302 /* Tree1@2x.png in Resources */,
 				E4A8EA9F187F8FBC00364302 /* Bush3@2x.png in Resources */,
@@ -405,6 +426,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E49F78AE1883598900BDA47C /* JPMButton.m in Sources */,
 				E4DCD38E1874E6D20040643C /* MyScene.m in Sources */,
 				E4DCD38B1874E6D20040643C /* ViewController.m in Sources */,
 				E4DCD3851874E6D20040643C /* AppDelegate.m in Sources */,

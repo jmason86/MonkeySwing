@@ -7,6 +7,7 @@
 //
 
 #import "MyScene.h"
+#import "JPMButton.h"
 
 static const CGFloat k_swipeToXVelocityConversion = 0.4;
 static const CGFloat k_swipeToYVelocityConversion = 0.2;
@@ -77,7 +78,21 @@ static const uint32_t ropeCategory =  0x1 << 1;
 }
 
 - (void)update:(CFTimeInterval)currentTime {
-    /* Called before each frame is rendered */
+    SKSpriteNode *monkeySpriteNode = (SKSpriteNode *)[self childNodeWithName:@"monkey"];
+    if (monkeySpriteNode.position.y + monkeySpriteNode.size.height < farBottomSide.y) {
+        // Get ride of the dead monkey sprite
+        [monkeySpriteNode removeFromParent];
+        
+        // Firey death scene
+        //SKScene *deathScene = [SKScene sceneWithSize:CGSizeMake(self.size.width / 2, self.size.height/2)];
+        
+        // TODO: Replace this button with an whole new SKScene, but for now a button will suffice
+        JPMButton *restartButton = [[JPMButton alloc] initWithImageNamedNormal:@"SadMonkey" selected:@"MonkeyClicked"];
+        restartButton.name = @"SadMonkeyFace";
+        restartButton.zPosition = 115;
+        [restartButton setTouchUpInsideTarget:self action:@selector(restartAction)];
+        [self addChild:restartButton];
+    }
 }
 
 #pragma mark - Initial setup of scene
@@ -216,8 +231,8 @@ static const uint32_t ropeCategory =  0x1 << 1;
                     
                     // Add joints between segments
                     SKPhysicsJointPin *jointPin = [SKPhysicsJointPin jointWithBodyA:ropeSegment1.physicsBody bodyB:ropeSegment2.physicsBody anchor:CGPointMake(ropeSegment1.position.x, ropeSegment1.position.y - ropeSegment1.size.height)];
-                    jointPin.upperAngleLimit = M_PI/4;
-                    jointPin.lowerAngleLimit = -M_PI/4;
+                    jointPin.upperAngleLimit = M_PI/6;
+                    jointPin.lowerAngleLimit = -M_PI/6;
                     jointPin.shouldEnableLimits = YES;
                     [self.physicsWorld addJoint:jointPin];
                 }
@@ -244,6 +259,16 @@ static const uint32_t ropeCategory =  0x1 << 1;
     monkeySpriteNode.physicsBody.categoryBitMask = monkeyCategory;
     monkeySpriteNode.physicsBody.contactTestBitMask = ropeCategory;
     monkeySpriteNode.physicsBody.usesPreciseCollisionDetection = YES;
+}
+
+- (void)restartAction
+{
+    // Remove the sad monkey face
+    SKNode *sadMonkeyFace = [self childNodeWithName:@"SadMonkeyFace"];
+    [sadMonkeyFace removeFromParent];
+    
+    // Add a new monkey
+    [self addMonkey];
 }
 
 #pragma mark - Convenience methods

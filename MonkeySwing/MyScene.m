@@ -9,14 +9,15 @@
 #import "MyScene.h"
 #import "JPMButton.h"
 
-static const CGFloat k_swipeToXVelocityConversion = 0.4;
-static const CGFloat k_swipeToYVelocityConversion = 0.2;
+static const CGFloat k_swipeToXVelocityConversion = 0.8;
+static const CGFloat k_swipeToYVelocityConversion = 0.4;
 static const uint32_t monkeyCategory =  0x1 << 0;
 static const uint32_t ropeCategory =  0x1 << 1;
+static const CGFloat ropeRotationLimit = M_PI/12;
 
 @implementation MyScene
 {
-    CGPoint farLeftSide, farRightSide, farTopSide, farBottomSide;
+    CGPoint sceneFarLeftSide, sceneFarRightSide, sceneFarTopSide, sceneFarBottomSide;
     CGFloat sceneWidth, sceneHeight;
     NSTimeInterval touchBeganTime;
     CGPoint touchBeganPoint;
@@ -24,85 +25,97 @@ static const uint32_t ropeCategory =  0x1 << 1;
     int bushDensity; // [bushes/screen]
     NSTimer *fireTimer;
     NSString *monkeyOnRopeWithName;
+    SKNode *myWorld;
 }
+
+# pragma mark - View life cycle
 
 -(id)initWithSize:(CGSize)size {    
     if (self = [super initWithSize:size]) {
+        // Setup for scrolling
+        self.anchorPoint = CGPointMake(0.5, 0.5);
+        myWorld = [SKNode node];
+        myWorld.scene.anchorPoint = CGPointMake(0.5, 0.5);
+        myWorld.name = @"myWorld";
+        [self addChild:myWorld];
+        
         // Define useful constants
         [self defineUsefulConstants];
         
-        // Add background images (sky and forest)
+        // Add background images (sky and forest) to myWorld
         treeDensity = 7; // [trees/screen]
         bushDensity = 15; // [bushes/screen]
-        [self addBackground];
+        [self addBackgroundToWorld];
         
         // Add fire
-        [self addFire];
+        [self addFireToWorld];
         
         // Add ropes
-        [self addRopes];
+        [self addRopesToWorld];
         
         // Add monkey
-        [self addMonkey];
+        [self addMonkeyToWorld];
         
         // Setup physicsWorld
-        self.physicsWorld.gravity = CGVectorMake(0, -1);
+        self.physicsWorld.gravity = CGVectorMake(0, -2);
         self.physicsWorld.contactDelegate = self;
     }
     return self;
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    for (UITouch *touch in touches) {
-        touchBeganTime = touch.timestamp;
-        touchBeganPoint = [touch locationInNode:self];
-    }
-}
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+- (void)update:(CFTimeInterval)currentTime
 {
-    for (UITouch *touch in touches) {
-        CGPoint touchEndPoint = [touch locationInNode:self];
-        
-        if (fabsf(touchEndPoint.x - touchBeganPoint.x) < 100 && fabsf(touchEndPoint.y - touchBeganPoint.y) < 100) {
-            [self monkeyReleaseRope];
-        } else {
-            NSTimeInterval touchEndTime = touch.timestamp;
-            CGFloat xVelocity = k_swipeToXVelocityConversion * (touchEndPoint.x - touchBeganPoint.x) / (touchEndTime - touchBeganTime);
-            CGFloat yVelocity = k_swipeToYVelocityConversion * (touchEndPoint.y - touchBeganPoint.y) / (touchEndTime - touchBeganTime);
-            CGVector swipeVelocity = CGVectorMake(xVelocity, yVelocity);
-            [self monkeySwingWithSwipeVelocity:swipeVelocity];
-        }
+    
+}
 
+- (void)didSimulatePhysics
+{
+    [self centerOnNode:[self childNodeWithName:@"//monkey"]];
+}
+
+- (void)centerOnNode:(SKNode *)monkeyNode
+{
+    CGPoint monkeyPosition = monkeyNode.position;
+    
+    // Check if monkey died
+    if (monkeyPosition.y < myWorld.frame.origin.y - sceneHeight/2) {
+        [self monkeyDied:monkeyNode];
+    }
+    
+    // Move world
+    if (monkeyPosition.y > 0 && monkeyPosition.x > 0) {
+        [myWorld setPosition:CGPointMake(-monkeyPosition.x, -monkeyPosition.y)];
+    } else if (monkeyPosition.y > 0 && monkeyPosition.x < 0) {
+        [myWorld setPosition:CGPointMake(0, -monkeyPosition.y)];
     }
 }
 
-- (void)update:(CFTimeInterval)currentTime {
-    SKSpriteNode *monkeySpriteNode = (SKSpriteNode *)[self childNodeWithName:@"monkey"];
-    if (monkeySpriteNode.position.y + monkeySpriteNode.size.height < farBottomSide.y) {
-        // Get ride of the dead monkey sprite
-        [monkeySpriteNode removeFromParent];
-        
-        // Firey death scene
-        //SKScene *deathScene = [SKScene sceneWithSize:CGSizeMake(self.size.width / 2, self.size.height/2)];
-        
-        // TODO: Replace this button with an whole new SKScene, but for now a button will suffice
-        JPMButton *restartButton = [[JPMButton alloc] initWithImageNamedNormal:@"SadMonkey" selected:@"MonkeyClicked"];
-        restartButton.name = @"SadMonkeyFace";
-        restartButton.zPosition = 115;
-        [restartButton setTouchUpInsideTarget:self action:@selector(restartAction)];
-        [self addChild:restartButton];
-    }
+- (void)monkeyDied:(SKNode *)monkeyNode
+{
+    // Get rid of the dead monkey sprite
+    [monkeyNode removeFromParent];
+    
+    // Firey death scene
+    //SKScene *deathScene = [SKScene sceneWithSize:CGSizeMake(self.size.width / 2, self.size.height/2)];
+    
+    // TODO: Replace this button with an whole new SKScene, but for now a button will suffice
+    JPMButton *restartButton = [[JPMButton alloc] initWithImageNamedNormal:@"SadMonkey" selected:@"MonkeyClicked"];
+    restartButton.name = @"SadMonkeyFace";
+    restartButton.zPosition = 115;
+    [restartButton setTouchUpInsideTarget:self action:@selector(restartAction)];
+    [self addChild:restartButton];
 }
 
 #pragma mark - Initial setup of scene
 
-- (void)addBackground
+- (void)addBackgroundToWorld
 {
     // Add sky
     SKSpriteNode *skyBackground = [SKSpriteNode spriteNodeWithImageNamed:@"Sky"];
+    skyBackground.anchorPoint = CGPointMake(0, 0);
+    skyBackground.position = CGPointMake(skyBackground.frame.origin.x - sceneWidth/2, skyBackground.frame.origin.y - sceneHeight/2); // TODO: May subtract off more than sceneHeight/2 to start at a higher initial position in the world
     skyBackground.name = @"skyBackground";
-    [self addChild:skyBackground];
+    [myWorld addChild:skyBackground];
     
     // Add trees
     for (int i = 0; i < treeDensity; i++) {
@@ -110,9 +123,9 @@ static const uint32_t ropeCategory =  0x1 << 1;
         int randomTreeIndex = (arc4random() % (5 - 1 + 1)) + 1;
         SKSpriteNode *treeNode = [SKSpriteNode spriteNodeWithImageNamed:[NSString stringWithFormat:@"%@%i", @"Tree", randomTreeIndex]];
         treeNode.anchorPoint = CGPointMake(0.5, 0);
-        treeNode.position = CGPointMake(farLeftSide.x + i/(treeDensity - 1.0) * sceneWidth, farBottomSide.y);
+        treeNode.position = CGPointMake(sceneFarLeftSide.x + i/(treeDensity - 1.0) * sceneWidth, sceneFarBottomSide.y);
         treeNode.name = [NSString stringWithFormat:@"%@%i", @"tree", i];
-        [self addChild:treeNode];
+        [myWorld addChild:treeNode];
         
         // Randomly decide if new bush will go in front of or behind last tree
         int randomIntegerBOOL = (arc4random() % (1 - 0 + 1));
@@ -128,8 +141,8 @@ static const uint32_t ropeCategory =  0x1 << 1;
         // Randomly select which bush image will be used
         int randomBushIndex = (arc4random() % (5 - 1 + 1)) + 1;
         SKSpriteNode *bushNode = [SKSpriteNode spriteNodeWithImageNamed:[NSString stringWithFormat:@"%@%i", @"Bush", randomBushIndex]];
-        bushNode.position = CGPointMake(farLeftSide.x + i/(bushDensity - 1.0) * sceneWidth, farBottomSide.y + bushNode.size.height * 0.4);
-        [self addChild:bushNode];
+        bushNode.position = CGPointMake(sceneFarLeftSide.x + i/(bushDensity - 1.0) * sceneWidth, sceneFarBottomSide.y + bushNode.size.height * 0.4);
+        [myWorld addChild:bushNode];
         
         // Randomly decide if new bush will go in front of or behind last bush
         int randomIntegerBOOL = (arc4random() % (1 - 0 + 1));
@@ -141,14 +154,14 @@ static const uint32_t ropeCategory =  0x1 << 1;
     }
 }
 
-- (void)addFire
+- (void)addFireToWorld
 {
     NSString *firePath = [[NSBundle mainBundle] pathForResource:@"ParticleFire" ofType:@"sks"];
     SKEmitterNode *fireEmitterNode = [NSKeyedUnarchiver unarchiveObjectWithFile:firePath];
-    fireEmitterNode.position = CGPointMake(farLeftSide.x, farBottomSide.y);
-    [self addChild:fireEmitterNode];
+    fireEmitterNode.position = CGPointMake(sceneFarLeftSide.x, sceneFarBottomSide.y);
+    [myWorld addChild:fireEmitterNode];
     fireEmitterNode.zPosition = 105;
-    fireEmitterNode.position = CGPointMake(farLeftSide.x + sceneWidth/2, farBottomSide.y);
+    fireEmitterNode.position = CGPointMake(sceneFarLeftSide.x + sceneWidth/2, sceneFarBottomSide.y);
     fireEmitterNode.particlePositionRange = CGVectorMake(0, 0);
     fireTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(fireUpdate:) userInfo:fireEmitterNode repeats:YES];
 }
@@ -172,10 +185,10 @@ static const uint32_t ropeCategory =  0x1 << 1;
 }
 
 // Every tree that is taller than he sceneHeight gets a rope
-- (void)addRopes
+- (void)addRopesToWorld
 {
     int ropeNumber = 0;
-    for (SKNode *node in self.children) {
+    for (SKNode *node in myWorld.children) {
         if ([node isKindOfClass:SKSpriteNode.class] && [node.name rangeOfString:@"tree"].location != NSNotFound) {
             SKSpriteNode *treeNode = (SKSpriteNode *)node;
             if (treeNode.size.height > sceneHeight) {
@@ -183,14 +196,14 @@ static const uint32_t ropeCategory =  0x1 << 1;
                 // Make a full rope node to hold all the segments in a single object
                 SKNode *fullRopeNode = [[SKNode alloc] init];
                 fullRopeNode.name = [NSString stringWithFormat:@"%@%i", @"fullRope", ropeNumber];
-                [self addChild:fullRopeNode];
+                [myWorld addChild:fullRopeNode];
                 
                 // Make a bunch of rope segments
                 SKPhysicsBody *ropeSegment1PhysicsBody, *ropeSegment2PhysicsBody;
                 for (int i = 0; i < 15; i = i + 2) {
                     // Add first segment image
                     SKSpriteNode *ropeSegment1 = [SKSpriteNode spriteNodeWithImageNamed:@"Rope Segment"];
-                    ropeSegment1.position = CGPointMake(treeNode.position.x, farTopSide.y - i * ropeSegment1.size.height * 0.9);
+                    ropeSegment1.position = CGPointMake(treeNode.position.x, sceneFarTopSide.y - i * ropeSegment1.size.height * 0.9);
                     ropeSegment1.name = [NSString stringWithFormat:@"%@%i", @"rope", i];
                     [fullRopeNode addChild:ropeSegment1];
                     ropeSegment1.zPosition = 110;
@@ -209,14 +222,17 @@ static const uint32_t ropeCategory =  0x1 << 1;
                     // Add joint between new ropeSegment1 and previous ropeSegment2
                     if (i > 0) {
                         SKPhysicsBody *previousBottomRopeSegmentPhysicsBody = ropeSegment2PhysicsBody;
-                        SKPhysicsJointSliding *jointPin = [SKPhysicsJointSliding jointWithBodyA:ropeSegment1.physicsBody bodyB:previousBottomRopeSegmentPhysicsBody anchor:CGPointMake(ropeSegment1.position.x, ropeSegment1.position.y + ropeSegment1.size.height) axis:CGVectorMake(1, 0)];
+                        //SKPhysicsJointSliding *jointPin = [SKPhysicsJointSliding jointWithBodyA:ropeSegment1.physicsBody bodyB:previousBottomRopeSegmentPhysicsBody anchor:CGPointMake(ropeSegment1.position.x, ropeSegment1.position.y + ropeSegment1.size.height) axis:CGVectorMake(1, 0)];
+                        SKPhysicsJointPin *jointPin = [SKPhysicsJointPin jointWithBodyA:ropeSegment1.physicsBody bodyB:previousBottomRopeSegmentPhysicsBody anchor:CGPointMake(ropeSegment1.position.x, ropeSegment1.position.y + ropeSegment1.size.height)];
+                        jointPin.upperAngleLimit = ropeRotationLimit;
+                        jointPin.lowerAngleLimit = -ropeRotationLimit;
                         jointPin.shouldEnableLimits = YES;
                         [self.physicsWorld addJoint:jointPin];
                     }
                     
                     // Add new ropeSegment
                     SKSpriteNode *ropeSegment2 = [SKSpriteNode spriteNodeWithImageNamed:@"Rope Segment"];
-                    ropeSegment2.position = CGPointMake(ropeSegment1.position.x, farTopSide.y - (i + 1) * ropeSegment2.size.height * 0.9);
+                    ropeSegment2.position = CGPointMake(ropeSegment1.position.x, sceneFarTopSide.y - (i + 1) * ropeSegment2.size.height * 0.9);
                     ropeSegment2.name = [NSString stringWithFormat:@"%@%i", @"rope", i + 1];
                     [fullRopeNode addChild:ropeSegment2];
                     ropeSegment2.zPosition = 110;
@@ -231,8 +247,8 @@ static const uint32_t ropeCategory =  0x1 << 1;
                     
                     // Add joints between segments
                     SKPhysicsJointPin *jointPin = [SKPhysicsJointPin jointWithBodyA:ropeSegment1.physicsBody bodyB:ropeSegment2.physicsBody anchor:CGPointMake(ropeSegment1.position.x, ropeSegment1.position.y - ropeSegment1.size.height)];
-                    jointPin.upperAngleLimit = M_PI/6;
-                    jointPin.lowerAngleLimit = -M_PI/6;
+                    jointPin.upperAngleLimit = ropeRotationLimit;
+                    jointPin.lowerAngleLimit = -ropeRotationLimit;
                     jointPin.shouldEnableLimits = YES;
                     [self.physicsWorld addJoint:jointPin];
                 }
@@ -242,13 +258,13 @@ static const uint32_t ropeCategory =  0x1 << 1;
     }
 }
 
-- (void)addMonkey
+- (void)addMonkeyToWorld
 {
     SKSpriteNode *monkeySpriteNode = [SKSpriteNode spriteNodeWithImageNamed:@"Monkey"];
-    monkeySpriteNode.position = CGPointMake(farLeftSide.x + 30, farTopSide.y - 50);
+    monkeySpriteNode.position = CGPointMake(sceneFarLeftSide.x + 30, sceneFarTopSide.y - 50);
     monkeySpriteNode.zPosition = 104;
     monkeySpriteNode.name = @"monkey";
-    [self addChild:monkeySpriteNode];
+    [myWorld addChild:monkeySpriteNode];
     
     // Baisic properties
     monkeySpriteNode.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:monkeySpriteNode.size];
@@ -268,38 +284,51 @@ static const uint32_t ropeCategory =  0x1 << 1;
     [sadMonkeyFace removeFromParent];
     
     // Add a new monkey
-    [self addMonkey];
+    [self addMonkeyToWorld];
 }
 
 #pragma mark - Convenience methods
 
 - (void)defineUsefulConstants
 {
-    farLeftSide = CGPointMake(-self.frame.size.width/2, 0);
-    farRightSide = CGPointMake(self.frame.size.width/2, 0);
-    farTopSide = CGPointMake(0, self.frame.size.height/2);
-    farBottomSide = CGPointMake(0, -self.frame.size.height/2);
+    // Scene dimensions
+    sceneFarLeftSide = CGPointMake(-self.size.width/2, 0);
+    sceneFarRightSide = CGPointMake(self.size.width/2, 0);
+    sceneFarTopSide = CGPointMake(0, self.size.height/2);
+    sceneFarBottomSide = CGPointMake(0, -self.size.height/2);
     sceneWidth = self.scene.frame.size.width;
     sceneHeight = self.scene.frame.size.height;
 }
 
 #pragma mark - Touch response methods
 
-- (void)ropeSwingWithSwipeVelocity:(CGVector)swipeVelocity
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    for (UITouch *touch in touches) {
+        touchBeganTime = touch.timestamp;
+        touchBeganPoint = [touch locationInNode:self];
+    }
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    // Determine which rope segment to apply impulse to
-    CGPoint rayStart = touchBeganPoint;
-    CGPoint rayEnd = CGPointMake(farRightSide.x, touchBeganPoint.y);
-    
-    SKPhysicsBody *bodyAlongRay = [self.physicsWorld bodyAlongRayStart:rayStart end:rayEnd];
-    if (bodyAlongRay && [bodyAlongRay.node.name rangeOfString:@"rope"].location != NSNotFound) {
-        [bodyAlongRay applyImpulse:swipeVelocity];
+    for (UITouch *touch in touches) {
+        CGPoint touchEndPoint = [touch locationInNode:self];
+        
+        if (fabsf(touchEndPoint.x - touchBeganPoint.x) < 100 && fabsf(touchEndPoint.y - touchBeganPoint.y) < 100) {
+            [self monkeyReleaseRope];
+        } else {
+            NSTimeInterval touchEndTime = touch.timestamp;
+            CGFloat xVelocity = k_swipeToXVelocityConversion * (touchEndPoint.x - touchBeganPoint.x) / (touchEndTime - touchBeganTime);
+            CGFloat yVelocity = k_swipeToYVelocityConversion * (touchEndPoint.y - touchBeganPoint.y) / (touchEndTime - touchBeganTime);
+            CGVector swipeVelocity = CGVectorMake(xVelocity, yVelocity);
+            [self monkeySwingWithSwipeVelocity:swipeVelocity];
+        }
     }
 }
 
 - (void)monkeySwingWithSwipeVelocity:(CGVector)swipeVelocity
 {
-    SKPhysicsBody *monkeyPhysicsBody = [self childNodeWithName:@"monkey"].physicsBody;
+    SKPhysicsBody *monkeyPhysicsBody = [myWorld childNodeWithName:@"monkey"].physicsBody;
     if (monkeyPhysicsBody.joints.count != 0) {
         [monkeyPhysicsBody applyImpulse:swipeVelocity];
     }
@@ -308,7 +337,7 @@ static const uint32_t ropeCategory =  0x1 << 1;
 - (void)monkeyReleaseRope
 {
     // Make the rope and monkey contactless to allow monkey to move through
-    for (SKNode *node in self.children) {
+    for (SKNode *node in myWorld.children) {
         if ([node.name isEqualToString:monkeyOnRopeWithName]) {
             for (SKNode *ropeSegmentNode in node.children) {
                 [ropeSegmentNode.physicsBody setContactTestBitMask:0];
@@ -316,7 +345,7 @@ static const uint32_t ropeCategory =  0x1 << 1;
             }
         }
     }
-    SKPhysicsBody *monkeyPhysicsBody = [self childNodeWithName:@"monkey"].physicsBody;
+    SKPhysicsBody *monkeyPhysicsBody = [myWorld childNodeWithName:@"monkey"].physicsBody;
     monkeyPhysicsBody.collisionBitMask = 0;
     monkeyPhysicsBody.contactTestBitMask = 0;
     
@@ -347,15 +376,15 @@ static const uint32_t ropeCategory =  0x1 << 1;
     // Verify that the two bodies were the monkey and rope, then handle collision
     if ((firstBody.categoryBitMask & ropeCategory) != 0 && (secondBody.categoryBitMask & monkeyCategory) != 0)
     {
-        [self monkey:secondBody didCollideWithRope:firstBody];
+        [self monkey:secondBody didCollideWithRope:firstBody atPoint:contact.contactPoint];
     }
 }
 
-- (void)monkey:(SKPhysicsBody *)monkeyPhysicsBody didCollideWithRope:(SKPhysicsBody *)ropePhysicsBody
+- (void)monkey:(SKPhysicsBody *)monkeyPhysicsBody didCollideWithRope:(SKPhysicsBody *)ropePhysicsBody atPoint:(CGPoint)contactPoint
 {
     if (monkeyPhysicsBody.joints.count == 0) {
         // Create a new joint between the monkey and the rope segment
-        SKPhysicsJointPin *jointPin = [SKPhysicsJointPin jointWithBodyA:monkeyPhysicsBody bodyB:ropePhysicsBody anchor:ropePhysicsBody.node.position];
+        SKPhysicsJointPin *jointPin = [SKPhysicsJointPin jointWithBodyA:monkeyPhysicsBody bodyB:ropePhysicsBody anchor:contactPoint];
         jointPin.upperAngleLimit = M_PI/4;
         jointPin.shouldEnableLimits = YES;
         [self.physicsWorld addJoint:jointPin];

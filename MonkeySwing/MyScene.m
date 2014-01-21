@@ -17,8 +17,8 @@ static const CGFloat ropeRotationLimit = M_PI/12;
 
 @implementation MyScene
 {
-    CGPoint sceneFarLeftSide, sceneFarRightSide, sceneFarTopSide, sceneFarBottomSide;
-    CGFloat sceneWidth, sceneHeight;
+    CGPoint sceneFarLeftSide, sceneFarRightSide, sceneFarTopSide, sceneFarBottomSide, skyFarLeftSide, skyFarRightSide, skyFarTopSide, skyFarBottomSide;
+    CGFloat sceneWidth, sceneHeight, skyWidth, skyHeight;
     NSTimeInterval touchBeganTime;
     CGPoint touchBeganPoint;
     int treeDensity; // [trees/screen]
@@ -43,8 +43,8 @@ static const CGFloat ropeRotationLimit = M_PI/12;
         [self defineUsefulConstants];
         
         // Add background images (sky and forest) to myWorld
-        treeDensity = 7; // [trees/screen]
-        bushDensity = 15; // [bushes/screen]
+        treeDensity = 20; // [trees/screen]
+        bushDensity = 30; // [bushes/screen]
         [self addBackgroundToWorld];
         
         // Add fire
@@ -55,6 +55,9 @@ static const CGFloat ropeRotationLimit = M_PI/12;
         
         // Add monkey
         [self addMonkeyToWorld];
+        
+        // Add banana goal
+        [self addBananaGoalToWorld];
         
         // Setup physicsWorld
         self.physicsWorld.gravity = CGVectorMake(0, -2);
@@ -82,6 +85,11 @@ static const CGFloat ropeRotationLimit = M_PI/12;
         [self monkeyDied:monkeyNode];
     }
     
+    // Check if monkey won
+    if (monkeyPosition.x > skyFarRightSide.x) {
+        [self monkeyWon];
+    }
+    
     // Move world
     if (monkeyPosition.y > 0 && monkeyPosition.x > 0) {
         [myWorld setPosition:CGPointMake(-monkeyPosition.x, -monkeyPosition.y)];
@@ -98,12 +106,20 @@ static const CGFloat ropeRotationLimit = M_PI/12;
     // Firey death scene
     //SKScene *deathScene = [SKScene sceneWithSize:CGSizeMake(self.size.width / 2, self.size.height/2)];
     
-    // TODO: Replace this button with an whole new SKScene, but for now a button will suffice
+    // TODO: Replace this button with a whole new SKScene, but for now a button will suffice
     JPMButton *restartButton = [[JPMButton alloc] initWithImageNamedNormal:@"SadMonkey" selected:@"MonkeyClicked"];
     restartButton.name = @"SadMonkeyFace";
     restartButton.zPosition = 115;
     [restartButton setTouchUpInsideTarget:self action:@selector(restartAction)];
     [self addChild:restartButton];
+}
+
+- (void)monkeyWon
+{
+    SKSpriteNode *winSpriteNode = [SKSpriteNode spriteNodeWithImageNamed:@"WinScreen"];
+    winSpriteNode.name = @"HappyMonkeyFace";
+    winSpriteNode.zPosition = 115;
+    [self addChild:winSpriteNode];
 }
 
 #pragma mark - Initial setup of scene
@@ -113,9 +129,17 @@ static const CGFloat ropeRotationLimit = M_PI/12;
     // Add sky
     SKSpriteNode *skyBackground = [SKSpriteNode spriteNodeWithImageNamed:@"Sky"];
     skyBackground.anchorPoint = CGPointMake(0, 0);
-    skyBackground.position = CGPointMake(skyBackground.frame.origin.x - sceneWidth/2, skyBackground.frame.origin.y - sceneHeight/2); // TODO: May subtract off more than sceneHeight/2 to start at a higher initial position in the world
+    skyBackground.position = CGPointMake(skyBackground.frame.origin.x - sceneWidth/2, skyBackground.frame.origin.y - sceneHeight/2);
     skyBackground.name = @"skyBackground";
     [myWorld addChild:skyBackground];
+    
+    // Update global parameters with sky values
+    skyWidth = skyBackground.size.width;
+    skyHeight = skyBackground.size.height;
+    skyFarLeftSide = CGPointMake(-skyWidth, 0);
+    skyFarRightSide = CGPointMake(skyWidth, 0);
+    skyFarTopSide = CGPointMake(0, skyHeight);
+    skyFarBottomSide = CGPointMake(0, -skyHeight);
     
     // Add trees
     for (int i = 0; i < treeDensity; i++) {
@@ -123,11 +147,11 @@ static const CGFloat ropeRotationLimit = M_PI/12;
         int randomTreeIndex = (arc4random() % (5 - 1 + 1)) + 1;
         SKSpriteNode *treeNode = [SKSpriteNode spriteNodeWithImageNamed:[NSString stringWithFormat:@"%@%i", @"Tree", randomTreeIndex]];
         treeNode.anchorPoint = CGPointMake(0.5, 0);
-        treeNode.position = CGPointMake(sceneFarLeftSide.x + i/(treeDensity - 1.0) * sceneWidth, sceneFarBottomSide.y);
+        treeNode.position = CGPointMake(sceneFarLeftSide.x + i/(treeDensity - 1.0) * skyBackground.size.width, sceneFarBottomSide.y);
         treeNode.name = [NSString stringWithFormat:@"%@%i", @"tree", i];
         [myWorld addChild:treeNode];
         
-        // Randomly decide if new bush will go in front of or behind last tree
+        // Randomly decide if new tree will go in front of or behind last tree
         int randomIntegerBOOL = (arc4random() % (1 - 0 + 1));
         if (i > 0 && randomIntegerBOOL == 1) {
             treeNode.zPosition = 99;
@@ -141,7 +165,7 @@ static const CGFloat ropeRotationLimit = M_PI/12;
         // Randomly select which bush image will be used
         int randomBushIndex = (arc4random() % (5 - 1 + 1)) + 1;
         SKSpriteNode *bushNode = [SKSpriteNode spriteNodeWithImageNamed:[NSString stringWithFormat:@"%@%i", @"Bush", randomBushIndex]];
-        bushNode.position = CGPointMake(sceneFarLeftSide.x + i/(bushDensity - 1.0) * sceneWidth, sceneFarBottomSide.y + bushNode.size.height * 0.4);
+        bushNode.position = CGPointMake(sceneFarLeftSide.x + i/(bushDensity - 1.0) * skyBackground.size.width, sceneFarBottomSide.y + bushNode.size.height * 0.4);
         [myWorld addChild:bushNode];
         
         // Randomly decide if new bush will go in front of or behind last bush
@@ -158,10 +182,9 @@ static const CGFloat ropeRotationLimit = M_PI/12;
 {
     NSString *firePath = [[NSBundle mainBundle] pathForResource:@"ParticleFire" ofType:@"sks"];
     SKEmitterNode *fireEmitterNode = [NSKeyedUnarchiver unarchiveObjectWithFile:firePath];
-    fireEmitterNode.position = CGPointMake(sceneFarLeftSide.x, sceneFarBottomSide.y);
     [myWorld addChild:fireEmitterNode];
     fireEmitterNode.zPosition = 105;
-    fireEmitterNode.position = CGPointMake(sceneFarLeftSide.x + sceneWidth/2, sceneFarBottomSide.y);
+    fireEmitterNode.position = CGPointMake(sceneFarLeftSide.x, sceneFarBottomSide.y);
     fireEmitterNode.particlePositionRange = CGVectorMake(0, 0);
     fireTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(fireUpdate:) userInfo:fireEmitterNode repeats:YES];
 }
@@ -171,9 +194,9 @@ static const CGFloat ropeRotationLimit = M_PI/12;
     SKEmitterNode *fireEmitterNode = [timer userInfo];
     
     // Initially expand fire from middle outward
-    if (fireEmitterNode.particlePositionRange.dx < sceneWidth) {
+    if (fireEmitterNode.particlePositionRange.dx < skyWidth * 2) {
         fireEmitterNode.particlePositionRange = CGVectorMake(fireEmitterNode.particlePositionRange.dx + 100 , 2);
-        fireEmitterNode.particleBirthRate = fireEmitterNode.particleBirthRate + 80; // Hold the intensity roughly constant during expansion
+        fireEmitterNode.particleBirthRate = fireEmitterNode.particleBirthRate + 160; // Hold the intensity roughly constant during expansion
     }
     
     // Make fire faster and higher
@@ -277,6 +300,15 @@ static const CGFloat ropeRotationLimit = M_PI/12;
     monkeySpriteNode.physicsBody.usesPreciseCollisionDetection = YES;
 }
 
+- (void)addBananaGoalToWorld
+{
+    SKSpriteNode *bananaGoalSpriteNode = [SKSpriteNode spriteNodeWithImageNamed:@"Banana"];
+    bananaGoalSpriteNode.position = CGPointMake(skyFarRightSide.x, 0);
+    bananaGoalSpriteNode.zPosition = 113;
+    bananaGoalSpriteNode.name = @"banana";
+    [myWorld addChild:bananaGoalSpriteNode];
+}
+
 - (void)restartAction
 {
     // Remove the sad monkey face
@@ -292,12 +324,12 @@ static const CGFloat ropeRotationLimit = M_PI/12;
 - (void)defineUsefulConstants
 {
     // Scene dimensions
-    sceneFarLeftSide = CGPointMake(-self.size.width/2, 0);
-    sceneFarRightSide = CGPointMake(self.size.width/2, 0);
-    sceneFarTopSide = CGPointMake(0, self.size.height/2);
-    sceneFarBottomSide = CGPointMake(0, -self.size.height/2);
     sceneWidth = self.scene.frame.size.width;
     sceneHeight = self.scene.frame.size.height;
+    sceneFarLeftSide = CGPointMake(-sceneWidth/2, 0);
+    sceneFarRightSide = CGPointMake(sceneWidth/2, 0);
+    sceneFarTopSide = CGPointMake(0, sceneHeight/2);
+    sceneFarBottomSide = CGPointMake(0, -sceneHeight/2);
 }
 
 #pragma mark - Touch response methods
@@ -392,7 +424,6 @@ static const CGFloat ropeRotationLimit = M_PI/12;
         // Flag the name of the fullRope that the monkey is currently on
         monkeyOnRopeWithName = ropePhysicsBody.node.parent.name;
     }
-
 }
 
 @end

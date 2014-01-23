@@ -87,14 +87,16 @@ static const CGFloat ropeRotationLimit = M_PI/12;
     
     // Check if monkey won
     if (monkeyPosition.x > skyFarRightSide.x) {
-        [self monkeyWon];
+        [self monkeyWon:monkeyNode];
     }
     
     // Move world
-    if (monkeyPosition.y > 0 && monkeyPosition.x > 0) {
-        [myWorld setPosition:CGPointMake(-monkeyPosition.x, -monkeyPosition.y)];
+    if (monkeyPosition.y > 0 && monkeyPosition.x > 0 && monkeyPosition.x + sceneWidth < skyFarRightSide.x) {
+        [myWorld setPosition:CGPointMake(-monkeyPosition.x, -monkeyPosition.y)]; // Scroll x and y
     } else if (monkeyPosition.y > 0 && monkeyPosition.x < 0) {
-        [myWorld setPosition:CGPointMake(0, -monkeyPosition.y)];
+        [myWorld setPosition:CGPointMake(0, -monkeyPosition.y)]; // Scroll y only if monkey is too close to left edge
+    } else if (monkeyPosition.y > 0 && monkeyPosition.x + sceneWidth > skyFarRightSide.x) {
+        [myWorld setPosition:CGPointMake(-skyWidth + sceneWidth, -monkeyPosition.y)];
     }
 }
 
@@ -114,12 +116,19 @@ static const CGFloat ropeRotationLimit = M_PI/12;
     [self addChild:restartButton];
 }
 
-- (void)monkeyWon
+- (void)monkeyWon:(SKNode *)monkeyNode
 {
-    SKSpriteNode *winSpriteNode = [SKSpriteNode spriteNodeWithImageNamed:@"WinScreen"];
-    winSpriteNode.name = @"HappyMonkeyFace";
-    winSpriteNode.zPosition = 115;
-    [self addChild:winSpriteNode];
+    // Get rid of the happy monkey sprite
+    [monkeyNode removeFromParent];
+    
+    // Celebration scene
+    
+    
+    JPMButton *winButton = [[JPMButton alloc] initWithImageNamedNormal:@"WinScreen" selected:@"WinScreen"];
+    winButton.name = @"HappyMonkeyFace";
+    winButton.zPosition = 115;
+    [winButton setTouchUpInsideTarget:self action:@selector(newLevelAction)];
+    [self addChild:winButton];
 }
 
 #pragma mark - Initial setup of scene
@@ -136,10 +145,10 @@ static const CGFloat ropeRotationLimit = M_PI/12;
     // Update global parameters with sky values
     skyWidth = skyBackground.size.width;
     skyHeight = skyBackground.size.height;
-    skyFarLeftSide = CGPointMake(-skyWidth, 0);
-    skyFarRightSide = CGPointMake(skyWidth, 0);
-    skyFarTopSide = CGPointMake(0, skyHeight);
-    skyFarBottomSide = CGPointMake(0, -skyHeight);
+    skyFarLeftSide = CGPointMake(sceneFarLeftSide.x, 0);
+    skyFarRightSide = CGPointMake(sceneFarLeftSide.x + skyWidth, 0);
+    skyFarTopSide = CGPointMake(0, sceneFarBottomSide.y + skyHeight);
+    skyFarBottomSide = CGPointMake(0, sceneFarBottomSide.y);
     
     // Add trees
     for (int i = 0; i < treeDensity; i++) {
@@ -317,6 +326,14 @@ static const CGFloat ropeRotationLimit = M_PI/12;
     
     // Add a new monkey
     [self addMonkeyToWorld];
+}
+
+- (void)newLevelAction
+{
+    [self removeAllChildren];
+    BOOL newLevel = [self initWithSize:CGSizeMake(self.size.width, self.size.height)];
+    if (newLevel) {
+    }
 }
 
 #pragma mark - Convenience methods

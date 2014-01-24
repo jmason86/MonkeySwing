@@ -11,6 +11,7 @@
 
 static const CGFloat k_swipeToXVelocityConversion = 0.8;
 static const CGFloat k_swipeToYVelocityConversion = 0.4;
+static const CGFloat k_fireRiseRate = 1;
 static const uint32_t monkeyCategory =  0x1 << 0;
 static const uint32_t ropeCategory =  0x1 << 1;
 static const CGFloat ropeRotationLimit = M_PI/12;
@@ -25,7 +26,7 @@ static const CGFloat ropeRotationLimit = M_PI/12;
     int bushDensity; // [bushes/screen]
     NSTimer *fireTimer;
     NSString *monkeyOnRopeWithName;
-    SKNode *myWorld;
+    SKNode *myWorld, *allFireNode;
 }
 
 # pragma mark - View life cycle
@@ -189,30 +190,34 @@ static const CGFloat ropeRotationLimit = M_PI/12;
 
 - (void)addFireToWorld
 {
-    NSString *firePath = [[NSBundle mainBundle] pathForResource:@"ParticleFire" ofType:@"sks"];
-    SKEmitterNode *fireEmitterNode = [NSKeyedUnarchiver unarchiveObjectWithFile:firePath];
-    [myWorld addChild:fireEmitterNode];
-    fireEmitterNode.zPosition = 105;
-    fireEmitterNode.position = CGPointMake(sceneFarLeftSide.x, sceneFarBottomSide.y);
-    fireEmitterNode.particlePositionRange = CGVectorMake(0, 0);
-    fireTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(fireUpdate:) userInfo:fireEmitterNode repeats:YES];
+    allFireNode = [SKNode node];
+    [myWorld addChild:allFireNode];
+    fireTimer = [NSTimer scheduledTimerWithTimeInterval:0.75 target:self selector:@selector(fireUpdate:) userInfo:nil repeats:YES];
 }
 
 - (void)fireUpdate:(NSTimer *)timer
 {
-    SKEmitterNode *fireEmitterNode = [timer userInfo];
+    // Obtain fire emitter node
+    NSString *firePath = [[NSBundle mainBundle] pathForResource:@"ParticleFire" ofType:@"sks"];
+    SKEmitterNode *fireEmitterNode = [NSKeyedUnarchiver unarchiveObjectWithFile:firePath];
+    [allFireNode addChild:fireEmitterNode];
     
-    // Initially expand fire from middle outward
-    if (fireEmitterNode.particlePositionRange.dx < skyWidth * 2) {
-        fireEmitterNode.particlePositionRange = CGVectorMake(fireEmitterNode.particlePositionRange.dx + 100 , 2);
-        fireEmitterNode.particleBirthRate = fireEmitterNode.particleBirthRate + 160; // Hold the intensity roughly constant during expansion
+    // Establish fire default parameters
+    CGFloat fireNodeXSize = 50;
+    fireEmitterNode.zPosition = 105;
+    [fireEmitterNode setParticlePositionRange:CGVectorMake(fireNodeXSize, 0)];
+    
+    // Initially expand fire
+    for (int i = 1; i <= [allFireNode.children count]; i++) {
+        if (i < skyWidth / fireNodeXSize) {
+            fireEmitterNode.position = CGPointMake(sceneFarLeftSide.x + i * fireNodeXSize / 2, sceneFarBottomSide.y);
+            fireEmitterNode.name = [NSString stringWithFormat:@"%@%i", @"fire", i-1];
+        }
     }
     
     // Make fire faster and higher
-    [fireEmitterNode setParticleSpeed:fireEmitterNode.speed + 1];
-    [fireEmitterNode setParticleLifetime:fireEmitterNode.particleLifetime + 1];
-    if (fireEmitterNode.particleBirthRate < 3000) {
-        fireEmitterNode.particleBirthRate = fireEmitterNode.particleBirthRate + 5;
+    for (SKEmitterNode *singleFireEmitterNode in allFireNode.children) {
+        [singleFireEmitterNode setParticleSpeed:singleFireEmitterNode.particleSpeed + k_fireRiseRate];
     }
 }
 

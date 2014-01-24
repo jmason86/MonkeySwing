@@ -7,7 +7,10 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "PhysicsParameters.h"
 
 @interface MyScene : SKScene <SKPhysicsContactDelegate>
+
+@property (nonatomic, strong) PhysicsParameters *physicsParameters;
 
 @end

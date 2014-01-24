@@ -28,43 +28,53 @@ static const CGFloat ropeRotationLimit = M_PI/12;
     NSString *monkeyOnRopeWithName;
     SKNode *myWorld, *allFireNode;
 }
+@synthesize physicsParameters;
 
 # pragma mark - View life cycle
 
 -(id)initWithSize:(CGSize)size {    
     if (self = [super initWithSize:size]) {
-        // Setup for scrolling
-        self.anchorPoint = CGPointMake(0.5, 0.5);
-        myWorld = [SKNode node];
-        myWorld.scene.anchorPoint = CGPointMake(0.5, 0.5);
-        myWorld.name = @"myWorld";
-        [self addChild:myWorld];
+        // Initialize the physics parameters
+        physicsParameters = [[PhysicsParameters alloc] init];
         
-        // Define useful constants
-        [self defineUsefulConstants];
-        
-        // Add background images (sky and forest) to myWorld
-        treeDensity = 20; // [trees/screen]
-        bushDensity = 30; // [bushes/screen]
-        [self addBackgroundToWorld];
-        
-        // Add fire
-        [self addFireToWorld];
-        
-        // Add ropes
-        [self addRopesToWorld];
-        
-        // Add monkey
-        [self addMonkeyToWorld];
-        
-        // Add banana goal
-        [self addBananaGoalToWorld];
+        // Create world
+        [self createNewWorld];
         
         // Setup physicsWorld
         self.physicsWorld.gravity = CGVectorMake(0, -2);
         self.physicsWorld.contactDelegate = self;
     }
     return self;
+}
+
+- (void)createNewWorld
+{
+    // Prepare world
+    self.anchorPoint = CGPointMake(0.5, 0.5);
+    myWorld = [SKNode node];
+    myWorld.scene.anchorPoint = CGPointMake(0.5, 0.5);
+    myWorld.name = @"myWorld";
+    [self addChild:myWorld];
+    
+    // Define useful constants
+    [self defineUsefulConstants];
+    
+    // Add background images (sky and forest) to myWorld
+    treeDensity = 20; // [trees/screen]
+    bushDensity = 30; // [bushes/screen]
+    [self addBackgroundToWorld];
+    
+    // Add fire
+    [self addFireToWorld];
+    
+    // Add ropes
+    [self addRopesToWorld];
+    
+    // Add monkey
+    [self addMonkeyToWorld];
+    
+    // Add banana goal
+    [self addBananaGoalToWorld];
 }
 
 - (void)update:(CFTimeInterval)currentTime
@@ -115,6 +125,18 @@ static const CGFloat ropeRotationLimit = M_PI/12;
     restartButton.zPosition = 115;
     [restartButton setTouchUpInsideTarget:self action:@selector(restartAction)];
     [self addChild:restartButton];
+    
+    // Make a big fire behind the monkey!
+    NSString *firePath = [[NSBundle mainBundle] pathForResource:@"ParticleFire" ofType:@"sks"];
+    SKEmitterNode *fireEmitterNode = [NSKeyedUnarchiver unarchiveObjectWithFile:firePath];
+    fireEmitterNode.position = CGPointMake(0, sceneFarBottomSide.y);
+    fireEmitterNode.zPosition = 114;
+    fireEmitterNode.name = @"fireBehindMonkeyFace";
+    [fireEmitterNode setParticleBirthRate:1600];
+    [fireEmitterNode setParticleSpeed:250];
+    [fireEmitterNode setParticlePositionRange:CGVectorMake(250, 0)];
+    
+    [self addChild:fireEmitterNode];
 }
 
 - (void)monkeyWon:(SKNode *)monkeyNode
@@ -192,7 +214,7 @@ static const CGFloat ropeRotationLimit = M_PI/12;
 {
     allFireNode = [SKNode node];
     [myWorld addChild:allFireNode];
-    fireTimer = [NSTimer scheduledTimerWithTimeInterval:0.75 target:self selector:@selector(fireUpdate:) userInfo:nil repeats:YES];
+    fireTimer = [NSTimer scheduledTimerWithTimeInterval:physicsParameters.fireTimerRate target:self selector:@selector(fireUpdate:) userInfo:nil repeats:YES];
 }
 
 - (void)fireUpdate:(NSTimer *)timer
@@ -203,21 +225,20 @@ static const CGFloat ropeRotationLimit = M_PI/12;
     [allFireNode addChild:fireEmitterNode];
     
     // Establish fire default parameters
-    CGFloat fireNodeXSize = 50;
     fireEmitterNode.zPosition = 105;
-    [fireEmitterNode setParticlePositionRange:CGVectorMake(fireNodeXSize, 0)];
+    [fireEmitterNode setParticlePositionRange:CGVectorMake(physicsParameters.fireNodeXSize, 0)];
     
     // Initially expand fire
     for (int i = 1; i <= [allFireNode.children count]; i++) {
-        if (i < skyWidth / fireNodeXSize) {
-            fireEmitterNode.position = CGPointMake(sceneFarLeftSide.x + i * fireNodeXSize / 2, sceneFarBottomSide.y);
+        if (i < skyWidth / physicsParameters.fireNodeXSize) {
+            fireEmitterNode.position = CGPointMake(sceneFarLeftSide.x + i * physicsParameters.fireNodeXSize / 2, sceneFarBottomSide.y);
             fireEmitterNode.name = [NSString stringWithFormat:@"%@%i", @"fire", i-1];
         }
     }
     
-    // Make fire faster and higher
+    // Make fire faster/higher
     for (SKEmitterNode *singleFireEmitterNode in allFireNode.children) {
-        [singleFireEmitterNode setParticleSpeed:singleFireEmitterNode.particleSpeed + k_fireRiseRate];
+        [singleFireEmitterNode setParticleSpeed:singleFireEmitterNode.particleSpeed + physicsParameters.fireRiseRate];
     }
 }
 
@@ -248,8 +269,11 @@ static const CGFloat ropeRotationLimit = M_PI/12;
                     // Add first segment physics
                     ropeSegment1PhysicsBody = [SKPhysicsBody bodyWithRectangleOfSize:ropeSegment1.size];
                     ropeSegment1.physicsBody = ropeSegment1PhysicsBody;
-                    ropeSegment1.physicsBody.density = 3;
-                    ropeSegment1.physicsBody.linearDamping = 0.8;
+                    ropeSegment1.physicsBody.density = physicsParameters.ropeDensity;
+                    ropeSegment1.physicsBody.linearDamping = physicsParameters.ropeLinearDamping;
+                    ropeSegment1.physicsBody.angularDamping = physicsParameters.ropeAngularDamping;
+                    ropeSegment1.physicsBody.restitution = physicsParameters.ropeRestitution;
+                    ropeSegment1.physicsBody.usesPreciseCollisionDetection = YES;
                     if (i == 0) {
                         ropeSegment1.physicsBody.dynamic = NO;
                     }
@@ -259,10 +283,9 @@ static const CGFloat ropeRotationLimit = M_PI/12;
                     // Add joint between new ropeSegment1 and previous ropeSegment2
                     if (i > 0) {
                         SKPhysicsBody *previousBottomRopeSegmentPhysicsBody = ropeSegment2PhysicsBody;
-                        //SKPhysicsJointSliding *jointPin = [SKPhysicsJointSliding jointWithBodyA:ropeSegment1.physicsBody bodyB:previousBottomRopeSegmentPhysicsBody anchor:CGPointMake(ropeSegment1.position.x, ropeSegment1.position.y + ropeSegment1.size.height) axis:CGVectorMake(1, 0)];
                         SKPhysicsJointPin *jointPin = [SKPhysicsJointPin jointWithBodyA:ropeSegment1.physicsBody bodyB:previousBottomRopeSegmentPhysicsBody anchor:CGPointMake(ropeSegment1.position.x, ropeSegment1.position.y + ropeSegment1.size.height)];
-                        jointPin.upperAngleLimit = ropeRotationLimit;
-                        jointPin.lowerAngleLimit = -ropeRotationLimit;
+                        jointPin.upperAngleLimit = physicsParameters.ropeRotationLimit;
+                        jointPin.lowerAngleLimit = -physicsParameters.ropeRotationLimit;
                         jointPin.shouldEnableLimits = YES;
                         [self.physicsWorld addJoint:jointPin];
                     }
@@ -277,15 +300,18 @@ static const CGFloat ropeRotationLimit = M_PI/12;
                     // Add physics to segments
                     ropeSegment2PhysicsBody = [SKPhysicsBody bodyWithRectangleOfSize:ropeSegment2.size];
                     ropeSegment2.physicsBody = ropeSegment2PhysicsBody;
-                    ropeSegment2.physicsBody.density = 3;
-                    ropeSegment2.physicsBody.linearDamping = 0.8;
+                    ropeSegment2.physicsBody.density = physicsParameters.ropeDensity;
+                    ropeSegment2.physicsBody.linearDamping = physicsParameters.ropeLinearDamping;
+                    ropeSegment2.physicsBody.angularDamping = physicsParameters.ropeAngularDamping;
+                    ropeSegment2.physicsBody.restitution = physicsParameters.ropeRestitution;
+                    ropeSegment2.physicsBody.usesPreciseCollisionDetection = YES;
                     ropeSegment2.physicsBody.categoryBitMask = ropeCategory;
                     ropeSegment2.physicsBody.contactTestBitMask = monkeyCategory;
                     
                     // Add joints between segments
                     SKPhysicsJointPin *jointPin = [SKPhysicsJointPin jointWithBodyA:ropeSegment1.physicsBody bodyB:ropeSegment2.physicsBody anchor:CGPointMake(ropeSegment1.position.x, ropeSegment1.position.y - ropeSegment1.size.height)];
-                    jointPin.upperAngleLimit = ropeRotationLimit;
-                    jointPin.lowerAngleLimit = -ropeRotationLimit;
+                    jointPin.upperAngleLimit = physicsParameters.ropeRotationLimit;
+                    jointPin.lowerAngleLimit = -physicsParameters.ropeRotationLimit;
                     jointPin.shouldEnableLimits = YES;
                     [self.physicsWorld addJoint:jointPin];
                 }
@@ -305,8 +331,11 @@ static const CGFloat ropeRotationLimit = M_PI/12;
     
     // Baisic properties
     monkeySpriteNode.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:monkeySpriteNode.size];
-    monkeySpriteNode.physicsBody.mass = 10;
-    monkeySpriteNode.physicsBody.velocity = CGVectorMake(100, 0);
+    monkeySpriteNode.physicsBody.mass = physicsParameters.monkeyMass;
+    monkeySpriteNode.physicsBody.restitution = physicsParameters.monkeyRestitution;
+    monkeySpriteNode.physicsBody.linearDamping = physicsParameters.monkeyLinearDamping;
+    monkeySpriteNode.physicsBody.angularDamping = physicsParameters.monkeyAngularDamping;
+    monkeySpriteNode.physicsBody.velocity = physicsParameters.monkeyInitialVelocity;
     
     // Collision properties
     monkeySpriteNode.physicsBody.categoryBitMask = monkeyCategory;
@@ -328,6 +357,8 @@ static const CGFloat ropeRotationLimit = M_PI/12;
     // Remove the sad monkey face
     SKNode *sadMonkeyFace = [self childNodeWithName:@"SadMonkeyFace"];
     [sadMonkeyFace removeFromParent];
+    SKNode *fireBehindMonkeyFace = [self childNodeWithName:@"fireBehindMonkeyFace"];
+    [fireBehindMonkeyFace removeFromParent];
     
     // Add a new monkey
     [self addMonkeyToWorld];
@@ -372,8 +403,8 @@ static const CGFloat ropeRotationLimit = M_PI/12;
             [self monkeyReleaseRope];
         } else {
             NSTimeInterval touchEndTime = touch.timestamp;
-            CGFloat xVelocity = k_swipeToXVelocityConversion * (touchEndPoint.x - touchBeganPoint.x) / (touchEndTime - touchBeganTime);
-            CGFloat yVelocity = k_swipeToYVelocityConversion * (touchEndPoint.y - touchBeganPoint.y) / (touchEndTime - touchBeganTime);
+            CGFloat xVelocity = physicsParameters.swipeToXVelocityConversion * (touchEndPoint.x - touchBeganPoint.x) / (touchEndTime - touchBeganTime);
+            CGFloat yVelocity = physicsParameters.swipeToYVelocityConversion * (touchEndPoint.y - touchBeganPoint.y) / (touchEndTime - touchBeganTime);
             CGVector swipeVelocity = CGVectorMake(xVelocity, yVelocity);
             [self monkeySwingWithSwipeVelocity:swipeVelocity];
         }
@@ -409,7 +440,7 @@ static const CGFloat ropeRotationLimit = M_PI/12;
     }
     
     // Add a jumping impulse to the monkey
-    [monkeyPhysicsBody applyImpulse:CGVectorMake(1000, 500)];
+    [monkeyPhysicsBody applyImpulse:physicsParameters.monkeyJumpImpulse];
 }
 
 #pragma mark - Collision response methods

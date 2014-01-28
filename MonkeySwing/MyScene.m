@@ -9,24 +9,34 @@
 #import "MyScene.h"
 #import "JPMButton.h"
 
-static const CGFloat k_swipeToXVelocityConversion = 0.8;
-static const CGFloat k_swipeToYVelocityConversion = 0.4;
-static const CGFloat k_fireRiseRate = 1;
 static const uint32_t monkeyCategory =  0x1 << 0;
 static const uint32_t ropeCategory =  0x1 << 1;
-static const CGFloat ropeRotationLimit = M_PI/12;
 
 @implementation MyScene
 {
+    // Locations
     CGPoint sceneFarLeftSide, sceneFarRightSide, sceneFarTopSide, sceneFarBottomSide, skyFarLeftSide, skyFarRightSide, skyFarTopSide, skyFarBottomSide;
+    
+    // Sizes
     CGFloat sceneWidth, sceneHeight, skyWidth, skyHeight;
+    CGFloat hudFireWidth, hudFireHeight;
+    
+    // Times
     NSTimeInterval touchBeganTime;
+    NSTimer *fireTimer;
+    
+    // Touches
+    
     CGPoint touchBeganPoint;
+    
+    // Temporary background creation
     int treeDensity; // [trees/screen]
     int bushDensity; // [bushes/screen]
-    NSTimer *fireTimer;
+    
+    // Object identification
     NSString *monkeyOnRopeWithName;
     SKNode *myWorld, *allFireNode;
+    SKCropNode *hudFireCropNode;
 }
 @synthesize physicsParameters;
 
@@ -41,8 +51,11 @@ static const CGFloat ropeRotationLimit = M_PI/12;
         [self createNewWorld];
         
         // Setup physicsWorld
-        self.physicsWorld.gravity = CGVectorMake(0, -2);
+        self.physicsWorld.gravity = physicsParameters.gravity;
         self.physicsWorld.contactDelegate = self;
+        
+        // Add HUD
+        [self addHUD];
     }
     return self;
 }
@@ -77,9 +90,40 @@ static const CGFloat ropeRotationLimit = M_PI/12;
     [self addBananaGoalToWorld];
 }
 
+- (void)addHUD
+{
+    // Add HUD banana
+    SKSpriteNode *hudBanana = [SKSpriteNode spriteNodeWithImageNamed:@"HudBanana"];
+    hudBanana.anchorPoint = CGPointMake(0, 1);
+    hudBanana.position = CGPointMake(sceneFarLeftSide.x, sceneFarTopSide.y);
+    hudBanana.zPosition = 120;
+    [self addChild:hudBanana];
+    
+    // Add fire to banana
+    SKSpriteNode *hudFire = [SKSpriteNode spriteNodeWithImageNamed:@"HudFire"];
+    hudFire.anchorPoint = CGPointMake(0, 1);
+    SKSpriteNode *hudFireMask = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor] size:CGSizeMake(hudFire.size.width, hudFire.size.height)];
+    hudFireCropNode = [SKCropNode node];
+    [hudFireCropNode addChild:hudFire];
+    [hudFireCropNode setMaskNode:hudFireMask];
+    hudFireCropNode.position = CGPointMake(sceneFarLeftSide.x, sceneFarTopSide.y);
+    hudFireCropNode.zPosition = 121;
+    [self addChild:hudFireCropNode];
+}
+
+- (void)updateHUD
+{
+    // Update fire on banana
+    CGFloat fractionFireProgress = physicsParameters.fireNodeXSize / skyWidth * [allFireNode.children count];
+    SKSpriteNode *hudFireMask = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor] size:CGSizeMake(hudFireWidth * fractionFireProgress, hudFireHeight)];
+    [hudFireCropNode setMaskNode:hudFireMask];
+    
+    // Update score
+}
+
 - (void)update:(CFTimeInterval)currentTime
 {
-    
+    [self updateHUD];
 }
 
 - (void)didSimulatePhysics
@@ -212,31 +256,51 @@ static const CGFloat ropeRotationLimit = M_PI/12;
 
 - (void)addFireToWorld
 {
+    // Add first flame
     allFireNode = [SKNode node];
-    [myWorld addChild:allFireNode];
-    fireTimer = [NSTimer scheduledTimerWithTimeInterval:physicsParameters.fireTimerRate target:self selector:@selector(fireUpdate:) userInfo:nil repeats:YES];
-}
-
-- (void)fireUpdate:(NSTimer *)timer
-{
+    
     // Obtain fire emitter node
     NSString *firePath = [[NSBundle mainBundle] pathForResource:@"ParticleFire" ofType:@"sks"];
     SKEmitterNode *fireEmitterNode = [NSKeyedUnarchiver unarchiveObjectWithFile:firePath];
-    [allFireNode addChild:fireEmitterNode];
     
     // Establish fire default parameters
     fireEmitterNode.zPosition = 105;
     [fireEmitterNode setParticlePositionRange:CGVectorMake(physicsParameters.fireNodeXSize, 0)];
     
-    // Initially expand fire
-    for (int i = 1; i <= [allFireNode.children count]; i++) {
-        if (i < skyWidth / physicsParameters.fireNodeXSize) {
-            fireEmitterNode.position = CGPointMake(sceneFarLeftSide.x + i * physicsParameters.fireNodeXSize / 2, sceneFarBottomSide.y);
-            fireEmitterNode.name = [NSString stringWithFormat:@"%@%i", @"fire", i-1];
-        }
+    fireEmitterNode.position = CGPointMake(sceneFarLeftSide.x, sceneFarBottomSide.y);
+    fireEmitterNode.name = @"fire0";
+    [allFireNode addChild:fireEmitterNode];
+
+    [myWorld addChild:allFireNode];
+    
+    // Update fire periodically
+    fireTimer = [NSTimer scheduledTimerWithTimeInterval:physicsParameters.fireTimerRate target:self selector:@selector(fireUpdate:) userInfo:nil repeats:YES];
+}
+
+- (void)fireUpdate:(NSTimer *)timer
+{
+    // Create fire emitter node
+    NSString *firePath = [[NSBundle mainBundle] pathForResource:@"ParticleFire" ofType:@"sks"];
+    SKEmitterNode *fireEmitterNode = [NSKeyedUnarchiver unarchiveObjectWithFile:firePath];
+    
+    // Expand fire
+    BOOL willAddNewFlame = NO;
+    NSUInteger numberOfFires = [allFireNode.children count];
+    if (numberOfFires < skyWidth / physicsParameters.fireNodeXSize) {
+        // Establish fire default parameters
+        fireEmitterNode.zPosition = 105;
+        [fireEmitterNode setParticlePositionRange:CGVectorMake(physicsParameters.fireNodeXSize, 0)];
+        
+        fireEmitterNode.position = CGPointMake(sceneFarLeftSide.x + numberOfFires * physicsParameters.fireNodeXSize, sceneFarBottomSide.y);
+        fireEmitterNode.name = [NSString stringWithFormat:@"%@%lu", @"fire", (unsigned long)numberOfFires];
+        
+        willAddNewFlame = YES;
+    }
+    if (willAddNewFlame) {
+        [allFireNode addChild:fireEmitterNode];
     }
     
-    // Make fire faster/higher
+    // Make all of the existent fire faster/higher
     for (SKEmitterNode *singleFireEmitterNode in allFireNode.children) {
         [singleFireEmitterNode setParticleSpeed:singleFireEmitterNode.particleSpeed + physicsParameters.fireRiseRate];
     }
@@ -383,6 +447,11 @@ static const CGFloat ropeRotationLimit = M_PI/12;
     sceneFarRightSide = CGPointMake(sceneWidth/2, 0);
     sceneFarTopSide = CGPointMake(0, sceneHeight/2);
     sceneFarBottomSide = CGPointMake(0, -sceneHeight/2);
+    
+    // HUD fire width
+    SKSpriteNode *hudFireSpriteNode = [SKSpriteNode spriteNodeWithImageNamed:@"HudFire"];
+    hudFireWidth = 2 * hudFireSpriteNode.size.width;
+    hudFireHeight = 2 * hudFireSpriteNode.size.height;
 }
 
 #pragma mark - Touch response methods

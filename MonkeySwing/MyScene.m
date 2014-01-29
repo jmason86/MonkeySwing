@@ -26,7 +26,6 @@ static const uint32_t ropeCategory =  0x1 << 1;
     NSTimer *fireTimer;
     
     // Touches
-    
     CGPoint touchBeganPoint;
     
     // Temporary background creation
@@ -145,13 +144,87 @@ static const uint32_t ropeCategory =  0x1 << 1;
         [self monkeyWon:monkeyNode];
     }
     
-    // Move world
-    if (monkeyPosition.y > 0 && monkeyPosition.x > 0 && monkeyPosition.x + sceneWidth < skyFarRightSide.x) {
-        [myWorld setPosition:CGPointMake(-monkeyPosition.x, -monkeyPosition.y)]; // Scroll x and y
-    } else if (monkeyPosition.y > 0 && monkeyPosition.x < 0) {
-        [myWorld setPosition:CGPointMake(0, -monkeyPosition.y)]; // Scroll y only if monkey is too close to left edge
-    } else if (monkeyPosition.y > 0 && monkeyPosition.x + sceneWidth > skyFarRightSide.x) {
-        [myWorld setPosition:CGPointMake(-skyWidth + sceneWidth, -monkeyPosition.y)];
+    // Define limits
+    CGFloat scrollTopLimit = skyFarTopSide.y - sceneHeight/2;
+    CGFloat scrollBottomLimit = 0;
+    CGFloat scrollLeftLimit = 0;
+    CGFloat scrollRightLimit = skyFarRightSide.x - sceneWidth/2;
+    
+    // Normal (no limits hit) scrolling
+    if (monkeyPosition.x > scrollLeftLimit && monkeyPosition.x < scrollRightLimit && monkeyPosition.y > scrollBottomLimit && monkeyPosition.y < scrollTopLimit) {
+        [myWorld setPosition:CGPointMake(-monkeyPosition.x, -monkeyPosition.y)];
+    }
+    
+    // At far left scrolling
+    if (monkeyPosition.x < scrollLeftLimit) {
+        // No y limits hit
+        if (monkeyPosition.y > scrollBottomLimit && monkeyPosition.y < scrollTopLimit) {
+            [myWorld setPosition:CGPointMake(0, -monkeyPosition.y)];
+        }
+        
+        // Bottom limit hit
+        if (monkeyPosition.y < scrollBottomLimit) {
+            [myWorld setPosition:CGPointMake(0, 0)];
+        }
+        
+        // Top limit hit
+        if (monkeyPosition.y > scrollTopLimit) {
+            [myWorld setPosition:CGPointMake(0, -scrollTopLimit)];
+        }
+    }
+    
+    // At far right scrolling
+    if (monkeyPosition.x > scrollRightLimit) {
+        // No y limits hit
+        if (monkeyPosition.y > scrollBottomLimit && monkeyPosition.y < scrollTopLimit) {
+            [myWorld setPosition:CGPointMake(-scrollRightLimit, -monkeyPosition.y)];
+        }
+        
+        // Bottom limit hit
+        if (monkeyPosition.y < scrollBottomLimit) {
+            [myWorld setPosition:CGPointMake(-scrollRightLimit, 0)];
+        }
+        
+        // Top limit hit
+        if (monkeyPosition.y > scrollTopLimit) {
+            [myWorld setPosition:CGPointMake(-scrollRightLimit, -scrollTopLimit)];
+        }
+    }
+    
+    // At far bottom scrolling
+    if (monkeyPosition.y < scrollBottomLimit) {
+        // No x limits hit
+        if (monkeyPosition.x > scrollLeftLimit && monkeyPosition.x < scrollRightLimit) {
+            [myWorld setPosition:CGPointMake(-monkeyPosition.x, 0)];
+        }
+        
+        // Left limit hit
+        if (monkeyPosition.x < scrollLeftLimit) {
+            [myWorld setPosition:CGPointMake(0, 0)];
+        }
+        
+        // Right limit hit
+        if (monkeyPosition.x > scrollRightLimit) {
+            [myWorld setPosition:CGPointMake(-scrollRightLimit, 0)];
+        }
+    }
+    
+    // At far top scrolling
+    if (monkeyPosition.y > scrollTopLimit) {
+        // No x limits hit
+        if (monkeyPosition.x > scrollLeftLimit && monkeyPosition.x < scrollRightLimit) {
+            [myWorld setPosition:CGPointMake(-monkeyPosition.x, -scrollTopLimit)];
+        }
+        
+        // Left limit hit
+        if (monkeyPosition.x < scrollLeftLimit) {
+            [myWorld setPosition:CGPointMake(0, -scrollTopLimit)];
+        }
+        
+        // Right limit hit
+        if (monkeyPosition.x > scrollRightLimit) {
+            [myWorld setPosition:CGPointMake(-scrollRightLimit, -scrollTopLimit)];
+        }
     }
 }
 

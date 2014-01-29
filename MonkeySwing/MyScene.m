@@ -115,7 +115,7 @@ static const uint32_t ropeCategory =  0x1 << 1;
     scoreHudLabel.verticalAlignmentMode = SKLabelVerticalAlignmentModeTop;
     scoreHudLabel.zPosition = 120;
     scoreHudLabel.fontColor = [SKColor whiteColor];
-    scoreHudLabel.fontSize = 14;
+    scoreHudLabel.fontSize = 15;
     scoreHudLabel.text = @"0";
     scoreHudLabel.name = @"scoreHudLabel";
     [self addChild:scoreHudLabel];

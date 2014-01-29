@@ -108,6 +108,17 @@ static const uint32_t ropeCategory =  0x1 << 1;
     hudFireCropNode.position = CGPointMake(sceneFarLeftSide.x, sceneFarTopSide.y);
     hudFireCropNode.zPosition = 121;
     [self addChild:hudFireCropNode];
+    
+    // Add score
+    SKLabelNode *scoreHudLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkboard SE"]; // TODO: Figure out why this font isn't being applied
+    scoreHudLabel.position = CGPointMake(sceneFarLeftSide.x + hudBanana.size.width + 10, sceneFarTopSide.y);
+    scoreHudLabel.verticalAlignmentMode = SKLabelVerticalAlignmentModeTop;
+    scoreHudLabel.zPosition = 120;
+    scoreHudLabel.fontColor = [SKColor whiteColor];
+    scoreHudLabel.fontSize = 14;
+    scoreHudLabel.text = @"0";
+    scoreHudLabel.name = @"scoreHudLabel";
+    [self addChild:scoreHudLabel];
 }
 
 - (void)updateHUD
@@ -118,6 +129,12 @@ static const uint32_t ropeCategory =  0x1 << 1;
     [hudFireCropNode setMaskNode:hudFireMask];
     
     // Update score
+    SKLabelNode *scoreHudLabel = (SKLabelNode *)[self childNodeWithName:@"scoreHudLabel"];
+    CGFloat monkeyFractionalPosition = (sceneWidth/2 + [self childNodeWithName:@"//monkey"].position.x) / skyWidth;
+    int score = round(monkeyFractionalPosition * 1000);
+    if (score > [scoreHudLabel.text integerValue]) {
+        scoreHudLabel.text = [NSString stringWithFormat:@"%i", score];
+    }
 }
 
 - (void)update:(CFTimeInterval)currentTime

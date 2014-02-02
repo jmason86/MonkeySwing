@@ -483,9 +483,9 @@ static const uint32_t ropeCategory =  0x1 << 1;
     monkeySpriteNode.name = @"monkey";
     [myWorld addChild:monkeySpriteNode];
     
-    // Baisic properties
+    // Basic properties
     monkeySpriteNode.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:monkeySpriteNode.size];
-    monkeySpriteNode.physicsBody.mass = physicsParameters.monkeyMass;
+    monkeySpriteNode.physicsBody.density = physicsParameters.monkeyDensity;
     monkeySpriteNode.physicsBody.restitution = physicsParameters.monkeyRestitution;
     monkeySpriteNode.physicsBody.linearDamping = physicsParameters.monkeyLinearDamping;
     monkeySpriteNode.physicsBody.angularDamping = physicsParameters.monkeyAngularDamping;

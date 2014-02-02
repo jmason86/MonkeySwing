@@ -21,7 +21,7 @@
 @property (nonatomic) CGFloat ropeRotationLimit;
 
 // Monkey parameters
-@property (nonatomic) CGFloat monkeyMass;
+@property (nonatomic) CGFloat monkeyDensity;
 @property (nonatomic) CGFloat monkeyRestitution;
 @property (nonatomic) CGFloat monkeyLinearDamping;
 @property (nonatomic) CGFloat monkeyAngularDamping;

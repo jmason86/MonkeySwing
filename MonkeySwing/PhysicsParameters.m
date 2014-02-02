@@ -12,7 +12,7 @@
 
 @synthesize gravity;
 @synthesize ropeDensity, ropeRestitution, ropeLinearDamping, ropeAngularDamping, ropeRotationLimit;
-@synthesize monkeyMass, monkeyRestitution, monkeyLinearDamping, monkeyAngularDamping, monkeyInitialVelocity, monkeyJumpImpulse;
+@synthesize monkeyDensity, monkeyRestitution, monkeyLinearDamping, monkeyAngularDamping, monkeyInitialVelocity, monkeyJumpImpulse;
 @synthesize fireRiseRate, fireNodeXSize, fireTimerRate;
 @synthesize swipeToXVelocityConversion, swipeToYVelocityConversion;
 
@@ -29,12 +29,12 @@
     ropeRotationLimit = M_PI/12;  // Rope allowed to swing +/- this value
     
     // Monkey parameters
-    monkeyMass = 10.0;            // SI, default = size * default density (1.0)
+    monkeyDensity = 12.0;          // SI, default = 1.0
     monkeyRestitution = 0.2;      // range = 0-1, default = 0.2
     monkeyLinearDamping = 0.1;    // range = 0-1, default = 0.1
     monkeyAngularDamping = 0.1;   // range = 0-1, default = 0.1
     monkeyInitialVelocity = CGVectorMake(100, 0);
-    monkeyJumpImpulse = CGVectorMake(1000, 500);
+    monkeyJumpImpulse = CGVectorMake(200, 80);
     
     // Fire parameters
     fireRiseRate = 1.0;

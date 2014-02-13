@@ -40,7 +40,7 @@
         skView.showsNodeCount = YES;
         
         // Create and configure the scene
-        SKScene *scene = [MainMenuScene sceneWithSize:skView.bounds.size];
+        SKScene *scene = [MyScene sceneWithSize:skView.bounds.size];
         scene.scaleMode = SKSceneScaleModeAspectFill;
         scene.anchorPoint = CGPointMake(0.5, 0.5);
         

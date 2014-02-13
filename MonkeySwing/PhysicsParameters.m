@@ -42,8 +42,8 @@
     fireTimerRate = 0.75;
     
     // Touch parameters
-    swipeToXVelocityConversion = 0.8;
-    swipeToYVelocityConversion = 0.4;
+    swipeToXVelocityConversion = 0.2;
+    swipeToYVelocityConversion = 0.03;
     
     return self;
 }

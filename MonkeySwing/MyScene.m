@@ -8,6 +8,7 @@
 
 #import "MyScene.h"
 #import "JPMButton.h"
+#import "JPMLevelInterpreter.h"
 
 static const uint32_t monkeyCategory =  0x1 << 0;
 static const uint32_t ropeCategory =  0x1 << 1;
@@ -43,6 +44,10 @@ static const uint32_t ropeCategory =  0x1 << 1;
 
 -(id)initWithSize:(CGSize)size {    
     if (self = [super initWithSize:size]) {
+        // Test level interpretation
+        JPMLevelInterpreter *levelInterpreter = [JPMLevelInterpreter alloc];
+        [levelInterpreter loadLevelFileNumber:1];
+        
         // Initialize the physics parameters
         physicsParameters = [[PhysicsParameters alloc] init];
         
@@ -71,6 +76,10 @@ static const uint32_t ropeCategory =  0x1 << 1;
     // Define useful constants
     [self defineUsefulConstants];
     
+    // Try tile map
+    [self loadTileMap];
+    /*
+    
     // Add background images (sky and forest) to myWorld
     treeDensity = 20; // [trees/screen]
     bushDensity = 30; // [bushes/screen]
@@ -87,6 +96,12 @@ static const uint32_t ropeCategory =  0x1 << 1;
     
     // Add banana goal
     [self addBananaGoalToWorld];
+     */
+}
+
+- (void)loadTileMap
+{
+    
 }
 
 - (void)addHUD

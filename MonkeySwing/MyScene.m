@@ -11,8 +11,10 @@
 #import "JPMLevelInterpreter.h"
 #import "BonusPointsObject.h"
 
+// Collision categories
 static const uint32_t monkeyCategory =  0x1 << 0;
 static const uint32_t ropeCategory =  0x1 << 1;
+static const uint32_t bonusObjectCategory = 0x1 << 2;
 
 @implementation MyScene
 {
@@ -37,7 +39,11 @@ static const uint32_t ropeCategory =  0x1 << 1;
     // Object identification
     NSString *monkeyOnRopeWithName;
     SKNode *myWorld, *allFireNode;
+    int numberOfBonusPointsObtained;
+    
+    // HUD parameters
     SKCropNode *hudFireCropNode;
+    int playerScore;
 }
 @synthesize physicsParameters, levelNumber;
 
@@ -61,6 +67,7 @@ static const uint32_t ropeCategory =  0x1 << 1;
         
         // Add HUD
         [self addHUD];
+        numberOfBonusPointsObtained = 0;
     }
     return self;
 }
@@ -117,7 +124,7 @@ static const uint32_t ropeCategory =  0x1 << 1;
     [self addChild:hudFireCropNode];
     
     // Add score
-    SKLabelNode *scoreHudLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkboard SE"]; // TODO: Figure out why this font isn't being applied
+    SKLabelNode *scoreHudLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkboard SE"];
     scoreHudLabel.position = CGPointMake(sceneFarLeftSide.x + hudBanana.size.width + 10, sceneFarTopSide.y);
     scoreHudLabel.verticalAlignmentMode = SKLabelVerticalAlignmentModeTop;
     scoreHudLabel.zPosition = 120;
@@ -138,10 +145,10 @@ static const uint32_t ropeCategory =  0x1 << 1;
     // Update score
     SKLabelNode *scoreHudLabel = (SKLabelNode *)[self childNodeWithName:@"scoreHudLabel"];
     CGFloat monkeyFractionalPosition = (sceneWidth/2 + [self childNodeWithName:@"//monkey"].position.x) / skyWidth;
-    int score = round(monkeyFractionalPosition * 1000);
-    if (score > [scoreHudLabel.text integerValue]) {
-        scoreHudLabel.text = [NSString stringWithFormat:@"%i", score];
+    if (round(monkeyFractionalPosition * 1000) > [scoreHudLabel.text integerValue] - numberOfBonusPointsObtained) {
+        playerScore = playerScore + round(monkeyFractionalPosition * 1000);
     }
+    scoreHudLabel.text = [NSString stringWithFormat:@"%i", playerScore];
 }
 
 - (void)update:(CFTimeInterval)currentTime
@@ -152,6 +159,7 @@ static const uint32_t ropeCategory =  0x1 << 1;
 - (void)didSimulatePhysics
 {
     [self centerOnNode:[self childNodeWithName:@"//monkey"]];
+    [self resetRopeCategoryMasksForAllRopes:NO];
 }
 
 - (void)centerOnNode:(SKNode *)monkeyNode
@@ -278,6 +286,9 @@ static const uint32_t ropeCategory =  0x1 << 1;
     [fireEmitterNode setParticlePositionRange:CGVectorMake(250, 0)];
     
     [self addChild:fireEmitterNode];
+    
+    // Reset all the ropes
+    [self resetRopeCategoryMasksForAllRopes:YES];
 }
 
 - (void)monkeyWon:(SKNode *)monkeyNode
@@ -293,6 +304,36 @@ static const uint32_t ropeCategory =  0x1 << 1;
     winButton.zPosition = 115;
     [winButton setTouchUpInsideTarget:self action:@selector(newLevelAction)];
     [self addChild:winButton];
+}
+
+- (void)resetRopeCategoryMasksForAllRopes:(BOOL)resetAllRopes
+{
+    for (SKNode *node in [myWorld children]) {
+        // Grab rope nodes
+        if ([node.name rangeOfString:@"fullRope"].location != NSNotFound) {
+            // Either reset all ropes (monkey died)
+            if (resetAllRopes == YES) {
+                for (SKNode *ropeSegmentNode in node.children) {
+                    ropeSegmentNode.physicsBody.categoryBitMask = ropeCategory;
+                }
+            } else {
+                // Or reset a single rope that the monkey just released once the monkey is past it
+                SKSpriteNode *monkey = (SKSpriteNode *)[myWorld childNodeWithName:@"monkey"];
+                CGFloat largestRopeXPosition = skyFarLeftSide.x;
+                for (SKNode *ropeSegmentNode in node.children) {
+                    if (ropeSegmentNode.position.x > largestRopeXPosition) {
+                        largestRopeXPosition = ropeSegmentNode.position.x;
+                    }
+                }
+                if (monkey.position.x > largestRopeXPosition) {
+                    for (SKNode *ropeSegmentNode in node.children) {
+                        ropeSegmentNode.physicsBody.categoryBitMask = ropeCategory;
+                    }
+                    
+                }
+            }
+        }
+    }
 }
 
 #pragma mark - Initial setup of scene
@@ -406,6 +447,7 @@ static const uint32_t ropeCategory =  0x1 << 1;
 // Every tree that is taller than the sceneHeight gets a rope
 - (void)addRopesAndBonusesToWorldWithLevelData:(NSArray *)levelData
 {
+    int ropeNumber = 0;
     for (NSDictionary *objectProperties in levelData) {
         // Handle ropes
         if ([[objectProperties objectForKey:@"objectType"] isEqualToString:@"ropeSegment"]) {
@@ -413,7 +455,7 @@ static const uint32_t ropeCategory =  0x1 << 1;
             CGFloat xPosition =  skyFarLeftSide.x + [[objectProperties objectForKey:@"xCenterPosition"] floatValue];
             CGFloat yPosition =  skyFarTopSide.y - [[objectProperties objectForKey:@"yCenterPosition"] floatValue];
             NSInteger numberOfSegments = [[objectProperties objectForKey:@"property1"] integerValue];
-            int ropeNumber = 0;
+            
             
             // Make a full rope node to hold all the segments in a single object
             SKNode *fullRopeNode = [[SKNode alloc] init];
@@ -438,11 +480,11 @@ static const uint32_t ropeCategory =  0x1 << 1;
                 ropeSegment1.physicsBody.angularDamping = physicsParameters.ropeAngularDamping;
                 ropeSegment1.physicsBody.restitution = physicsParameters.ropeRestitution;
                 ropeSegment1.physicsBody.usesPreciseCollisionDetection = YES;
+                ropeSegment1.physicsBody.categoryBitMask = ropeCategory;
+                ropeSegment1.physicsBody.contactTestBitMask = monkeyCategory;
                 if (i == 0) {
                     ropeSegment1.physicsBody.dynamic = NO;
                 }
-                ropeSegment1.physicsBody.categoryBitMask = ropeCategory;
-                ropeSegment1.physicsBody.contactTestBitMask = monkeyCategory;
                 
                 // Add joint between new ropeSegment1 and previous ropeSegment2
                 if (i > 0) {
@@ -491,6 +533,11 @@ static const uint32_t ropeCategory =  0x1 << 1;
             bonusPointSpriteNode.position = CGPointMake(xPosition, yPosition);
             bonusPointSpriteNode.zPosition = 103;
             bonusPointSpriteNode.numberOfPoints = numberOfPoints;
+            bonusPointSpriteNode.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:bonusPointSpriteNode.size];
+            [bonusPointSpriteNode.physicsBody setAffectedByGravity:NO];
+            bonusPointSpriteNode.physicsBody.categoryBitMask = bonusObjectCategory;
+            bonusPointSpriteNode.physicsBody.collisionBitMask = bonusObjectCategory;
+            bonusPointSpriteNode.physicsBody.contactTestBitMask = monkeyCategory;
             [myWorld addChild:bonusPointSpriteNode];
         }
     }
@@ -605,16 +652,13 @@ static const uint32_t ropeCategory =  0x1 << 1;
     for (SKNode *node in myWorld.children) {
         if ([node.name isEqualToString:monkeyOnRopeWithName]) {
             for (SKNode *ropeSegmentNode in node.children) {
-                [ropeSegmentNode.physicsBody setContactTestBitMask:0];
-                [ropeSegmentNode.physicsBody setCollisionBitMask:0];
+                [ropeSegmentNode.physicsBody setCategoryBitMask:monkeyCategory];
             }
         }
     }
-    SKPhysicsBody *monkeyPhysicsBody = [myWorld childNodeWithName:@"monkey"].physicsBody;
-    monkeyPhysicsBody.collisionBitMask = 0;
-    monkeyPhysicsBody.contactTestBitMask = 0;
     
     // Remove joint between monkey and rope
+    SKPhysicsBody *monkeyPhysicsBody = [myWorld childNodeWithName:@"monkey"].physicsBody;
     for (SKPhysicsJoint *joint in monkeyPhysicsBody.joints) {
         [self.physicsWorld removeJoint:joint];
     }
@@ -643,6 +687,14 @@ static const uint32_t ropeCategory =  0x1 << 1;
     {
         [self monkey:secondBody didCollideWithRope:firstBody atPoint:contact.contactPoint];
     }
+    
+    if (contact.bodyA.categoryBitMask == bonusObjectCategory || contact.bodyB.categoryBitMask == bonusObjectCategory) {
+        if ([contact.bodyA.node.name isEqualToString:@"monkey"]) {
+            [self bonusObjectwasCollected:contact.bodyB.node];
+        } else if ([contact.bodyB.node.name isEqualToString:@"monkey"]) {
+            [self bonusObjectwasCollected:contact.bodyA.node];
+        }
+    }
 }
 
 - (void)monkey:(SKPhysicsBody *)monkeyPhysicsBody didCollideWithRope:(SKPhysicsBody *)ropePhysicsBody atPoint:(CGPoint)contactPoint
@@ -657,6 +709,19 @@ static const uint32_t ropeCategory =  0x1 << 1;
         // Flag the name of the fullRope that the monkey is currently on
         monkeyOnRopeWithName = ropePhysicsBody.node.parent.name;
     }
+}
+
+- (void)bonusObjectwasCollected:(SKNode *)bonusObject
+{
+    // Cast to BonusPointsObject and add points to score
+    BonusPointsObject *bonusPointsObject = (BonusPointsObject *)bonusObject;
+    playerScore = playerScore + bonusPointsObject.numberOfPoints;
+    
+    numberOfBonusPointsObtained = numberOfBonusPointsObtained + bonusPointsObject.numberOfPoints;
+    [self updateHUD];
+    
+    // TODO: Create animation for apple disappear
+    [bonusPointsObject removeFromParent];
 }
 
 @end

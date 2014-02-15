@@ -10,14 +10,14 @@
 
 @implementation JPMLevelInterpreter
 
-- (NSArray *)loadLevelFileNumber:(NSInteger)levelNumber
++ (NSArray *)loadLevelFileNumber:(int)levelNumber
 {
     // Allocate the output array
     NSMutableArray *levelData = [[NSMutableArray alloc] init];
-    NSArray *cellDictionaryKeys = [NSArray arrayWithObjects:@"imageName", @"xCenterPosition", @"yCenterPosition", @"property1", nil];
+    NSArray *cellDictionaryKeys = [NSArray arrayWithObjects:@"objectType", @"xCenterPosition", @"yCenterPosition", @"property1", nil];
     
     // Load the file and separate the rows out
-    NSString *filename = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@%i", @"Level", (int)levelNumber] ofType:@"csv"];
+    NSString *filename = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@%i", @"Level", levelNumber] ofType:@"csv"];
     NSString *fileContents = [NSString stringWithContentsOfFile:filename usedEncoding:nil error:nil];
     NSArray *rows = [fileContents componentsSeparatedByString:@"\r"];
     

@@ -12,5 +12,6 @@
 @interface MyScene : SKScene <SKPhysicsContactDelegate>
 
 @property (nonatomic, strong) PhysicsParameters *physicsParameters;
+@property (nonatomic) int levelNumber;
 
 @end

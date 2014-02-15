@@ -9,6 +9,7 @@
 #import "MyScene.h"
 #import "JPMButton.h"
 #import "JPMLevelInterpreter.h"
+#import "BonusPointsObject.h"
 
 static const uint32_t monkeyCategory =  0x1 << 0;
 static const uint32_t ropeCategory =  0x1 << 1;
@@ -38,15 +39,15 @@ static const uint32_t ropeCategory =  0x1 << 1;
     SKNode *myWorld, *allFireNode;
     SKCropNode *hudFireCropNode;
 }
-@synthesize physicsParameters;
+@synthesize physicsParameters, levelNumber;
 
-# pragma mark - View life cycle
+#pragma mark - View life cycle
 
--(id)initWithSize:(CGSize)size {    
+-(id)initWithSize:(CGSize)size
+{
     if (self = [super initWithSize:size]) {
-        // Test level interpretation
-        JPMLevelInterpreter *levelInterpreter = [JPMLevelInterpreter alloc];
-        [levelInterpreter loadLevelFileNumber:1];
+        // DELETE: Set level number to 1 always for now
+        levelNumber = 1;
         
         // Initialize the physics parameters
         physicsParameters = [[PhysicsParameters alloc] init];
@@ -76,10 +77,6 @@ static const uint32_t ropeCategory =  0x1 << 1;
     // Define useful constants
     [self defineUsefulConstants];
     
-    // Try tile map
-    [self loadTileMap];
-    /*
-    
     // Add background images (sky and forest) to myWorld
     treeDensity = 20; // [trees/screen]
     bushDensity = 30; // [bushes/screen]
@@ -89,19 +86,14 @@ static const uint32_t ropeCategory =  0x1 << 1;
     [self addFireToWorld];
     
     // Add ropes
-    [self addRopesToWorld];
+    NSArray *levelData = [JPMLevelInterpreter loadLevelFileNumber:levelNumber];
+    [self addRopesAndBonusesToWorldWithLevelData:levelData];
     
     // Add monkey
     [self addMonkeyToWorld];
     
     // Add banana goal
     [self addBananaGoalToWorld];
-     */
-}
-
-- (void)loadTileMap
-{
-    
 }
 
 - (void)addHUD
@@ -411,81 +403,95 @@ static const uint32_t ropeCategory =  0x1 << 1;
     }
 }
 
-// Every tree that is taller than he sceneHeight gets a rope
-- (void)addRopesToWorld
+// Every tree that is taller than the sceneHeight gets a rope
+- (void)addRopesAndBonusesToWorldWithLevelData:(NSArray *)levelData
 {
-    int ropeNumber = 0;
-    for (SKNode *node in myWorld.children) {
-        if ([node isKindOfClass:SKSpriteNode.class] && [node.name rangeOfString:@"tree"].location != NSNotFound) {
-            SKSpriteNode *treeNode = (SKSpriteNode *)node;
-            if (treeNode.size.height > sceneHeight) {
+    for (NSDictionary *objectProperties in levelData) {
+        // Handle ropes
+        if ([[objectProperties objectForKey:@"objectType"] isEqualToString:@"ropeSegment"]) {
+            // Cast object properties
+            CGFloat xPosition =  skyFarLeftSide.x + [[objectProperties objectForKey:@"xCenterPosition"] floatValue];
+            CGFloat yPosition =  skyFarTopSide.y - [[objectProperties objectForKey:@"yCenterPosition"] floatValue];
+            NSInteger numberOfSegments = [[objectProperties objectForKey:@"property1"] integerValue];
+            int ropeNumber = 0;
+            
+            // Make a full rope node to hold all the segments in a single object
+            SKNode *fullRopeNode = [[SKNode alloc] init];
+            fullRopeNode.name = [NSString stringWithFormat:@"%@%i", @"fullRope", ropeNumber];
+            [myWorld addChild:fullRopeNode];
+            
+            // Make a bunch of rope segments
+            SKPhysicsBody *ropeSegment1PhysicsBody, *ropeSegment2PhysicsBody;
+            for (int i = 0; i < numberOfSegments; i = i + 2) {
+                // Add first segment image
+                SKSpriteNode *ropeSegment1 = [SKSpriteNode spriteNodeWithImageNamed:@"Rope Segment"];
+                ropeSegment1.position = CGPointMake(xPosition, yPosition - i * ropeSegment1.size.height * 0.9);
+                ropeSegment1.name = [NSString stringWithFormat:@"%@%i", @"rope", i];
+                [fullRopeNode addChild:ropeSegment1];
+                ropeSegment1.zPosition = 110;
                 
-                // Make a full rope node to hold all the segments in a single object
-                SKNode *fullRopeNode = [[SKNode alloc] init];
-                fullRopeNode.name = [NSString stringWithFormat:@"%@%i", @"fullRope", ropeNumber];
-                [myWorld addChild:fullRopeNode];
+                // Add first segment physics
+                ropeSegment1PhysicsBody = [SKPhysicsBody bodyWithRectangleOfSize:ropeSegment1.size];
+                ropeSegment1.physicsBody = ropeSegment1PhysicsBody;
+                ropeSegment1.physicsBody.density = physicsParameters.ropeDensity;
+                ropeSegment1.physicsBody.linearDamping = physicsParameters.ropeLinearDamping;
+                ropeSegment1.physicsBody.angularDamping = physicsParameters.ropeAngularDamping;
+                ropeSegment1.physicsBody.restitution = physicsParameters.ropeRestitution;
+                ropeSegment1.physicsBody.usesPreciseCollisionDetection = YES;
+                if (i == 0) {
+                    ropeSegment1.physicsBody.dynamic = NO;
+                }
+                ropeSegment1.physicsBody.categoryBitMask = ropeCategory;
+                ropeSegment1.physicsBody.contactTestBitMask = monkeyCategory;
                 
-                // Make a bunch of rope segments
-                SKPhysicsBody *ropeSegment1PhysicsBody, *ropeSegment2PhysicsBody;
-                for (int i = 0; i < 15; i = i + 2) {
-                    // Add first segment image
-                    SKSpriteNode *ropeSegment1 = [SKSpriteNode spriteNodeWithImageNamed:@"Rope Segment"];
-                    ropeSegment1.position = CGPointMake(treeNode.position.x, sceneFarTopSide.y - i * ropeSegment1.size.height * 0.9);
-                    ropeSegment1.name = [NSString stringWithFormat:@"%@%i", @"rope", i];
-                    [fullRopeNode addChild:ropeSegment1];
-                    ropeSegment1.zPosition = 110;
-                    
-                    // Add first segment physics
-                    ropeSegment1PhysicsBody = [SKPhysicsBody bodyWithRectangleOfSize:ropeSegment1.size];
-                    ropeSegment1.physicsBody = ropeSegment1PhysicsBody;
-                    ropeSegment1.physicsBody.density = physicsParameters.ropeDensity;
-                    ropeSegment1.physicsBody.linearDamping = physicsParameters.ropeLinearDamping;
-                    ropeSegment1.physicsBody.angularDamping = physicsParameters.ropeAngularDamping;
-                    ropeSegment1.physicsBody.restitution = physicsParameters.ropeRestitution;
-                    ropeSegment1.physicsBody.usesPreciseCollisionDetection = YES;
-                    if (i == 0) {
-                        ropeSegment1.physicsBody.dynamic = NO;
-                    }
-                    ropeSegment1.physicsBody.categoryBitMask = ropeCategory;
-                    ropeSegment1.physicsBody.contactTestBitMask = monkeyCategory;
-                    
-                    // Add joint between new ropeSegment1 and previous ropeSegment2
-                    if (i > 0) {
-                        SKPhysicsBody *previousBottomRopeSegmentPhysicsBody = ropeSegment2PhysicsBody;
-                        SKPhysicsJointPin *jointPin = [SKPhysicsJointPin jointWithBodyA:ropeSegment1.physicsBody bodyB:previousBottomRopeSegmentPhysicsBody anchor:CGPointMake(ropeSegment1.position.x, ropeSegment1.position.y + ropeSegment1.size.height)];
-                        jointPin.upperAngleLimit = physicsParameters.ropeRotationLimit;
-                        jointPin.lowerAngleLimit = -physicsParameters.ropeRotationLimit;
-                        jointPin.shouldEnableLimits = YES;
-                        [self.physicsWorld addJoint:jointPin];
-                    }
-                    
-                    // Add new ropeSegment
-                    SKSpriteNode *ropeSegment2 = [SKSpriteNode spriteNodeWithImageNamed:@"Rope Segment"];
-                    ropeSegment2.position = CGPointMake(ropeSegment1.position.x, sceneFarTopSide.y - (i + 1) * ropeSegment2.size.height * 0.9);
-                    ropeSegment2.name = [NSString stringWithFormat:@"%@%i", @"rope", i + 1];
-                    [fullRopeNode addChild:ropeSegment2];
-                    ropeSegment2.zPosition = 110;
-                    
-                    // Add physics to segments
-                    ropeSegment2PhysicsBody = [SKPhysicsBody bodyWithRectangleOfSize:ropeSegment2.size];
-                    ropeSegment2.physicsBody = ropeSegment2PhysicsBody;
-                    ropeSegment2.physicsBody.density = physicsParameters.ropeDensity;
-                    ropeSegment2.physicsBody.linearDamping = physicsParameters.ropeLinearDamping;
-                    ropeSegment2.physicsBody.angularDamping = physicsParameters.ropeAngularDamping;
-                    ropeSegment2.physicsBody.restitution = physicsParameters.ropeRestitution;
-                    ropeSegment2.physicsBody.usesPreciseCollisionDetection = YES;
-                    ropeSegment2.physicsBody.categoryBitMask = ropeCategory;
-                    ropeSegment2.physicsBody.contactTestBitMask = monkeyCategory;
-                    
-                    // Add joints between segments
-                    SKPhysicsJointPin *jointPin = [SKPhysicsJointPin jointWithBodyA:ropeSegment1.physicsBody bodyB:ropeSegment2.physicsBody anchor:CGPointMake(ropeSegment1.position.x, ropeSegment1.position.y - ropeSegment1.size.height)];
+                // Add joint between new ropeSegment1 and previous ropeSegment2
+                if (i > 0) {
+                    SKPhysicsBody *previousBottomRopeSegmentPhysicsBody = ropeSegment2PhysicsBody;
+                    SKPhysicsJointPin *jointPin = [SKPhysicsJointPin jointWithBodyA:ropeSegment1.physicsBody bodyB:previousBottomRopeSegmentPhysicsBody anchor:CGPointMake(ropeSegment1.position.x, ropeSegment1.position.y + ropeSegment1.size.height)];
                     jointPin.upperAngleLimit = physicsParameters.ropeRotationLimit;
                     jointPin.lowerAngleLimit = -physicsParameters.ropeRotationLimit;
                     jointPin.shouldEnableLimits = YES;
                     [self.physicsWorld addJoint:jointPin];
                 }
-                ropeNumber++;
+                
+                // Add new ropeSegment
+                SKSpriteNode *ropeSegment2 = [SKSpriteNode spriteNodeWithImageNamed:@"Rope Segment"];
+                ropeSegment2.position = CGPointMake(ropeSegment1.position.x, yPosition - (i + 1) * ropeSegment2.size.height * 0.9);
+                ropeSegment2.name = [NSString stringWithFormat:@"%@%i", @"rope", i + 1];
+                [fullRopeNode addChild:ropeSegment2];
+                ropeSegment2.zPosition = 110;
+                
+                // Add physics to segments
+                ropeSegment2PhysicsBody = [SKPhysicsBody bodyWithRectangleOfSize:ropeSegment2.size];
+                ropeSegment2.physicsBody = ropeSegment2PhysicsBody;
+                ropeSegment2.physicsBody.density = physicsParameters.ropeDensity;
+                ropeSegment2.physicsBody.linearDamping = physicsParameters.ropeLinearDamping;
+                ropeSegment2.physicsBody.angularDamping = physicsParameters.ropeAngularDamping;
+                ropeSegment2.physicsBody.restitution = physicsParameters.ropeRestitution;
+                ropeSegment2.physicsBody.usesPreciseCollisionDetection = YES;
+                ropeSegment2.physicsBody.categoryBitMask = ropeCategory;
+                ropeSegment2.physicsBody.contactTestBitMask = monkeyCategory;
+                
+                // Add joints between segments
+                SKPhysicsJointPin *jointPin = [SKPhysicsJointPin jointWithBodyA:ropeSegment1.physicsBody bodyB:ropeSegment2.physicsBody anchor:CGPointMake(ropeSegment1.position.x, ropeSegment1.position.y - ropeSegment1.size.height)];
+                jointPin.upperAngleLimit = physicsParameters.ropeRotationLimit;
+                jointPin.lowerAngleLimit = -physicsParameters.ropeRotationLimit;
+                jointPin.shouldEnableLimits = YES;
+                [self.physicsWorld addJoint:jointPin];
             }
+            ropeNumber++;
+
+        } else if ([[objectProperties objectForKey:@"objectType"] isEqualToString:@"bonusPointsObject"]) { // Handle bonus point objects
+            // Cast object properties
+            CGFloat xPosition =  skyFarLeftSide.x + [[objectProperties objectForKey:@"xCenterPosition"] floatValue];
+            CGFloat yPosition = skyFarTopSide.y - [[objectProperties objectForKey:@"yCenterPosition"] floatValue];
+            NSInteger numberOfPoints = [[objectProperties objectForKey:@"property1"] integerValue];
+            
+            BonusPointsObject *bonusPointSpriteNode = [BonusPointsObject spriteNodeWithImageNamed:@"Apple"];
+            bonusPointSpriteNode.position = CGPointMake(xPosition, yPosition);
+            bonusPointSpriteNode.zPosition = 103;
+            bonusPointSpriteNode.numberOfPoints = numberOfPoints;
+            [myWorld addChild:bonusPointSpriteNode];
         }
     }
 }

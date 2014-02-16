@@ -64,7 +64,7 @@
 		E46317B618A5FEE600E911E6 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E4271007189E230400007F33 /* libz.dylib */; };
 		E49F78AE1883598900BDA47C /* JPMButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E49F78AD1883598900BDA47C /* JPMButton.m */; };
 		E4A5F8F418AC9977001B28B6 /* JPMLevelInterpreter.m in Sources */ = {isa = PBXBuildFile; fileRef = E4A5F8F318AC9977001B28B6 /* JPMLevelInterpreter.m */; };
-		E4A5F8F718ACA652001B28B6 /* Level1.csv in Resources */ = {isa = PBXBuildFile; fileRef = E4A5F8F618ACA652001B28B6 /* Level1.csv */; };
+		E4AC026D18B1509D004DFD70 /* Level1.csv in Resources */ = {isa = PBXBuildFile; fileRef = E4AC026C18B1509D004DFD70 /* Level1.csv */; };
 		E4D6DF7018931D7100F916D0 /* PhysicsParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D6DF6F18931D7100F916D0 /* PhysicsParameters.m */; };
 		E4DCD3731874E6D20040643C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4DCD3721874E6D20040643C /* Foundation.framework */; };
 		E4DCD3751874E6D20040643C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4DCD3741874E6D20040643C /* CoreGraphics.framework */; };
@@ -158,7 +158,7 @@
 		E49F78AD1883598900BDA47C /* JPMButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPMButton.m; sourceTree = "<group>"; };
 		E4A5F8F218AC9977001B28B6 /* JPMLevelInterpreter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPMLevelInterpreter.h; sourceTree = "<group>"; };
 		E4A5F8F318AC9977001B28B6 /* JPMLevelInterpreter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPMLevelInterpreter.m; sourceTree = "<group>"; };
-		E4A5F8F618ACA652001B28B6 /* Level1.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Level1.csv; sourceTree = "<group>"; };
+		E4AC026C18B1509D004DFD70 /* Level1.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Level1.csv; sourceTree = "<group>"; };
 		E4D6DF6E18931D7100F916D0 /* PhysicsParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysicsParameters.h; sourceTree = "<group>"; };
 		E4D6DF6F18931D7100F916D0 /* PhysicsParameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhysicsParameters.m; sourceTree = "<group>"; };
 		E4DCD36F1874E6D20040643C /* MonkeySwing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MonkeySwing.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -275,7 +275,7 @@
 		E4A5F8F518ACA646001B28B6 /* Levels */ = {
 			isa = PBXGroup;
 			children = (
-				E4A5F8F618ACA652001B28B6 /* Level1.csv */,
+				E4AC026C18B1509D004DFD70 /* Level1.csv */,
 				E4A5F8F218AC9977001B28B6 /* JPMLevelInterpreter.h */,
 				E4A5F8F318AC9977001B28B6 /* JPMLevelInterpreter.m */,
 			);
@@ -472,7 +472,6 @@
 				E427106D189EDEA600007F33 /* Tree3.png in Resources */,
 				E427105A189EDEA600007F33 /* MainScreenMonkey@2x.png in Resources */,
 				E4271061189EDEA600007F33 /* MonkeyClicked.png in Resources */,
-				E4A5F8F718ACA652001B28B6 /* Level1.csv in Resources */,
 				E4271065189EDEA600007F33 /* SadMonkey.png in Resources */,
 				E4271050189EDEA600007F33 /* Bush4@2x.png in Resources */,
 				E4271064189EDEA600007F33 /* Rope Segment@2x.png in Resources */,
@@ -514,6 +513,7 @@
 				E4271066189EDEA600007F33 /* SadMonkey@2x.png in Resources */,
 				E427104A189EDEA600007F33 /* Bush1@2x.png in Resources */,
 				E427104E189EDEA600007F33 /* Bush3@2x.png in Resources */,
+				E4AC026D18B1509D004DFD70 /* Level1.csv in Resources */,
 				E427106F189EDEA600007F33 /* Tree4.png in Resources */,
 				E427105E189EDEA600007F33 /* MainScreenSky@2x.png in Resources */,
 			);

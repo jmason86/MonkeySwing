@@ -14,12 +14,12 @@
 {
     // Allocate the output array
     NSMutableArray *levelData = [[NSMutableArray alloc] init];
-    NSArray *cellDictionaryKeys = [NSArray arrayWithObjects:@"objectType", @"xCenterPosition", @"yCenterPosition", @"property1", nil];
+    NSArray *cellDictionaryKeys = [NSArray arrayWithObjects:@"objectTypeID", @"objectNumber", @"xCenterPosition", @"yCenterPosition", @"property1", @"objectType", nil];
     
     // Load the file and separate the rows out
     NSString *filename = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@%i", @"Level", levelNumber] ofType:@"csv"];
     NSString *fileContents = [NSString stringWithContentsOfFile:filename usedEncoding:nil error:nil];
-    NSArray *rows = [fileContents componentsSeparatedByString:@"\r"];
+    NSArray *rows = [fileContents componentsSeparatedByString:@"\n"];
     
     // Loop through the rows to get the cells and create a dictionary to store the cells, add that dictionary to levelData
     for (int i = 0; i < rows.count; i++) {

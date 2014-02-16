@@ -329,7 +329,6 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
                     for (SKNode *ropeSegmentNode in node.children) {
                         ropeSegmentNode.physicsBody.categoryBitMask = ropeCategory;
                     }
-                    
                 }
             }
         }
@@ -450,12 +449,11 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     int ropeNumber = 0;
     for (NSDictionary *objectProperties in levelData) {
         // Handle ropes
-        if ([[objectProperties objectForKey:@"objectType"] isEqualToString:@"ropeSegment"]) {
+        if ([[objectProperties objectForKey:@"objectType"] isEqualToString:@"rope.png"]) {
             // Cast object properties
             CGFloat xPosition =  skyFarLeftSide.x + [[objectProperties objectForKey:@"xCenterPosition"] floatValue];
             CGFloat yPosition =  skyFarTopSide.y - [[objectProperties objectForKey:@"yCenterPosition"] floatValue];
             NSInteger numberOfSegments = [[objectProperties objectForKey:@"property1"] integerValue];
-            
             
             // Make a full rope node to hold all the segments in a single object
             SKNode *fullRopeNode = [[SKNode alloc] init];
@@ -523,7 +521,7 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
             }
             ropeNumber++;
 
-        } else if ([[objectProperties objectForKey:@"objectType"] isEqualToString:@"bonusPointsObject"]) { // Handle bonus point objects
+        } else if ([[objectProperties objectForKey:@"objectType"] isEqualToString:@"apple.png"]) { // Handle bonus point objects
             // Cast object properties
             CGFloat xPosition =  skyFarLeftSide.x + [[objectProperties objectForKey:@"xCenterPosition"] floatValue];
             CGFloat yPosition = skyFarTopSide.y - [[objectProperties objectForKey:@"yCenterPosition"] floatValue];

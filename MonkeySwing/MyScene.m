@@ -10,10 +10,11 @@
 #import "JPMButton.h"
 #import "JPMLevelInterpreter.h"
 #import "BonusPointsObject.h"
+#import "LevelEndView.h"
 
 // Collision categories
-static const uint32_t monkeyCategory =  0x1 << 0;
-static const uint32_t ropeCategory =  0x1 << 1;
+static const uint32_t monkeyCategory = 0x1 << 0;
+static const uint32_t ropeCategory = 0x1 << 1;
 static const uint32_t bonusObjectCategory = 0x1 << 2;
 
 @implementation MyScene
@@ -68,6 +69,12 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
         // Add HUD
         [self addHUD];
         numberOfBonusPointsObtained = 0;
+        
+        // Listen to the LevelEndScene
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(receiveLevelEndedUserSelection:)
+                                                     name:@"levelEndedUserSelection"
+                                                   object:nil];
     }
     return self;
 }
@@ -262,32 +269,20 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
 
 - (void)monkeyDied:(SKNode *)monkeyNode
 {
+    // Pause the progression of fire
+    [fireTimer invalidate];
+    
     // Get rid of the dead monkey sprite
     [monkeyNode removeFromParent];
     
-    // Firey death scene
-    //SKScene *deathScene = [SKScene sceneWithSize:CGSizeMake(self.size.width / 2, self.size.height/2)];
     
-    // TODO: Replace this button with a whole new SKScene, but for now a button will suffice
-    JPMButton *restartButton = [[JPMButton alloc] initWithImageNamedNormal:@"SadMonkey" selected:@"MonkeyClicked"];
-    restartButton.name = @"SadMonkeyFace";
-    restartButton.zPosition = 115;
-    [restartButton setTouchUpInsideTarget:self action:@selector(restartAction)];
-    [self addChild:restartButton];
+    // Show level end view
+    // TODO: Configure LevelEndView for player failure
+    LevelEndView *levelEndView = [[LevelEndView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+    levelEndView.tag = 1;
+    [self.view addSubview:levelEndView];
     
-    // Make a big fire behind the monkey!
-    NSString *firePath = [[NSBundle mainBundle] pathForResource:@"ParticleFire" ofType:@"sks"];
-    SKEmitterNode *fireEmitterNode = [NSKeyedUnarchiver unarchiveObjectWithFile:firePath];
-    fireEmitterNode.position = CGPointMake(0, sceneFarBottomSide.y);
-    fireEmitterNode.zPosition = 114;
-    fireEmitterNode.name = @"fireBehindMonkeyFace";
-    [fireEmitterNode setParticleBirthRate:1600];
-    [fireEmitterNode setParticleSpeed:250];
-    [fireEmitterNode setParticlePositionRange:CGVectorMake(250, 0)];
-    
-    [self addChild:fireEmitterNode];
-    
-    // Reset all the ropes
+    // Reset all the ropes so that they can be grabbed again
     [self resetRopeCategoryMasksForAllRopes:YES];
 }
 
@@ -297,6 +292,7 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     [monkeyNode removeFromParent];
     
     // Celebration scene
+    // TODO: Configure LevelEndScene for a win
     
     
     JPMButton *winButton = [[JPMButton alloc] initWithImageNamedNormal:@"WinScreen" selected:@"WinScreen"];
@@ -574,14 +570,18 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
 
 - (void)restartAction
 {
-    // Remove the sad monkey face
-    SKNode *sadMonkeyFace = [self childNodeWithName:@"SadMonkeyFace"];
-    [sadMonkeyFace removeFromParent];
-    SKNode *fireBehindMonkeyFace = [self childNodeWithName:@"fireBehindMonkeyFace"];
-    [fireBehindMonkeyFace removeFromParent];
+    // Remove the level end view
+    for (UIView *subview in self.view.subviews) {
+        if (subview.tag == 1) {
+            [subview removeFromSuperview];
+        }
+    }
     
     // Add a new monkey
     [self addMonkeyToWorld];
+    
+    // Start the fire progression again
+    fireTimer = [NSTimer scheduledTimerWithTimeInterval:physicsParameters.fireTimerRate target:self selector:@selector(fireUpdate:) userInfo:nil repeats:YES];
 }
 
 - (void)newLevelAction
@@ -720,6 +720,15 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     
     // TODO: Create animation for apple disappear
     [bonusPointsObject removeFromParent];
+}
+
+#pragma mark - Notification center response methods
+
+- (void)receiveLevelEndedUserSelection:(NSNotification *)notification
+{
+    if ([[notification name] isEqualToString:@"levelEndedUserSelection"]) {
+        [self restartAction];
+    }
 }
 
 @end

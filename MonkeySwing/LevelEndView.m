@@ -15,6 +15,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         UIButton *resetMonkeyButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        resetMonkeyButton.center = self.center;
         [resetMonkeyButton setFrame:frame];
         [resetMonkeyButton setImage:[UIImage imageNamed:@"SadMonkey"] forState:UIControlStateNormal];
         [resetMonkeyButton setImage:[UIImage imageNamed:@"MonkeyClicked"] forState:UIControlStateSelected];

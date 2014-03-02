@@ -92,7 +92,7 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     [self defineUsefulConstants];
     
     // Add background images (sky and forest) to myWorld
-    treeDensity = 20; // [trees/screen]
+    treeDensity = 30; // [trees/screen]
     bushDensity = 30; // [bushes/screen]
     [self addBackgroundToWorld];
     
@@ -278,7 +278,9 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     
     // Show level end view
     // TODO: Configure LevelEndView for player failure
+    CGPoint centerInView = [self convertPointToView:CGPointMake(sceneFarLeftSide.x + sceneWidth/2, 0)];
     LevelEndView *levelEndView = [[LevelEndView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+    levelEndView.center = centerInView;
     levelEndView.tag = 1;
     [self.view addSubview:levelEndView];
     
@@ -314,6 +316,7 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
                 }
             } else {
                 // Or reset a single rope that the monkey just released once the monkey is past it
+                // TODO: This isn't working very well, fix it
                 SKSpriteNode *monkey = (SKSpriteNode *)[myWorld childNodeWithName:@"monkey"];
                 CGFloat largestRopeXPosition = skyFarLeftSide.x;
                 for (SKNode *ropeSegmentNode in node.children) {
@@ -336,7 +339,7 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
 - (void)addBackgroundToWorld
 {
     // Add sky
-    SKSpriteNode *skyBackground = [SKSpriteNode spriteNodeWithImageNamed:@"Sky"];
+    SKSpriteNode *skyBackground = [SKSpriteNode spriteNodeWithImageNamed:@"FullLevel1"];
     skyBackground.anchorPoint = CGPointMake(0, 0);
     skyBackground.position = CGPointMake(skyBackground.frame.origin.x - sceneWidth/2, skyBackground.frame.origin.y - sceneHeight/2);
     skyBackground.name = @"skyBackground";
@@ -349,42 +352,6 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     skyFarRightSide = CGPointMake(sceneFarLeftSide.x + skyWidth, 0);
     skyFarTopSide = CGPointMake(0, sceneFarBottomSide.y + skyHeight);
     skyFarBottomSide = CGPointMake(0, sceneFarBottomSide.y);
-    
-    // Add trees
-    for (int i = 0; i < treeDensity; i++) {
-        // Randomly select which tree image will be used
-        int randomTreeIndex = (arc4random() % (5 - 1 + 1)) + 1;
-        SKSpriteNode *treeNode = [SKSpriteNode spriteNodeWithImageNamed:[NSString stringWithFormat:@"%@%i", @"Tree", randomTreeIndex]];
-        treeNode.anchorPoint = CGPointMake(0.5, 0);
-        treeNode.position = CGPointMake(sceneFarLeftSide.x + i/(treeDensity - 1.0) * skyBackground.size.width, sceneFarBottomSide.y);
-        treeNode.name = [NSString stringWithFormat:@"%@%i", @"tree", i];
-        [myWorld addChild:treeNode];
-        
-        // Randomly decide if new tree will go in front of or behind last tree
-        int randomIntegerBOOL = (arc4random() % (1 - 0 + 1));
-        if (i > 0 && randomIntegerBOOL == 1) {
-            treeNode.zPosition = 99;
-        } else {
-            treeNode.zPosition = 98;
-        }
-    }
-    
-    // Add bushes
-    for (int i = 0; i < bushDensity; i++) {
-        // Randomly select which bush image will be used
-        int randomBushIndex = (arc4random() % (5 - 1 + 1)) + 1;
-        SKSpriteNode *bushNode = [SKSpriteNode spriteNodeWithImageNamed:[NSString stringWithFormat:@"%@%i", @"Bush", randomBushIndex]];
-        bushNode.position = CGPointMake(sceneFarLeftSide.x + i/(bushDensity - 1.0) * skyBackground.size.width, sceneFarBottomSide.y + bushNode.size.height * 0.4);
-        [myWorld addChild:bushNode];
-        
-        // Randomly decide if new bush will go in front of or behind last bush
-        int randomIntegerBOOL = (arc4random() % (1 - 0 + 1));
-        if (i > 0 && randomIntegerBOOL == 1) {
-            bushNode.zPosition = 101;
-        } else {
-            bushNode.zPosition = 100;
-        }
-    }
 }
 
 - (void)addFireToWorld

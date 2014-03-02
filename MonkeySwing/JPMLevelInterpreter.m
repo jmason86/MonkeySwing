@@ -26,10 +26,13 @@
         NSString *row = [rows objectAtIndex:i];
         NSArray *columns = [row componentsSeparatedByString:@","];
         
-        NSDictionary *cells = [NSDictionary dictionaryWithObjects:columns forKeys:cellDictionaryKeys];
-        [levelData addObject:cells];
-    }
+        // First row contains info on the bg, so just skip it and add data for the rest of the rows
+        if ([columns count] > 5) {
+            NSDictionary *cells = [NSDictionary dictionaryWithObjects:columns forKeys:cellDictionaryKeys];
+            [levelData addObject:cells];
+        }
 
+    }
     return levelData;
 }
 

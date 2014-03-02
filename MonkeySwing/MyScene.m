@@ -687,6 +687,28 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     
     // TODO: Create animation for apple disappear
     [bonusPointsObject removeFromParent];
+    
+    // Show bonus value
+    SKNode *scoreHudLabel = [self childNodeWithName:@"scoreHudLabel"];
+    SKLabelNode *bonusPointsLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkboard SE"];
+    bonusPointsLabel.text = [NSString stringWithFormat:@"%@%i", @"+", bonusPointsObject.numberOfPoints];
+    bonusPointsLabel.position = CGPointMake(scoreHudLabel.position.x + scoreHudLabel.frame.size.width + 10.0, scoreHudLabel.position.y);
+    bonusPointsLabel.verticalAlignmentMode = SKLabelVerticalAlignmentModeTop;
+    bonusPointsLabel.zPosition = 120;
+    bonusPointsLabel.fontColor = [SKColor whiteColor];
+    bonusPointsLabel.fontSize = 15;
+    bonusPointsLabel.xScale = 0.5;
+    [self addChild:bonusPointsLabel];
+    
+    // Create animation for adding bonus score
+    SKAction *enlargeAction = [SKAction scaleXTo:1.4 y:1.0 duration:0.3];
+    SKAction *backToNormalScale = [SKAction scaleXTo:1.0 y:1.0 duration:0.3];
+    SKAction *reduceAction = [SKAction scaleXTo:1.0 y:0.1 duration:0.3];
+    SKAction *moveToFullScore = [SKAction moveTo:CGPointMake(scoreHudLabel.position.x, scoreHudLabel.position.y - scoreHudLabel.frame.size.height/2) duration:0.3];
+    moveToFullScore.timingMode = SKActionTimingEaseInEaseOut;
+    SKAction *movingGroup = [SKAction group:[NSArray arrayWithObjects:reduceAction, moveToFullScore, nil]];
+    SKAction *removeFromParent = [SKAction removeFromParent];
+    [bonusPointsLabel runAction:[SKAction sequence:[NSArray arrayWithObjects:enlargeAction, backToNormalScale, movingGroup, removeFromParent, nil]]];
 }
 
 #pragma mark - Notification center response methods

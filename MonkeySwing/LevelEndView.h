@@ -10,4 +10,6 @@
 
 @interface LevelEndView : UIView
 
+- (id)initWithFrame:(CGRect)frame forOutcome:(NSString *)outcome;
+
 @end

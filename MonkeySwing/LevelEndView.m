@@ -10,17 +10,28 @@
 
 @implementation LevelEndView
 
-- (id)initWithFrame:(CGRect)frame
+#pragma mark - Initialization methods
+
+- (id)initWithFrame:(CGRect)frame forOutcome:(NSString *)outcome
 {
     self = [super initWithFrame:frame];
     if (self) {
-        UIButton *resetMonkeyButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        resetMonkeyButton.center = self.center;
-        [resetMonkeyButton setFrame:frame];
-        [resetMonkeyButton setImage:[UIImage imageNamed:@"SadMonkey"] forState:UIControlStateNormal];
-        [resetMonkeyButton setImage:[UIImage imageNamed:@"MonkeyClicked"] forState:UIControlStateSelected];
-        [resetMonkeyButton addTarget:self action:@selector(restartAction) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:resetMonkeyButton];
+        if ([outcome isEqualToString:@"monkeyFell"]) {
+            UIButton *resetMonkeyButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            resetMonkeyButton.center = self.center;
+            [resetMonkeyButton setFrame:frame];
+            [resetMonkeyButton setImage:[UIImage imageNamed:@"SadMonkey"] forState:UIControlStateNormal];
+            [resetMonkeyButton setImage:[UIImage imageNamed:@"MonkeyClicked"] forState:UIControlStateSelected];
+            [resetMonkeyButton addTarget:self action:@selector(restartAction) forControlEvents:UIControlEventTouchUpInside];
+            [self addSubview:resetMonkeyButton];
+        } else if ([outcome isEqualToString:@"monkeyWon"]) {
+            NSLog(@"Monkey Won!");
+            // TODO: Implement this method
+        } else if ([outcome isEqualToString:@"gameOver"]) {
+            NSLog(@"Game over, sucak!");
+            // TODO: Implement this method
+        }
+
     }
     return self;
 }

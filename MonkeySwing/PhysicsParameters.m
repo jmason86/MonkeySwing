@@ -19,21 +19,21 @@
 - (id)init
 {
     // World parameters
-    gravity = CGVectorMake(0, -2); // SI, default = (0, -9.8)
+    gravity = CGVectorMake(0, -3); // SI, default = (0, -9.8)
     
     // Rope parameters
-    ropeDensity = 3.0;            // SI, default = 1.0
+    ropeDensity = 13.0;            // SI, default = 1.0
     ropeRestitution = 0.2;        // range = 0-1, default = 0.2
-    ropeLinearDamping = 0.8;      // range = 0-1, default = 0.1
-    ropeAngularDamping = 0.1;     // range = 0-1, default = 0.1
+    ropeLinearDamping = 0.99;      // range = 0-1, default = 0.1
+    ropeAngularDamping = 0.99;     // range = 0-1, default = 0.1
     ropeRotationLimit = M_PI/12;  // Rope allowed to swing +/- this value
     
     // Monkey parameters
-    monkeyDensity = 12.0;          // SI, default = 1.0
+    monkeyDensity = 12.0;         // SI, default = 1.0
     monkeyRestitution = 0.2;      // range = 0-1, default = 0.2
     monkeyLinearDamping = 0.1;    // range = 0-1, default = 0.1
     monkeyAngularDamping = 0.1;   // range = 0-1, default = 0.1
-    monkeyInitialVelocity = CGVectorMake(100, 0);
+    monkeyInitialVelocity = CGVectorMake(120, 0);
     monkeyJumpImpulse = CGVectorMake(200, 80);
     
     // Fire parameters

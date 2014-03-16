@@ -144,8 +144,20 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
 
 - (void)updateHUD
 {
-    // Update fire on banana
+    // Determine progress of fire
     CGFloat fractionFireProgress = physicsParameters.fireNodeXSize / skyWidth * [allFireNode.children count];
+    
+    // If fire got all the way, game over
+    if (fractionFireProgress >= 1.0) {
+        // Show level end view
+        CGPoint centerInView = [self convertPointToView:CGPointMake(sceneFarLeftSide.x + sceneWidth/2, 0)];
+        LevelEndView *levelEndView = [[LevelEndView alloc] initWithFrame:CGRectMake(0, 0, 300, 300) forOutcome:@"gameOver"];
+        levelEndView.center = centerInView;
+        levelEndView.tag = 1;
+        [self.view addSubview:levelEndView];
+    }
+    
+    // Update fire in HUD
     SKSpriteNode *hudFireMask = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor] size:CGSizeMake(hudFireWidth * fractionFireProgress, hudFireHeight)];
     [hudFireCropNode setMaskNode:hudFireMask];
     
@@ -175,7 +187,7 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     
     // Check if monkey died
     if (monkeyPosition.y < myWorld.frame.origin.y - sceneHeight/2) {
-        [self monkeyDied:monkeyNode];
+        [self monkeyDied];
     }
     
     // Check if monkey won
@@ -267,8 +279,11 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     }
 }
 
-- (void)monkeyDied:(SKNode *)monkeyNode
+- (void)monkeyDied
 {
+    // Grab monkey node
+    SKNode *monkeyNode = [self childNodeWithName:@"//monkey"];
+    
     // Pause the progression of fire
     [fireTimer invalidate];
     
@@ -277,9 +292,8 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     
     
     // Show level end view
-    // TODO: Configure LevelEndView for player failure
     CGPoint centerInView = [self convertPointToView:CGPointMake(sceneFarLeftSide.x + sceneWidth/2, 0)];
-    LevelEndView *levelEndView = [[LevelEndView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+    LevelEndView *levelEndView = [[LevelEndView alloc] initWithFrame:CGRectMake(0, 0, 300, 300) forOutcome:@"monkeyFell"];
     levelEndView.center = centerInView;
     levelEndView.tag = 1;
     [self.view addSubview:levelEndView];
@@ -293,15 +307,12 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     // Get rid of the happy monkey sprite
     [monkeyNode removeFromParent];
     
-    // Celebration scene
-    // TODO: Configure LevelEndScene for a win
-    
-    
-    JPMButton *winButton = [[JPMButton alloc] initWithImageNamedNormal:@"WinScreen" selected:@"WinScreen"];
-    winButton.name = @"HappyMonkeyFace";
-    winButton.zPosition = 115;
-    [winButton setTouchUpInsideTarget:self action:@selector(newLevelAction)];
-    [self addChild:winButton];
+    // Show level end view
+    CGPoint centerInView = [self convertPointToView:CGPointMake(sceneFarLeftSide.x + sceneWidth/2, 0)];
+    LevelEndView *levelEndView = [[LevelEndView alloc] initWithFrame:CGRectMake(0, 0, 300, 300) forOutcome:@"monkeyWon"];
+    levelEndView.center = centerInView;
+    levelEndView.tag = 1;
+    [self.view addSubview:levelEndView];
 }
 
 - (void)resetRopeCategoryMasksForAllRopes:(BOOL)resetAllRopes
@@ -493,11 +504,10 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
             BonusPointsObject *bonusPointSpriteNode = [BonusPointsObject spriteNodeWithImageNamed:@"Apple"];
             bonusPointSpriteNode.position = CGPointMake(xPosition, yPosition);
             bonusPointSpriteNode.zPosition = 103;
-            bonusPointSpriteNode.numberOfPoints = numberOfPoints;
+            bonusPointSpriteNode.numberOfPoints = (int) numberOfPoints;
             bonusPointSpriteNode.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:bonusPointSpriteNode.size];
             [bonusPointSpriteNode.physicsBody setAffectedByGravity:NO];
             bonusPointSpriteNode.physicsBody.categoryBitMask = bonusObjectCategory;
-            bonusPointSpriteNode.physicsBody.collisionBitMask = bonusObjectCategory;
             bonusPointSpriteNode.physicsBody.contactTestBitMask = monkeyCategory;
             [myWorld addChild:bonusPointSpriteNode];
         }
@@ -554,7 +564,7 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
 - (void)newLevelAction
 {
     [self removeAllChildren];
-    BOOL newLevel = [self initWithSize:CGSizeMake(self.size.width, self.size.height)];
+    BOOL newLevel = (BOOL) [self initWithSize:CGSizeMake(self.size.width, self.size.height)]; // TODO: Casting to BOOL can't be the best practice, what is?
     if (newLevel) {
     }
 }

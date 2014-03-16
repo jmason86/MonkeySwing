@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E40D8EAA18D141A400F65807 /* FullLevel1.png in Resources */ = {isa = PBXBuildFile; fileRef = E40D8EA818D141A400F65807 /* FullLevel1.png */; };
+		E40D8EAB18D141A400F65807 /* FullLevel1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E40D8EA918D141A400F65807 /* FullLevel1@2x.png */; };
 		E423238E18ADA93E00F852A0 /* BonusPointsObject.m in Sources */ = {isa = PBXBuildFile; fileRef = E423238D18ADA93E00F852A0 /* BonusPointsObject.m */; };
 		E423239118ADEE7D00F852A0 /* Apple.png in Resources */ = {isa = PBXBuildFile; fileRef = E423238F18ADEE7D00F852A0 /* Apple.png */; };
 		E423239218ADEE7D00F852A0 /* Apple@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E423239018ADEE7D00F852A0 /* Apple@2x.png */; };
@@ -62,8 +64,6 @@
 		E4271083189F00E800007F33 /* StartGameClicked.png in Resources */ = {isa = PBXBuildFile; fileRef = E427107F189F00E800007F33 /* StartGameClicked.png */; };
 		E4271084189F00E800007F33 /* StartGameClicked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4271080189F00E800007F33 /* StartGameClicked@2x.png */; };
 		E458D7D518BDAC1C005D8D03 /* Level1.csv in Resources */ = {isa = PBXBuildFile; fileRef = E458D7D418BDAC1C005D8D03 /* Level1.csv */; };
-		E458D7D818BDAD37005D8D03 /* FullLevel1.png in Resources */ = {isa = PBXBuildFile; fileRef = E458D7D618BDAD37005D8D03 /* FullLevel1.png */; };
-		E458D7D918BDAD37005D8D03 /* FullLevel1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E458D7D718BDAD37005D8D03 /* FullLevel1@2x.png */; };
 		E46317B618A5FEE600E911E6 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E4271007189E230400007F33 /* libz.dylib */; };
 		E4880C4E18B44DF700DBE7B2 /* LevelEndView.m in Sources */ = {isa = PBXBuildFile; fileRef = E4880C4D18B44DF700DBE7B2 /* LevelEndView.m */; };
 		E49F78AE1883598900BDA47C /* JPMButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E49F78AD1883598900BDA47C /* JPMButton.m */; };
@@ -100,6 +100,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E40D8EA818D141A400F65807 /* FullLevel1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FullLevel1.png; sourceTree = "<group>"; };
+		E40D8EA918D141A400F65807 /* FullLevel1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FullLevel1@2x.png"; sourceTree = "<group>"; };
 		E423238C18ADA93E00F852A0 /* BonusPointsObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BonusPointsObject.h; sourceTree = "<group>"; };
 		E423238D18ADA93E00F852A0 /* BonusPointsObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BonusPointsObject.m; sourceTree = "<group>"; };
 		E423238F18ADEE7D00F852A0 /* Apple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Apple.png; sourceTree = "<group>"; };
@@ -158,8 +160,6 @@
 		E427107F189F00E800007F33 /* StartGameClicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StartGameClicked.png; sourceTree = "<group>"; };
 		E4271080189F00E800007F33 /* StartGameClicked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StartGameClicked@2x.png"; sourceTree = "<group>"; };
 		E458D7D418BDAC1C005D8D03 /* Level1.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Level1.csv; sourceTree = "<group>"; };
-		E458D7D618BDAD37005D8D03 /* FullLevel1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FullLevel1.png; sourceTree = "<group>"; };
-		E458D7D718BDAD37005D8D03 /* FullLevel1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FullLevel1@2x.png"; sourceTree = "<group>"; };
 		E4880C4C18B44DF700DBE7B2 /* LevelEndView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelEndView.h; sourceTree = "<group>"; };
 		E4880C4D18B44DF700DBE7B2 /* LevelEndView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelEndView.m; sourceTree = "<group>"; };
 		E49F78AC1883598900BDA47C /* JPMButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPMButton.h; sourceTree = "<group>"; };
@@ -220,11 +220,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E40D8EA718D1418E00F65807 /* Level Backgrounds */ = {
+			isa = PBXGroup;
+			children = (
+				E40D8EA818D141A400F65807 /* FullLevel1.png */,
+				E40D8EA918D141A400F65807 /* FullLevel1@2x.png */,
+			);
+			name = "Level Backgrounds";
+			sourceTree = "<group>";
+		};
 		E4271018189EDEA600007F33 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				E458D7D618BDAD37005D8D03 /* FullLevel1.png */,
-				E458D7D718BDAD37005D8D03 /* FullLevel1@2x.png */,
+				E40D8EA718D1418E00F65807 /* Level Backgrounds */,
 				E423238F18ADEE7D00F852A0 /* Apple.png */,
 				E423239018ADEE7D00F852A0 /* Apple@2x.png */,
 				E4271019189EDEA600007F33 /* Banana.png */,
@@ -434,7 +442,7 @@
 		E4DCD3671874E6D20040643C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "James Paul Mason";
 				TargetAttributes = {
 					E4DCD36E1874E6D20040643C = {
@@ -511,7 +519,7 @@
 				E4DCD3ED1874FD120040643C /* ParticleFire.sks in Resources */,
 				E4271081189F00E800007F33 /* StartGame.png in Resources */,
 				E4271071189EDEA600007F33 /* Tree5.png in Resources */,
-				E458D7D918BDAD37005D8D03 /* FullLevel1@2x.png in Resources */,
+				E40D8EAB18D141A400F65807 /* FullLevel1@2x.png in Resources */,
 				E4DCD3EE1874FD120040643C /* spark.png in Resources */,
 				E427104D189EDEA600007F33 /* Bush3.png in Resources */,
 				E4271082189F00E800007F33 /* StartGame@2x.png in Resources */,
@@ -525,7 +533,7 @@
 				E4271066189EDEA600007F33 /* SadMonkey@2x.png in Resources */,
 				E427104A189EDEA600007F33 /* Bush1@2x.png in Resources */,
 				E427104E189EDEA600007F33 /* Bush3@2x.png in Resources */,
-				E458D7D818BDAD37005D8D03 /* FullLevel1.png in Resources */,
+				E40D8EAA18D141A400F65807 /* FullLevel1.png in Resources */,
 				E458D7D518BDAC1C005D8D03 /* Level1.csv in Resources */,
 				E427106F189EDEA600007F33 /* Tree4.png in Resources */,
 				E427105E189EDEA600007F33 /* MainScreenSky@2x.png in Resources */,
@@ -610,7 +618,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -649,7 +656,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -711,7 +717,6 @@
 		E4DCD3AC1874E6D20040643C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MonkeySwing.app/MonkeySwing";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -734,7 +739,6 @@
 		E4DCD3AD1874E6D20040643C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MonkeySwing.app/MonkeySwing";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",

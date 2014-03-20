@@ -10,6 +10,6 @@
 
 @interface JPMLevelInterpreter : NSObject
 
-+ (NSArray *)loadLevelFileNumber:(int)levelNumber;
++ (NSArray *)loadLevelFileNumber:(NSInteger)levelNumber;
 
 @end

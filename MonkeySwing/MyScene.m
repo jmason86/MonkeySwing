@@ -11,6 +11,7 @@
 #import "JPMLevelInterpreter.h"
 #import "BonusPointsObject.h"
 #import "LevelEndView.h"
+#import "PlayerLevelRunData.h"
 
 // Collision categories
 static const uint32_t monkeyCategory = 0x1 << 0;
@@ -33,18 +34,17 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     // Touches
     CGPoint touchBeganPoint;
     
-    // Temporary background creation
-    int treeDensity; // [trees/screen]
-    int bushDensity; // [bushes/screen]
-    
     // Object identification
     NSString *monkeyOnRopeWithName;
     SKNode *myWorld, *allFireNode;
-    int numberOfBonusPointsObtained;
+    NSInteger numberOfBonusPointsObtained;
     
     // HUD parameters
     SKCropNode *hudFireCropNode;
     int playerScore;
+    
+    // Player progress stats
+    PlayerLevelRunData *playerLevelRunData;
 }
 @synthesize physicsParameters, levelNumber;
 
@@ -70,6 +70,9 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
         [self addHUD];
         numberOfBonusPointsObtained = 0;
         
+        // Prepare to collect stats on the players progress
+        playerLevelRunData = [[PlayerLevelRunData alloc] init];
+        
         // Listen to the LevelEndScene
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(receiveLevelEndedUserSelection:)
@@ -92,8 +95,6 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     [self defineUsefulConstants];
     
     // Add background images (sky and forest) to myWorld
-    treeDensity = 30; // [trees/screen]
-    bushDensity = 30; // [bushes/screen]
     [self addBackgroundToWorld];
     
     // Add fire
@@ -290,6 +291,8 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     // Get rid of the dead monkey sprite
     [monkeyNode removeFromParent];
     
+    // Increment number of times died
+    playerLevelRunData.numberOfTimesDied++;
     
     // Show level end view
     CGPoint centerInView = [self convertPointToView:CGPointMake(sceneFarLeftSide.x + sceneWidth/2, 0)];
@@ -307,9 +310,16 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     // Get rid of the happy monkey sprite
     [monkeyNode removeFromParent];
     
+    // Update playerLevelRunData
+    playerLevelRunData.levelNumber = levelNumber;
+    playerLevelRunData.totalPoints = playerScore;
+    playerLevelRunData.numberOfApples = numberOfBonusPointsObtained;
+    // TODO: Determine how many apples there are total
+    // TODO: Create method for determining number of "rapid ropes"
+    
     // Show level end view
     CGPoint centerInView = [self convertPointToView:CGPointMake(sceneFarLeftSide.x + sceneWidth/2, 0)];
-    LevelEndView *levelEndView = [[LevelEndView alloc] initWithFrame:CGRectMake(0, 0, 300, 300) forOutcome:@"monkeyWon"];
+    LevelEndView *levelEndView = [[LevelEndView alloc] initWithFrame:CGRectMake(0, 0, 300, 300) forOutcome:@"monkeyWon"]; // TODO: Modify this method to include a "withRunData:playerLevelRunData"
     levelEndView.center = centerInView;
     levelEndView.tag = 1;
     [self.view addSubview:levelEndView];

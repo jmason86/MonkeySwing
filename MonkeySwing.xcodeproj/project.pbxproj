@@ -9,6 +9,14 @@
 /* Begin PBXBuildFile section */
 		E40D8EAA18D141A400F65807 /* FullLevel1.png in Resources */ = {isa = PBXBuildFile; fileRef = E40D8EA818D141A400F65807 /* FullLevel1.png */; };
 		E40D8EAB18D141A400F65807 /* FullLevel1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E40D8EA918D141A400F65807 /* FullLevel1@2x.png */; };
+		E40D8EB818D65A4000F65807 /* PlayAgain.png in Resources */ = {isa = PBXBuildFile; fileRef = E40D8EB018D65A4000F65807 /* PlayAgain.png */; };
+		E40D8EB918D65A4000F65807 /* PlayAgain@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E40D8EB118D65A4000F65807 /* PlayAgain@2x.png */; };
+		E40D8EBA18D65A4000F65807 /* PlayAgainClicked.png in Resources */ = {isa = PBXBuildFile; fileRef = E40D8EB218D65A4000F65807 /* PlayAgainClicked.png */; };
+		E40D8EBB18D65A4000F65807 /* PlayAgainClicked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E40D8EB318D65A4000F65807 /* PlayAgainClicked@2x.png */; };
+		E40D8EBC18D65A4000F65807 /* Respawn.png in Resources */ = {isa = PBXBuildFile; fileRef = E40D8EB418D65A4000F65807 /* Respawn.png */; };
+		E40D8EBD18D65A4000F65807 /* Respawn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E40D8EB518D65A4000F65807 /* Respawn@2x.png */; };
+		E40D8EBE18D65A4000F65807 /* RespawnClicked.png in Resources */ = {isa = PBXBuildFile; fileRef = E40D8EB618D65A4000F65807 /* RespawnClicked.png */; };
+		E40D8EBF18D65A4000F65807 /* RespawnClicked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E40D8EB718D65A4000F65807 /* RespawnClicked@2x.png */; };
 		E423238E18ADA93E00F852A0 /* BonusPointsObject.m in Sources */ = {isa = PBXBuildFile; fileRef = E423238D18ADA93E00F852A0 /* BonusPointsObject.m */; };
 		E423239118ADEE7D00F852A0 /* Apple.png in Resources */ = {isa = PBXBuildFile; fileRef = E423238F18ADEE7D00F852A0 /* Apple.png */; };
 		E423239218ADEE7D00F852A0 /* Apple@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E423239018ADEE7D00F852A0 /* Apple@2x.png */; };
@@ -39,8 +47,6 @@
 		E427105E189EDEA600007F33 /* MainScreenSky@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4271030189EDEA600007F33 /* MainScreenSky@2x.png */; };
 		E427105F189EDEA600007F33 /* Monkey.png in Resources */ = {isa = PBXBuildFile; fileRef = E4271031189EDEA600007F33 /* Monkey.png */; };
 		E4271060189EDEA600007F33 /* Monkey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4271032189EDEA600007F33 /* Monkey@2x.png */; };
-		E4271061189EDEA600007F33 /* MonkeyClicked.png in Resources */ = {isa = PBXBuildFile; fileRef = E4271033189EDEA600007F33 /* MonkeyClicked.png */; };
-		E4271062189EDEA600007F33 /* MonkeyClicked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4271034189EDEA600007F33 /* MonkeyClicked@2x.png */; };
 		E4271063189EDEA600007F33 /* Rope Segment.png in Resources */ = {isa = PBXBuildFile; fileRef = E4271035189EDEA600007F33 /* Rope Segment.png */; };
 		E4271064189EDEA600007F33 /* Rope Segment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4271036189EDEA600007F33 /* Rope Segment@2x.png */; };
 		E4271065189EDEA600007F33 /* SadMonkey.png in Resources */ = {isa = PBXBuildFile; fileRef = E4271037189EDEA600007F33 /* SadMonkey.png */; };
@@ -68,6 +74,7 @@
 		E4880C4E18B44DF700DBE7B2 /* LevelEndView.m in Sources */ = {isa = PBXBuildFile; fileRef = E4880C4D18B44DF700DBE7B2 /* LevelEndView.m */; };
 		E49F78AE1883598900BDA47C /* JPMButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E49F78AD1883598900BDA47C /* JPMButton.m */; };
 		E4A5F8F418AC9977001B28B6 /* JPMLevelInterpreter.m in Sources */ = {isa = PBXBuildFile; fileRef = E4A5F8F318AC9977001B28B6 /* JPMLevelInterpreter.m */; };
+		E4B5B97C18DAB9B60092E231 /* PlayerLevelRunData.m in Sources */ = {isa = PBXBuildFile; fileRef = E4B5B97B18DAB9B60092E231 /* PlayerLevelRunData.m */; };
 		E4D6DF7018931D7100F916D0 /* PhysicsParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D6DF6F18931D7100F916D0 /* PhysicsParameters.m */; };
 		E4DCD3731874E6D20040643C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4DCD3721874E6D20040643C /* Foundation.framework */; };
 		E4DCD3751874E6D20040643C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4DCD3741874E6D20040643C /* CoreGraphics.framework */; };
@@ -102,6 +109,14 @@
 /* Begin PBXFileReference section */
 		E40D8EA818D141A400F65807 /* FullLevel1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FullLevel1.png; sourceTree = "<group>"; };
 		E40D8EA918D141A400F65807 /* FullLevel1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FullLevel1@2x.png"; sourceTree = "<group>"; };
+		E40D8EB018D65A4000F65807 /* PlayAgain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlayAgain.png; sourceTree = "<group>"; };
+		E40D8EB118D65A4000F65807 /* PlayAgain@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlayAgain@2x.png"; sourceTree = "<group>"; };
+		E40D8EB218D65A4000F65807 /* PlayAgainClicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlayAgainClicked.png; sourceTree = "<group>"; };
+		E40D8EB318D65A4000F65807 /* PlayAgainClicked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlayAgainClicked@2x.png"; sourceTree = "<group>"; };
+		E40D8EB418D65A4000F65807 /* Respawn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Respawn.png; sourceTree = "<group>"; };
+		E40D8EB518D65A4000F65807 /* Respawn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Respawn@2x.png"; sourceTree = "<group>"; };
+		E40D8EB618D65A4000F65807 /* RespawnClicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RespawnClicked.png; sourceTree = "<group>"; };
+		E40D8EB718D65A4000F65807 /* RespawnClicked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RespawnClicked@2x.png"; sourceTree = "<group>"; };
 		E423238C18ADA93E00F852A0 /* BonusPointsObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BonusPointsObject.h; sourceTree = "<group>"; };
 		E423238D18ADA93E00F852A0 /* BonusPointsObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BonusPointsObject.m; sourceTree = "<group>"; };
 		E423238F18ADEE7D00F852A0 /* Apple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Apple.png; sourceTree = "<group>"; };
@@ -135,8 +150,6 @@
 		E4271030189EDEA600007F33 /* MainScreenSky@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainScreenSky@2x.png"; sourceTree = "<group>"; };
 		E4271031189EDEA600007F33 /* Monkey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Monkey.png; sourceTree = "<group>"; };
 		E4271032189EDEA600007F33 /* Monkey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Monkey@2x.png"; sourceTree = "<group>"; };
-		E4271033189EDEA600007F33 /* MonkeyClicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MonkeyClicked.png; sourceTree = "<group>"; };
-		E4271034189EDEA600007F33 /* MonkeyClicked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MonkeyClicked@2x.png"; sourceTree = "<group>"; };
 		E4271035189EDEA600007F33 /* Rope Segment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Rope Segment.png"; sourceTree = "<group>"; };
 		E4271036189EDEA600007F33 /* Rope Segment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Rope Segment@2x.png"; sourceTree = "<group>"; };
 		E4271037189EDEA600007F33 /* SadMonkey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SadMonkey.png; sourceTree = "<group>"; };
@@ -166,6 +179,8 @@
 		E49F78AD1883598900BDA47C /* JPMButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPMButton.m; sourceTree = "<group>"; };
 		E4A5F8F218AC9977001B28B6 /* JPMLevelInterpreter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPMLevelInterpreter.h; sourceTree = "<group>"; };
 		E4A5F8F318AC9977001B28B6 /* JPMLevelInterpreter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPMLevelInterpreter.m; sourceTree = "<group>"; };
+		E4B5B97A18DAB9B60092E231 /* PlayerLevelRunData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerLevelRunData.h; sourceTree = "<group>"; };
+		E4B5B97B18DAB9B60092E231 /* PlayerLevelRunData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerLevelRunData.m; sourceTree = "<group>"; };
 		E4D6DF6E18931D7100F916D0 /* PhysicsParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysicsParameters.h; sourceTree = "<group>"; };
 		E4D6DF6F18931D7100F916D0 /* PhysicsParameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhysicsParameters.m; sourceTree = "<group>"; };
 		E4DCD36F1874E6D20040643C /* MonkeySwing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MonkeySwing.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -229,10 +244,26 @@
 			name = "Level Backgrounds";
 			sourceTree = "<group>";
 		};
+		E40D8EC018D65A4900F65807 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				E40D8EB018D65A4000F65807 /* PlayAgain.png */,
+				E40D8EB118D65A4000F65807 /* PlayAgain@2x.png */,
+				E40D8EB218D65A4000F65807 /* PlayAgainClicked.png */,
+				E40D8EB318D65A4000F65807 /* PlayAgainClicked@2x.png */,
+				E40D8EB418D65A4000F65807 /* Respawn.png */,
+				E40D8EB518D65A4000F65807 /* Respawn@2x.png */,
+				E40D8EB618D65A4000F65807 /* RespawnClicked.png */,
+				E40D8EB718D65A4000F65807 /* RespawnClicked@2x.png */,
+			);
+			name = Buttons;
+			sourceTree = "<group>";
+		};
 		E4271018189EDEA600007F33 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
 				E40D8EA718D1418E00F65807 /* Level Backgrounds */,
+				E40D8EC018D65A4900F65807 /* Buttons */,
 				E423238F18ADEE7D00F852A0 /* Apple.png */,
 				E423239018ADEE7D00F852A0 /* Apple@2x.png */,
 				E4271019189EDEA600007F33 /* Banana.png */,
@@ -261,8 +292,6 @@
 				E4271030189EDEA600007F33 /* MainScreenSky@2x.png */,
 				E4271031189EDEA600007F33 /* Monkey.png */,
 				E4271032189EDEA600007F33 /* Monkey@2x.png */,
-				E4271033189EDEA600007F33 /* MonkeyClicked.png */,
-				E4271034189EDEA600007F33 /* MonkeyClicked@2x.png */,
 				E4271035189EDEA600007F33 /* Rope Segment.png */,
 				E4271036189EDEA600007F33 /* Rope Segment@2x.png */,
 				E4271037189EDEA600007F33 /* SadMonkey.png */,
@@ -353,6 +382,8 @@
 				E4DCD38D1874E6D20040643C /* MyScene.m */,
 				E4880C4C18B44DF700DBE7B2 /* LevelEndView.h */,
 				E4880C4D18B44DF700DBE7B2 /* LevelEndView.m */,
+				E4B5B97A18DAB9B60092E231 /* PlayerLevelRunData.h */,
+				E4B5B97B18DAB9B60092E231 /* PlayerLevelRunData.m */,
 				E49F78AC1883598900BDA47C /* JPMButton.h */,
 				E49F78AD1883598900BDA47C /* JPMButton.m */,
 				E4D6DF6E18931D7100F916D0 /* PhysicsParameters.h */,
@@ -477,24 +508,28 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E40D8EBA18D65A4000F65807 /* PlayAgainClicked.png in Resources */,
 				E4271083189F00E800007F33 /* StartGameClicked.png in Resources */,
+				E40D8EBE18D65A4000F65807 /* RespawnClicked.png in Resources */,
 				E427106B189EDEA600007F33 /* Tree2.png in Resources */,
 				E427105F189EDEA600007F33 /* Monkey.png in Resources */,
+				E40D8EB818D65A4000F65807 /* PlayAgain.png in Resources */,
 				E423239118ADEE7D00F852A0 /* Apple.png in Resources */,
 				E427106E189EDEA600007F33 /* Tree3@2x.png in Resources */,
 				E4271056189EDEA600007F33 /* HudFire@2x.png in Resources */,
 				E427104C189EDEA600007F33 /* Bush2@2x.png in Resources */,
 				E4271055189EDEA600007F33 /* HudFire.png in Resources */,
 				E427104B189EDEA600007F33 /* Bush2.png in Resources */,
+				E40D8EBD18D65A4000F65807 /* Respawn@2x.png in Resources */,
 				E4271074189EDEA600007F33 /* Tree6@2x.png in Resources */,
 				E4271069189EDEA600007F33 /* Tree1.png in Resources */,
 				E427106D189EDEA600007F33 /* Tree3.png in Resources */,
 				E427105A189EDEA600007F33 /* MainScreenMonkey@2x.png in Resources */,
-				E4271061189EDEA600007F33 /* MonkeyClicked.png in Resources */,
 				E4271065189EDEA600007F33 /* SadMonkey.png in Resources */,
 				E4271050189EDEA600007F33 /* Bush4@2x.png in Resources */,
 				E4271064189EDEA600007F33 /* Rope Segment@2x.png in Resources */,
 				E4271057189EDEA600007F33 /* MainScreenBanana.png in Resources */,
+				E40D8EBB18D65A4000F65807 /* PlayAgainClicked@2x.png in Resources */,
 				E4271051189EDEA600007F33 /* Bush5.png in Resources */,
 				E4271059189EDEA600007F33 /* MainScreenMonkey.png in Resources */,
 				E4271053189EDEA600007F33 /* HudBanana.png in Resources */,
@@ -502,6 +537,7 @@
 				E4271054189EDEA600007F33 /* HudBanana@2x.png in Resources */,
 				E4271073189EDEA600007F33 /* Tree6.png in Resources */,
 				E4DCD37F1874E6D20040643C /* InfoPlist.strings in Resources */,
+				E40D8EBF18D65A4000F65807 /* RespawnClicked@2x.png in Resources */,
 				E4271063189EDEA600007F33 /* Rope Segment.png in Resources */,
 				E423239218ADEE7D00F852A0 /* Apple@2x.png in Resources */,
 				E4DCD3921874E6D20040643C /* Images.xcassets in Resources */,
@@ -512,6 +548,7 @@
 				E4271048189EDEA600007F33 /* Banana@2x.png in Resources */,
 				E427104F189EDEA600007F33 /* Bush4.png in Resources */,
 				E427105B189EDEA600007F33 /* MainScreenRopeSegment.png in Resources */,
+				E40D8EB918D65A4000F65807 /* PlayAgain@2x.png in Resources */,
 				E427105C189EDEA600007F33 /* MainScreenRopeSegment@2x.png in Resources */,
 				E4271072189EDEA600007F33 /* Tree5@2x.png in Resources */,
 				E4271070189EDEA600007F33 /* Tree4@2x.png in Resources */,
@@ -520,6 +557,7 @@
 				E4271081189F00E800007F33 /* StartGame.png in Resources */,
 				E4271071189EDEA600007F33 /* Tree5.png in Resources */,
 				E40D8EAB18D141A400F65807 /* FullLevel1@2x.png in Resources */,
+				E40D8EBC18D65A4000F65807 /* Respawn.png in Resources */,
 				E4DCD3EE1874FD120040643C /* spark.png in Resources */,
 				E427104D189EDEA600007F33 /* Bush3.png in Resources */,
 				E4271082189F00E800007F33 /* StartGame@2x.png in Resources */,
@@ -528,7 +566,6 @@
 				E427105D189EDEA600007F33 /* MainScreenSky.png in Resources */,
 				E4271068189EDEA600007F33 /* Sky@2x.png in Resources */,
 				E4271060189EDEA600007F33 /* Monkey@2x.png in Resources */,
-				E4271062189EDEA600007F33 /* MonkeyClicked@2x.png in Resources */,
 				E4271058189EDEA600007F33 /* MainScreenBanana@2x.png in Resources */,
 				E4271066189EDEA600007F33 /* SadMonkey@2x.png in Resources */,
 				E427104A189EDEA600007F33 /* Bush1@2x.png in Resources */,
@@ -559,6 +596,7 @@
 				E423238E18ADA93E00F852A0 /* BonusPointsObject.m in Sources */,
 				E4880C4E18B44DF700DBE7B2 /* LevelEndView.m in Sources */,
 				E4DCD38E1874E6D20040643C /* MyScene.m in Sources */,
+				E4B5B97C18DAB9B60092E231 /* PlayerLevelRunData.m in Sources */,
 				E4DCD38B1874E6D20040643C /* ViewController.m in Sources */,
 				E4A5F8F418AC9977001B28B6 /* JPMLevelInterpreter.m in Sources */,
 				E4DCD3851874E6D20040643C /* AppDelegate.m in Sources */,

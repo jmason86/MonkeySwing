@@ -14,6 +14,6 @@
 - (void)restartAction;
 
 @property (nonatomic, strong) PhysicsParameters *physicsParameters;
-@property (nonatomic) int levelNumber;
+@property (nonatomic) NSInteger levelNumber;
 
 @end

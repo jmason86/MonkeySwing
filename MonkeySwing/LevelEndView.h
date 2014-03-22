@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PlayerLevelRunData.h"
 
 @interface LevelEndView : UIView
 
-- (id)initWithFrame:(CGRect)frame forOutcome:(NSString *)outcome;
+@property (nonatomic, strong) PlayerLevelRunData *playerLevelRunData;
+
+- (id)initWithFrame:(CGRect)frame forOutcome:(NSString *)outcome withRunData:(PlayerLevelRunData *)playerLevelRunData;
 
 @end

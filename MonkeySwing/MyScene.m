@@ -152,7 +152,7 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     if (fractionFireProgress >= 1.0) {
         // Show level end view
         CGPoint centerInView = [self convertPointToView:CGPointMake(sceneFarLeftSide.x + sceneWidth/2, 0)];
-        LevelEndView *levelEndView = [[LevelEndView alloc] initWithFrame:CGRectMake(0, 0, 300, 300) forOutcome:@"gameOver"];
+        LevelEndView *levelEndView = [[LevelEndView alloc] initWithFrame:CGRectMake(0, 0, 300, 300) forOutcome:@"gameOver" withRunData:playerLevelRunData];
         levelEndView.center = centerInView;
         levelEndView.tag = 1;
         [self.view addSubview:levelEndView];
@@ -296,7 +296,8 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     
     // Show level end view
     CGPoint centerInView = [self convertPointToView:CGPointMake(sceneFarLeftSide.x + sceneWidth/2, 0)];
-    LevelEndView *levelEndView = [[LevelEndView alloc] initWithFrame:CGRectMake(0, 0, 300, 300) forOutcome:@"monkeyFell"];
+    LevelEndView *levelEndView = [[LevelEndView alloc] initWithFrame:CGRectMake(0, 0, 300, 300) forOutcome:@"monkeyFell" withRunData:playerLevelRunData];
+    //LevelEndView *levelEndView = [[LevelEndView alloc] initWithFrame:CGRectMake(0, 0, 300, 300) forOutcome:@"monkeyWon" withRunData:playerLevelRunData]; // Just for debugging purposes
     levelEndView.center = centerInView;
     levelEndView.tag = 1;
     [self.view addSubview:levelEndView];
@@ -319,7 +320,7 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     
     // Show level end view
     CGPoint centerInView = [self convertPointToView:CGPointMake(sceneFarLeftSide.x + sceneWidth/2, 0)];
-    LevelEndView *levelEndView = [[LevelEndView alloc] initWithFrame:CGRectMake(0, 0, 300, 300) forOutcome:@"monkeyWon"]; // TODO: Modify this method to include a "withRunData:playerLevelRunData"
+    LevelEndView *levelEndView = [[LevelEndView alloc] initWithFrame:CGRectMake(0, 0, 300, 300) forOutcome:@"monkeyWon" withRunData:playerLevelRunData];
     levelEndView.center = centerInView;
     levelEndView.tag = 1;
     [self.view addSubview:levelEndView];

@@ -10,6 +10,6 @@
 
 @implementation PlayerLevelRunData
 
-@synthesize totalPoints, numberOfApples, totalNumberOfApplesInLevel, numberOfTimesDied, numberOfRapidRopes, levelNumber;
+@synthesize totalPoints, numberOfApples, totalNumberOfApplesInLevel, numberOfTimesDied, numberOfRapidRopes, levelNumber, fireProgression;
 
 @end

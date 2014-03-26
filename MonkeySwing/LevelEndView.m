@@ -34,28 +34,55 @@
 
 - (void)setupMonkeyFell
 {
-    // Button to respawn
-    UIImage *respawnImage = [UIImage imageNamed:@"Respawn"];
+    // Respawn button
+    UIImage *respawnImage = [UIImage imageNamed:@"RespawnButton"];
     UIButton *respawnMonkeyButton = [UIButton buttonWithType:UIButtonTypeCustom];
     respawnMonkeyButton.frame = CGRectMake(0, 0, respawnImage.size.width, respawnImage.size.height);
     respawnMonkeyButton.center = self.center;
     [respawnMonkeyButton setImage:respawnImage forState:UIControlStateNormal];
-    [respawnMonkeyButton setImage:[UIImage imageNamed:@"RespawnClicked"] forState:UIControlStateSelected];
+    [respawnMonkeyButton setImage:[UIImage imageNamed:@"RespawnButtonClicked"] forState:UIControlStateSelected];
     [respawnMonkeyButton addTarget:self action:@selector(respawnAction) forControlEvents:UIControlEventTouchUpInside];
     respawnMonkeyButton.opaque = YES;
     [self addSubview:respawnMonkeyButton];
     
+    // Menu button
+    UIImage *menuImage = [UIImage imageNamed:@"MenuButton"];
+    UIButton *menuButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    menuButton.frame = CGRectMake(0, 0, menuImage.size.width, menuImage.size.height);
+    menuButton.center = CGPointMake(self.bounds.size.width - menuImage.size.width/2 - 10, self.bounds.size.height - menuImage.size.height/2 - 10);
+    [menuButton setImage:menuImage forState:UIControlStateNormal];
+    [menuButton setImage:[UIImage imageNamed:@"MenuButtonClicked"] forState:UIControlStateSelected];
+    [menuButton addTarget:self action:@selector(menuAction) forControlEvents:UIControlEventTouchUpInside];
+    menuButton.opaque = YES;
+    [self addSubview:menuButton];
+    
     // Label showing how many monkeys you've killed
     UILabel *numberOfDeadMonkeysLabel = [[UILabel alloc] initWithFrame:CGRectMake(respawnMonkeyButton.center.x - 200, respawnMonkeyButton.center.y - respawnImage.size.height/2.0 - 40, 400, 40)];
     if (playerLevelRunData.numberOfTimesDied == 1) {
-        numberOfDeadMonkeysLabel.text = [NSString stringWithFormat:@"%@%li%@", @"You've killed ", playerLevelRunData.numberOfTimesDied, @" monkey"];
+        numberOfDeadMonkeysLabel.text = [NSString stringWithFormat:@"%@%li%@", @"You've killed ", (long)playerLevelRunData.numberOfTimesDied, @" monkey"];
     } else {
-        numberOfDeadMonkeysLabel.text = [NSString stringWithFormat:@"%@%li%@", @"You've killed ", playerLevelRunData.numberOfTimesDied, @" monkeys"];
+        numberOfDeadMonkeysLabel.text = [NSString stringWithFormat:@"%@%li%@", @"You've killed ", (long)playerLevelRunData.numberOfTimesDied, @" monkeys"];
     }
     numberOfDeadMonkeysLabel.font = [UIFont fontWithName:@"Chalkboard SE" size:26];
     numberOfDeadMonkeysLabel.textAlignment = NSTextAlignmentCenter;
     numberOfDeadMonkeysLabel.textColor = [UIColor whiteColor];
     [self addSubview:numberOfDeadMonkeysLabel];
+    
+    // Label pointing out how much the fire has progressed
+    UILabel *fireProgressionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 120, 200)];
+    int fireProgression = roundf(playerLevelRunData.fireProgression * 100.);
+    fireProgressionLabel.text = [NSString stringWithFormat:@"%@%i%@", @"Fire is ", fireProgression, @"% of the way to your banana!"];
+    fireProgressionLabel.font = [UIFont fontWithName:@"Chalkboard SE" size:16];
+    fireProgressionLabel.numberOfLines = 0; // Uses as many as needed
+    fireProgressionLabel.textAlignment = NSTextAlignmentLeft;
+    fireProgressionLabel.textColor = [UIColor whiteColor];
+    [self addSubview:fireProgressionLabel];
+    
+    // Add arrow between HUD and fire progression label
+    UIImageView *arrowView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Arrow"]];
+    UIImage *hudFire = [UIImage imageNamed:@"HudFire"];
+    arrowView.center = CGPointMake(hudFire.size.width * playerLevelRunData.fireProgression, hudFire.size.height * 2);
+    [self addSubview:arrowView];
 }
 
 - (void)setupGameOver
@@ -132,7 +159,7 @@
     [notificationCenter postNotificationName:@"levelEndedUserSelection" object:self userInfo:userInfo];
 }
 
-- (void)mainMenuAction
+- (void)menuAction
 {
     NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
     [userInfo setObject:@"goToMainMenu" forKey:@"userSelection"];

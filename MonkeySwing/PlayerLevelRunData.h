@@ -16,5 +16,6 @@
 @property (nonatomic) NSInteger numberOfTimesDied;
 @property (nonatomic) NSInteger numberOfRapidRopes;
 @property (nonatomic) NSInteger levelNumber;
+@property (nonatomic) CGFloat fireProgression;
 
 @end

@@ -291,12 +291,13 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     // Get rid of the dead monkey sprite
     [monkeyNode removeFromParent];
     
-    // Increment number of times died
+    // Increment number of times died and fire progression
     playerLevelRunData.numberOfTimesDied++;
+    playerLevelRunData.fireProgression = physicsParameters.fireNodeXSize / skyWidth * [allFireNode.children count];
     
     // Show level end view
     CGPoint centerInView = [self convertPointToView:CGPointMake(sceneFarLeftSide.x + sceneWidth/2, 0)];
-    LevelEndView *levelEndView = [[LevelEndView alloc] initWithFrame:CGRectMake(0, 0, 300, 300) forOutcome:@"monkeyFell" withRunData:playerLevelRunData];
+    LevelEndView *levelEndView = [[LevelEndView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height) forOutcome:@"monkeyFell" withRunData:playerLevelRunData];
     //LevelEndView *levelEndView = [[LevelEndView alloc] initWithFrame:CGRectMake(0, 0, 300, 300) forOutcome:@"monkeyWon" withRunData:playerLevelRunData]; // Just for debugging purposes
     levelEndView.center = centerInView;
     levelEndView.tag = 1;

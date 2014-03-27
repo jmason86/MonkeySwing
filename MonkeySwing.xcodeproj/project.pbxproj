@@ -38,6 +38,10 @@
 		E458D7D518BDAC1C005D8D03 /* Level1.csv in Resources */ = {isa = PBXBuildFile; fileRef = E458D7D418BDAC1C005D8D03 /* Level1.csv */; };
 		E46317B618A5FEE600E911E6 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E4271007189E230400007F33 /* libz.dylib */; };
 		E4880C4E18B44DF700DBE7B2 /* LevelEndView.m in Sources */ = {isa = PBXBuildFile; fileRef = E4880C4D18B44DF700DBE7B2 /* LevelEndView.m */; };
+		E48C15E318E3EA52000354A7 /* DeadMonkeysButtonClicked.png in Resources */ = {isa = PBXBuildFile; fileRef = E48C15DF18E3EA52000354A7 /* DeadMonkeysButtonClicked.png */; };
+		E48C15E418E3EA52000354A7 /* DeadMonkeysButtonClicked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E48C15E018E3EA52000354A7 /* DeadMonkeysButtonClicked@2x.png */; };
+		E48C15E518E3EA52000354A7 /* DeadMonkeysButton.png in Resources */ = {isa = PBXBuildFile; fileRef = E48C15E118E3EA52000354A7 /* DeadMonkeysButton.png */; };
+		E48C15E618E3EA52000354A7 /* DeadMonkeysButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E48C15E218E3EA52000354A7 /* DeadMonkeysButton@2x.png */; };
 		E49F78AE1883598900BDA47C /* JPMButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E49F78AD1883598900BDA47C /* JPMButton.m */; };
 		E4A5F8F418AC9977001B28B6 /* JPMLevelInterpreter.m in Sources */ = {isa = PBXBuildFile; fileRef = E4A5F8F318AC9977001B28B6 /* JPMLevelInterpreter.m */; };
 		E4B5B97C18DAB9B60092E231 /* PlayerLevelRunData.m in Sources */ = {isa = PBXBuildFile; fileRef = E4B5B97B18DAB9B60092E231 /* PlayerLevelRunData.m */; };
@@ -62,7 +66,6 @@
 		E4DCD3EE1874FD120040643C /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = E4DCD3EC1874FD120040643C /* spark.png */; };
 		E4E341BB18E14E3700A46BDC /* Arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = E4E341A118E14E3700A46BDC /* Arrow.png */; };
 		E4E341BC18E14E3700A46BDC /* Arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4E341A218E14E3700A46BDC /* Arrow@2x.png */; };
-		E4E341BD18E14E3700A46BDC /* DeadMonkeysButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4E341A318E14E3700A46BDC /* DeadMonkeysButton@2x.png */; };
 		E4E341BE18E14E3700A46BDC /* GameOverByFireButton.png in Resources */ = {isa = PBXBuildFile; fileRef = E4E341A418E14E3700A46BDC /* GameOverByFireButton.png */; };
 		E4E341BF18E14E3700A46BDC /* GameOverByFireButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4E341A518E14E3700A46BDC /* GameOverByFireButton@2x.png */; };
 		E4E341C018E14E3700A46BDC /* GameOverByFireButtonClicked.png in Resources */ = {isa = PBXBuildFile; fileRef = E4E341A618E14E3700A46BDC /* GameOverByFireButtonClicked.png */; };
@@ -83,9 +86,6 @@
 		E4E341CF18E14E3700A46BDC /* RespawnButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4E341B518E14E3700A46BDC /* RespawnButton@2x.png */; };
 		E4E341D018E14E3700A46BDC /* RespawnButtonClicked.png in Resources */ = {isa = PBXBuildFile; fileRef = E4E341B618E14E3700A46BDC /* RespawnButtonClicked.png */; };
 		E4E341D118E14E3700A46BDC /* RespawnButtonClicked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4E341B718E14E3700A46BDC /* RespawnButtonClicked@2x.png */; };
-		E4E341D218E14E3700A46BDC /* DeadMonkeysButton.png in Resources */ = {isa = PBXBuildFile; fileRef = E4E341B818E14E3700A46BDC /* DeadMonkeysButton.png */; };
-		E4E341D318E14E3700A46BDC /* DeadMonkeysButtonClicked.png in Resources */ = {isa = PBXBuildFile; fileRef = E4E341B918E14E3700A46BDC /* DeadMonkeysButtonClicked.png */; };
-		E4E341D418E14E3700A46BDC /* DeadMonkeysButtonClicked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4E341BA18E14E3700A46BDC /* DeadMonkeysButtonClicked@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,6 +133,10 @@
 		E458D7D418BDAC1C005D8D03 /* Level1.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Level1.csv; sourceTree = "<group>"; };
 		E4880C4C18B44DF700DBE7B2 /* LevelEndView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelEndView.h; sourceTree = "<group>"; };
 		E4880C4D18B44DF700DBE7B2 /* LevelEndView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelEndView.m; sourceTree = "<group>"; };
+		E48C15DF18E3EA52000354A7 /* DeadMonkeysButtonClicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DeadMonkeysButtonClicked.png; sourceTree = "<group>"; };
+		E48C15E018E3EA52000354A7 /* DeadMonkeysButtonClicked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DeadMonkeysButtonClicked@2x.png"; sourceTree = "<group>"; };
+		E48C15E118E3EA52000354A7 /* DeadMonkeysButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DeadMonkeysButton.png; sourceTree = "<group>"; };
+		E48C15E218E3EA52000354A7 /* DeadMonkeysButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DeadMonkeysButton@2x.png"; sourceTree = "<group>"; };
 		E49F78AC1883598900BDA47C /* JPMButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPMButton.h; sourceTree = "<group>"; };
 		E49F78AD1883598900BDA47C /* JPMButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPMButton.m; sourceTree = "<group>"; };
 		E4A5F8F218AC9977001B28B6 /* JPMLevelInterpreter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPMLevelInterpreter.h; sourceTree = "<group>"; };
@@ -167,7 +171,6 @@
 		E4DCD3EC1874FD120040643C /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		E4E341A118E14E3700A46BDC /* Arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Arrow.png; sourceTree = "<group>"; };
 		E4E341A218E14E3700A46BDC /* Arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Arrow@2x.png"; sourceTree = "<group>"; };
-		E4E341A318E14E3700A46BDC /* DeadMonkeysButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DeadMonkeysButton@2x.png"; sourceTree = "<group>"; };
 		E4E341A418E14E3700A46BDC /* GameOverByFireButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameOverByFireButton.png; sourceTree = "<group>"; };
 		E4E341A518E14E3700A46BDC /* GameOverByFireButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GameOverByFireButton@2x.png"; sourceTree = "<group>"; };
 		E4E341A618E14E3700A46BDC /* GameOverByFireButtonClicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameOverByFireButtonClicked.png; sourceTree = "<group>"; };
@@ -188,9 +191,6 @@
 		E4E341B518E14E3700A46BDC /* RespawnButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RespawnButton@2x.png"; sourceTree = "<group>"; };
 		E4E341B618E14E3700A46BDC /* RespawnButtonClicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RespawnButtonClicked.png; sourceTree = "<group>"; };
 		E4E341B718E14E3700A46BDC /* RespawnButtonClicked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RespawnButtonClicked@2x.png"; sourceTree = "<group>"; };
-		E4E341B818E14E3700A46BDC /* DeadMonkeysButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DeadMonkeysButton.png; sourceTree = "<group>"; };
-		E4E341B918E14E3700A46BDC /* DeadMonkeysButtonClicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DeadMonkeysButtonClicked.png; sourceTree = "<group>"; };
-		E4E341BA18E14E3700A46BDC /* DeadMonkeysButtonClicked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DeadMonkeysButtonClicked@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -233,7 +233,10 @@
 			children = (
 				E4E341A118E14E3700A46BDC /* Arrow.png */,
 				E4E341A218E14E3700A46BDC /* Arrow@2x.png */,
-				E4E341A318E14E3700A46BDC /* DeadMonkeysButton@2x.png */,
+				E48C15DF18E3EA52000354A7 /* DeadMonkeysButtonClicked.png */,
+				E48C15E018E3EA52000354A7 /* DeadMonkeysButtonClicked@2x.png */,
+				E48C15E118E3EA52000354A7 /* DeadMonkeysButton.png */,
+				E48C15E218E3EA52000354A7 /* DeadMonkeysButton@2x.png */,
 				E4E341A418E14E3700A46BDC /* GameOverByFireButton.png */,
 				E4E341A518E14E3700A46BDC /* GameOverByFireButton@2x.png */,
 				E4E341A618E14E3700A46BDC /* GameOverByFireButtonClicked.png */,
@@ -254,9 +257,6 @@
 				E4E341B518E14E3700A46BDC /* RespawnButton@2x.png */,
 				E4E341B618E14E3700A46BDC /* RespawnButtonClicked.png */,
 				E4E341B718E14E3700A46BDC /* RespawnButtonClicked@2x.png */,
-				E4E341B818E14E3700A46BDC /* DeadMonkeysButton.png */,
-				E4E341B918E14E3700A46BDC /* DeadMonkeysButtonClicked.png */,
-				E4E341BA18E14E3700A46BDC /* DeadMonkeysButtonClicked@2x.png */,
 			);
 			name = Buttons;
 			sourceTree = "<group>";
@@ -498,6 +498,7 @@
 				E4271055189EDEA600007F33 /* HudFire.png in Resources */,
 				E4E341C118E14E3700A46BDC /* GameOverByFireButtonClicked@2x.png in Resources */,
 				E4E341C518E14E3700A46BDC /* MenuButtonClicked@2x.png in Resources */,
+				E48C15E318E3EA52000354A7 /* DeadMonkeysButtonClicked.png in Resources */,
 				E427105A189EDEA600007F33 /* MainScreenMonkey@2x.png in Resources */,
 				E4271064189EDEA600007F33 /* Rope Segment@2x.png in Resources */,
 				E4271057189EDEA600007F33 /* MainScreenBanana.png in Resources */,
@@ -508,18 +509,15 @@
 				E4E341D018E14E3700A46BDC /* RespawnButtonClicked.png in Resources */,
 				E4271053189EDEA600007F33 /* HudBanana.png in Resources */,
 				E4271054189EDEA600007F33 /* HudBanana@2x.png in Resources */,
-				E4E341D218E14E3700A46BDC /* DeadMonkeysButton.png in Resources */,
 				E4DCD37F1874E6D20040643C /* InfoPlist.strings in Resources */,
 				E4271063189EDEA600007F33 /* Rope Segment.png in Resources */,
 				E423239218ADEE7D00F852A0 /* Apple@2x.png in Resources */,
 				E4E341C918E14E3700A46BDC /* NextLevelButtonClicked@2x.png in Resources */,
 				E4DCD3921874E6D20040643C /* Images.xcassets in Resources */,
 				E4271047189EDEA600007F33 /* Banana.png in Resources */,
-				E4E341D418E14E3700A46BDC /* DeadMonkeysButtonClicked@2x.png in Resources */,
 				E4271084189F00E800007F33 /* StartGameClicked@2x.png in Resources */,
 				E4E341C718E14E3700A46BDC /* NextLevelButton@2x.png in Resources */,
 				E4271048189EDEA600007F33 /* Banana@2x.png in Resources */,
-				E4E341BD18E14E3700A46BDC /* DeadMonkeysButton@2x.png in Resources */,
 				E427105B189EDEA600007F33 /* MainScreenRopeSegment.png in Resources */,
 				E427105C189EDEA600007F33 /* MainScreenRopeSegment@2x.png in Resources */,
 				E4DCD3881874E6D20040643C /* Main.storyboard in Resources */,
@@ -527,8 +525,10 @@
 				E4DCD3ED1874FD120040643C /* ParticleFire.sks in Resources */,
 				E4271081189F00E800007F33 /* StartGame.png in Resources */,
 				E40D8EAB18D141A400F65807 /* FullLevel1@2x.png in Resources */,
+				E48C15E518E3EA52000354A7 /* DeadMonkeysButton.png in Resources */,
 				E4E341C018E14E3700A46BDC /* GameOverByFireButtonClicked.png in Resources */,
 				E4DCD3EE1874FD120040643C /* spark.png in Resources */,
+				E48C15E418E3EA52000354A7 /* DeadMonkeysButtonClicked@2x.png in Resources */,
 				E4271082189F00E800007F33 /* StartGame@2x.png in Resources */,
 				E4E341BB18E14E3700A46BDC /* Arrow.png in Resources */,
 				E4E341CA18E14E3700A46BDC /* PlayAgainButton.png in Resources */,
@@ -541,7 +541,7 @@
 				E458D7D518BDAC1C005D8D03 /* Level1.csv in Resources */,
 				E427105E189EDEA600007F33 /* MainScreenSky@2x.png in Resources */,
 				E4E341C818E14E3700A46BDC /* NextLevelButtonClicked.png in Resources */,
-				E4E341D318E14E3700A46BDC /* DeadMonkeysButtonClicked.png in Resources */,
+				E48C15E618E3EA52000354A7 /* DeadMonkeysButton@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

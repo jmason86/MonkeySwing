@@ -133,7 +133,7 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     
     // Add score
     SKLabelNode *scoreHudLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkboard SE"];
-    scoreHudLabel.position = CGPointMake(sceneFarLeftSide.x + hudBanana.size.width + 10, sceneFarTopSide.y);
+    scoreHudLabel.position = CGPointMake(sceneFarLeftSide.x + hudBanana.size.width + 20, sceneFarTopSide.y);
     scoreHudLabel.verticalAlignmentMode = SKLabelVerticalAlignmentModeTop;
     scoreHudLabel.zPosition = 120;
     scoreHudLabel.fontColor = [SKColor whiteColor];
@@ -150,9 +150,12 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     
     // If fire got all the way, game over
     if (fractionFireProgress >= 1.0) {
+        // Configure PlayerLevelRunData
+        playerLevelRunData.fireProgression = fractionFireProgress;
+        
         // Show level end view
         CGPoint centerInView = [self convertPointToView:CGPointMake(sceneFarLeftSide.x + sceneWidth/2, 0)];
-        LevelEndView *levelEndView = [[LevelEndView alloc] initWithFrame:CGRectMake(0, 0, 300, 300) forOutcome:@"gameOver" withRunData:playerLevelRunData];
+        LevelEndView *levelEndView = [[LevelEndView alloc] initWithFrame:CGRectMake(0, 0, self.size.width, self.size.height) forOutcome:@"gameOver" withRunData:playerLevelRunData];
         levelEndView.center = centerInView;
         levelEndView.tag = 1;
         [self.view addSubview:levelEndView];
@@ -297,8 +300,8 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     
     // Show level end view
     CGPoint centerInView = [self convertPointToView:CGPointMake(sceneFarLeftSide.x + sceneWidth/2, 0)];
-    LevelEndView *levelEndView = [[LevelEndView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height) forOutcome:@"monkeyFell" withRunData:playerLevelRunData];
-    //LevelEndView *levelEndView = [[LevelEndView alloc] initWithFrame:CGRectMake(0, 0, 300, 300) forOutcome:@"monkeyWon" withRunData:playerLevelRunData]; // Just for debugging purposes
+    LevelEndView *levelEndView = [[LevelEndView alloc] initWithFrame:CGRectMake(0, 0, self.size.width, self.size.height) forOutcome:@"monkeyFell" withRunData:playerLevelRunData];
+    //LevelEndView *levelEndView = [[LevelEndView alloc] initWithFrame:CGRectMake(0, 0, self.size.width, self.size.height) forOutcome:@"monkeyWon" withRunData:playerLevelRunData]; // Just for debugging purposes
     levelEndView.center = centerInView;
     levelEndView.tag = 1;
     [self.view addSubview:levelEndView];
@@ -321,7 +324,7 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     
     // Show level end view
     CGPoint centerInView = [self convertPointToView:CGPointMake(sceneFarLeftSide.x + sceneWidth/2, 0)];
-    LevelEndView *levelEndView = [[LevelEndView alloc] initWithFrame:CGRectMake(0, 0, 300, 300) forOutcome:@"monkeyWon" withRunData:playerLevelRunData];
+    LevelEndView *levelEndView = [[LevelEndView alloc] initWithFrame:CGRectMake(0, 0, self.size.width, self.size.height) forOutcome:@"monkeyWon" withRunData:playerLevelRunData];
     levelEndView.center = centerInView;
     levelEndView.tag = 1;
     [self.view addSubview:levelEndView];

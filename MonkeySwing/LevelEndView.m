@@ -87,8 +87,44 @@
 
 - (void)setupGameOver
 {
-    // TODO: Implement method
+    // Prepare the correct image for the restart button
+    UIImage *gameOverImage;
+    UILabel *gameOverLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.center.x, self.center.y, 400, 40)];
+    if (playerLevelRunData.fireProgression >= 1) {
+        gameOverImage = [UIImage imageNamed:@"GameOverByFireButton"];
+        gameOverLabel.text = @"The fire consumed your bananna!";
+    } else {
+        gameOverImage = [UIImage imageNamed:@"DeadMonkeysButton"];
+        gameOverLabel.text = @"You killed all the monkeys!";
+    }
     
+    // Game over button
+    UIButton *gameOverButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    gameOverButton.frame = CGRectMake(0, 0, gameOverImage.size.width, gameOverImage.size.height);
+    gameOverButton.center = self.center;
+    [gameOverButton setImage:gameOverImage forState:UIControlStateNormal];
+    [gameOverButton setImage:[UIImage imageNamed:@"GameOverByFireButtonClicked"] forState:UIControlStateSelected];
+    [gameOverButton addTarget:self action:@selector(playAgainAction) forControlEvents:UIControlEventTouchUpInside];
+    gameOverButton.opaque = YES;
+    [self addSubview:gameOverButton];
+    
+    // Game over label
+    gameOverLabel.font = [UIFont fontWithName:@"Chalkboard SE" size:26];
+    gameOverLabel.textAlignment = NSTextAlignmentCenter;
+    gameOverLabel.center = CGPointMake(self.center.x, 26);
+    gameOverLabel.textColor = [UIColor whiteColor];
+    [self addSubview:gameOverLabel];
+    
+    // Menu button
+    UIImage *menuImage = [UIImage imageNamed:@"MenuButton"];
+    UIButton *menuButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    menuButton.frame = CGRectMake(0, 0, menuImage.size.width, menuImage.size.height);
+    menuButton.center = CGPointMake(self.bounds.size.width - menuImage.size.width/2 - 10, self.bounds.size.height - menuImage.size.height/2 - 10);
+    [menuButton setImage:menuImage forState:UIControlStateNormal];
+    [menuButton setImage:[UIImage imageNamed:@"MenuButtonClicked"] forState:UIControlStateSelected];
+    [menuButton addTarget:self action:@selector(menuAction) forControlEvents:UIControlEventTouchUpInside];
+    menuButton.opaque = YES;
+    [self addSubview:menuButton];
 }
 
 - (void)setupMonkeyWon

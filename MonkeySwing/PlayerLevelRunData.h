@@ -11,8 +11,9 @@
 @interface PlayerLevelRunData : NSObject
 
 @property (nonatomic) NSInteger totalPoints;
-@property (nonatomic) NSInteger numberOfApples;
-@property (nonatomic) NSInteger totalNumberOfApplesInLevel;
+@property (nonatomic) NSInteger numberOfBonusPointsObtained;
+@property (nonatomic) NSInteger numberOfBonusObjects;
+@property (nonatomic) NSInteger totalAvailableBonusPoints;
 @property (nonatomic) NSInteger numberOfTimesDied;
 @property (nonatomic) NSInteger numberOfRapidRopes;
 @property (nonatomic) NSInteger levelNumber;

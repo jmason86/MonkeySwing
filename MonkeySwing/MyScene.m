@@ -38,6 +38,8 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     NSString *monkeyOnRopeWithName;
     SKNode *myWorld, *allFireNode;
     NSInteger numberOfBonusPointsObtained;
+    NSInteger numberOfBonusObjects;
+    NSInteger totalAvailableBonusPoints;
     
     // HUD parameters
     SKCropNode *hudFireCropNode;
@@ -53,7 +55,7 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
 -(id)initWithSize:(CGSize)size
 {
     if (self = [super initWithSize:size]) {
-        // DELETE: Set level number to 1 always for now
+        // TODO: Change this - Set level number to 1 always for now
         levelNumber = 1;
         
         // Initialize the physics parameters
@@ -318,8 +320,9 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     // Update playerLevelRunData
     playerLevelRunData.levelNumber = levelNumber;
     playerLevelRunData.totalPoints = playerScore;
-    playerLevelRunData.numberOfApples = numberOfBonusPointsObtained;
-    // TODO: Determine how many apples there are total
+    playerLevelRunData.numberOfBonusPointsObtained = numberOfBonusPointsObtained;
+    playerLevelRunData.totalAvailableBonusPoints = totalAvailableBonusPoints;
+    playerLevelRunData.numberOfBonusObjects = numberOfBonusObjects;
     // TODO: Create method for determining number of "rapid ropes"
     
     // Show level end view
@@ -334,15 +337,16 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
 {
     for (SKNode *node in [myWorld children]) {
         // Grab rope nodes
-        if ([node.name rangeOfString:@"fullRope"].location != NSNotFound) {
+        if (monkeyOnRopeWithName && [node.name isEqualToString:monkeyOnRopeWithName]) {
+            
             // Either reset all ropes (monkey died)
             if (resetAllRopes == YES) {
                 for (SKNode *ropeSegmentNode in node.children) {
                     ropeSegmentNode.physicsBody.categoryBitMask = ropeCategory;
                 }
             } else {
+                
                 // Or reset a single rope that the monkey just released once the monkey is past it
-                // TODO: This isn't working very well, fix it
                 SKSpriteNode *monkey = (SKSpriteNode *)[myWorld childNodeWithName:@"monkey"];
                 CGFloat largestRopeXPosition = skyFarLeftSide.x;
                 for (SKNode *ropeSegmentNode in node.children) {
@@ -435,7 +439,11 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
 // Every tree that is taller than the sceneHeight gets a rope
 - (void)addRopesAndBonusesToWorldWithLevelData:(NSArray *)levelData
 {
+    // Initialize parameters
     int ropeNumber = 0;
+    numberOfBonusObjects = 0;
+    totalAvailableBonusPoints = 0;
+    
     for (NSDictionary *objectProperties in levelData) {
         // Handle ropes
         if ([[objectProperties objectForKey:@"objectType"] isEqualToString:@"rope.png"]) {
@@ -469,6 +477,7 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
                 ropeSegment1.physicsBody.usesPreciseCollisionDetection = YES;
                 ropeSegment1.physicsBody.categoryBitMask = ropeCategory;
                 ropeSegment1.physicsBody.contactTestBitMask = monkeyCategory;
+                ropeSegment1.physicsBody.collisionBitMask = 0x0;
                 if (i == 0) {
                     ropeSegment1.physicsBody.dynamic = NO;
                 }
@@ -500,6 +509,7 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
                 ropeSegment2.physicsBody.usesPreciseCollisionDetection = YES;
                 ropeSegment2.physicsBody.categoryBitMask = ropeCategory;
                 ropeSegment2.physicsBody.contactTestBitMask = monkeyCategory;
+                ropeSegment2.physicsBody.collisionBitMask = 0x0;
                 
                 // Add joints between segments
                 SKPhysicsJointPin *jointPin = [SKPhysicsJointPin jointWithBodyA:ropeSegment1.physicsBody bodyB:ropeSegment2.physicsBody anchor:CGPointMake(ropeSegment1.position.x, ropeSegment1.position.y - ropeSegment1.size.height)];
@@ -516,6 +526,7 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
             CGFloat yPosition = skyFarTopSide.y - [[objectProperties objectForKey:@"yCenterPosition"] floatValue];
             NSInteger numberOfPoints = [[objectProperties objectForKey:@"property1"] integerValue];
             
+            // Create and place the apple
             BonusPointsObject *bonusPointSpriteNode = [BonusPointsObject spriteNodeWithImageNamed:@"Apple"];
             bonusPointSpriteNode.position = CGPointMake(xPosition, yPosition);
             bonusPointSpriteNode.zPosition = 103;
@@ -525,6 +536,10 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
             bonusPointSpriteNode.physicsBody.categoryBitMask = bonusObjectCategory;
             bonusPointSpriteNode.physicsBody.contactTestBitMask = monkeyCategory;
             [myWorld addChild:bonusPointSpriteNode];
+            
+            // Update bonus point instance variables
+            numberOfBonusObjects++;
+            totalAvailableBonusPoints += numberOfPoints;
         }
     }
 }
@@ -548,6 +563,7 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     // Collision properties
     monkeySpriteNode.physicsBody.categoryBitMask = monkeyCategory;
     monkeySpriteNode.physicsBody.contactTestBitMask = ropeCategory;
+    monkeySpriteNode.physicsBody.collisionBitMask = 0x0;
     monkeySpriteNode.physicsBody.usesPreciseCollisionDetection = YES;
 }
 

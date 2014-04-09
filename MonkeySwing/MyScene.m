@@ -30,6 +30,7 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     // Times
     NSTimeInterval touchBeganTime;
     NSTimer *fireTimer;
+    double timeOfRopeGrab;
     
     // Touches
     CGPoint touchBeganPoint;
@@ -47,6 +48,7 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     
     // Player progress stats
     PlayerLevelRunData *playerLevelRunData;
+    NSInteger numberofRapidRopes;
 }
 @synthesize physicsParameters, levelNumber;
 
@@ -293,6 +295,9 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     // Pause the progression of fire
     [fireTimer invalidate];
     
+    // Reset rapid ropes count
+    numberofRapidRopes = 0;
+    
     // Get rid of the dead monkey sprite
     [monkeyNode removeFromParent];
     
@@ -323,7 +328,7 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     playerLevelRunData.numberOfBonusPointsObtained = numberOfBonusPointsObtained;
     playerLevelRunData.totalAvailableBonusPoints = totalAvailableBonusPoints;
     playerLevelRunData.numberOfBonusObjects = numberOfBonusObjects;
-    // TODO: Create method for determining number of "rapid ropes"
+    playerLevelRunData.numberofRapidRopes = numberofRapidRopes;
     
     // Show level end view
     CGPoint centerInView = [self convertPointToView:CGPointMake(sceneFarLeftSide.x + sceneWidth/2, 0)];
@@ -443,6 +448,7 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     int ropeNumber = 0;
     numberOfBonusObjects = 0;
     totalAvailableBonusPoints = 0;
+    numberofRapidRopes = 0;
     
     for (NSDictionary *objectProperties in levelData) {
         // Handle ropes
@@ -654,6 +660,12 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
 
 - (void)monkeyReleaseRope
 {
+    // Check if this was a rapid rope
+    double currentTime = CACurrentMediaTime(); // [seconds]
+    if (currentTime - timeOfRopeGrab < 2.0) {
+        numberofRapidRopes++;
+    }
+    
     // Make the rope and monkey contactless to allow monkey to move through
     for (SKNode *node in myWorld.children) {
         if ([node.name isEqualToString:monkeyOnRopeWithName]) {
@@ -714,6 +726,9 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
         
         // Flag the name of the fullRope that the monkey is currently on
         monkeyOnRopeWithName = ropePhysicsBody.node.parent.name;
+        
+        // Start timer for determination of rapid ropes
+        timeOfRopeGrab = CACurrentMediaTime(); // [seconds]
     }
 }
 

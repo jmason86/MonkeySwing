@@ -147,6 +147,13 @@
     playerScoreLabel.textColor = [UIColor whiteColor];
     [self addSubview:playerScoreLabel];
     
+    // Label showing number of rapid ropes
+    UILabel *numberofRapidRopesLabel = [[UILabel alloc] initWithFrame:CGRectMake(playerScoreLabel.center.x, playerScoreLabel.center.y - playerScoreLabel.frame.size.height, 120, 40)];
+    numberofRapidRopesLabel.text = [NSString stringWithFormat:@"%li", (long)playerLevelRunData.numberofRapidRopes];
+    numberofRapidRopesLabel.font = [UIFont fontWithName:@"Chalkboard SE" size:30];
+    numberofRapidRopesLabel.textColor = [UIColor whiteColor];
+    [self addSubview:numberofRapidRopesLabel];
+    
     // TOOD: Label comparing score to Game Center friends (just top friend? just nearest more points friend?)
     NSInteger competitorScore = [self getCompetitorScore];
     if (competitorScore != 0) {

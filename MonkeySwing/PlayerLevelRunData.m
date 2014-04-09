@@ -10,6 +10,6 @@
 
 @implementation PlayerLevelRunData
 
-@synthesize totalPoints, numberOfBonusPointsObtained, numberOfBonusObjects, totalAvailableBonusPoints, numberOfTimesDied, numberOfRapidRopes, levelNumber, fireProgression;
+@synthesize totalPoints, numberOfBonusPointsObtained, numberOfBonusObjects, totalAvailableBonusPoints, numberofRapidRopes, numberOfTimesDied, numberOfRapidRopes, levelNumber, fireProgression;
 
 @end

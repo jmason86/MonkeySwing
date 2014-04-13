@@ -23,7 +23,7 @@
         skView.showsNodeCount = YES;
         
         // Create and configure the scene
-        SKScene *scene = [MyScene sceneWithSize:skView.bounds.size];
+        SKScene *scene = [MyScene sceneWithSize:skView.bounds.size]; // Change this to MainMenuScene when ready
         scene.scaleMode = SKSceneScaleModeAspectFill;
         scene.anchorPoint = CGPointMake(0.5, 0.5);
         

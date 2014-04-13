@@ -66,17 +66,6 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
         // Create world
         [self createNewWorld];
         
-        // Setup physicsWorld
-        self.physicsWorld.gravity = physicsParameters.gravity;
-        self.physicsWorld.contactDelegate = self;
-        
-        // Add HUD
-        [self addHUD];
-        numberOfBonusPointsObtained = 0;
-        
-        // Prepare to collect stats on the players progress
-        playerLevelRunData = [[PlayerLevelRunData alloc] init];
-        
         // Listen to the LevelEndScene
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(receiveLevelEndedUserSelection:)
@@ -113,6 +102,17 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     
     // Add banana goal
     [self addBananaGoalToWorld];
+    
+    // Setup physicsWorld
+    self.physicsWorld.gravity = physicsParameters.gravity;
+    self.physicsWorld.contactDelegate = self;
+    
+    // Add HUD
+    [self addHUD];
+    numberOfBonusPointsObtained = 0;
+    
+    // Prepare to collect stats on the players progress
+    playerLevelRunData = [[PlayerLevelRunData alloc] init];
 }
 
 - (void)addHUD
@@ -136,6 +136,7 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     [self addChild:hudFireCropNode];
     
     // Add score
+    playerScore = 0;
     SKLabelNode *scoreHudLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkboard SE"];
     scoreHudLabel.position = CGPointMake(sceneFarLeftSide.x + hudBanana.size.width + 20, sceneFarTopSide.y);
     scoreHudLabel.verticalAlignmentMode = SKLabelVerticalAlignmentModeTop;
@@ -401,7 +402,6 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     // Establish fire default parameters
     fireEmitterNode.zPosition = 105;
     [fireEmitterNode setParticlePositionRange:CGVectorMake(physicsParameters.fireNodeXSize, 0)];
-    
     fireEmitterNode.position = CGPointMake(sceneFarLeftSide.x, sceneFarBottomSide.y);
     fireEmitterNode.name = @"fire0";
     [allFireNode addChild:fireEmitterNode];
@@ -409,6 +409,7 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     [myWorld addChild:allFireNode];
     
     // Update fire periodically
+    fireTimer = 0; // Destroy timer if just came from a level restart or different level
     fireTimer = [NSTimer scheduledTimerWithTimeInterval:physicsParameters.fireTimerRate target:self selector:@selector(fireUpdate:) userInfo:nil repeats:YES];
 }
 
@@ -582,7 +583,7 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     [myWorld addChild:bananaGoalSpriteNode];
 }
 
-- (void)restartAction
+- (void)respawnAction
 {
     // Remove the level end view
     for (UIView *subview in self.view.subviews) {
@@ -772,7 +773,25 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
 - (void)receiveLevelEndedUserSelection:(NSNotification *)notification
 {
     if ([[notification name] isEqualToString:@"levelEndedUserSelection"]) {
-        [self restartAction];
+        NSString *userSelection = [notification.userInfo objectForKey:@"userSelection"];
+        
+        if ([userSelection isEqualToString:@"respawn"]) {
+            [self respawnAction];
+        }
+        if ([userSelection isEqualToString:@"restartLevel"]) {
+            
+            // Remove the level end view
+            for (UIView *subview in self.view.subviews) {
+                if (subview.tag == 1) {
+                    [subview removeFromSuperview];
+                }
+            }
+            
+            // Remake the level
+            [self removeAllChildren];
+            [self createNewWorld];
+        }
+        
     }
 }
 

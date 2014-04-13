@@ -130,15 +130,38 @@
 - (void)setupMonkeyWon
 {
     // Button for playing the level again
-    UIImage *playAgainImage = [UIImage imageNamed:@"PlayAgain"];
+    UIImage *playAgainImage = [UIImage imageNamed:@"PlayAgainButton"];
     UIButton *playAgainMonkeyButton = [UIButton buttonWithType:UIButtonTypeCustom];
     playAgainMonkeyButton.frame = CGRectMake(0, 0, playAgainImage.size.width, playAgainImage.size.height);
     playAgainMonkeyButton.center = self.center;
     [playAgainMonkeyButton setImage:playAgainImage forState:UIControlStateNormal];
-    [playAgainMonkeyButton setImage:[UIImage imageNamed:@"PlayAgainClicked"] forState:UIControlStateSelected];
+    [playAgainMonkeyButton setImage:[UIImage imageNamed:@"PlayAgainButtonClicked"] forState:UIControlStateSelected];
     [playAgainMonkeyButton addTarget:self action:@selector(playAgainAction) forControlEvents:UIControlEventTouchUpInside];
     playAgainMonkeyButton.opaque = YES;
     [self addSubview:playAgainMonkeyButton];
+    
+    // Button to go to the next level
+    UIImage *nextLevelImage = [UIImage imageNamed:@"NextLevelButton"];
+    UIButton *nextLevelButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    nextLevelButton.frame = CGRectMake(0, 0, nextLevelImage.size.width, nextLevelImage.size.height);
+    nextLevelButton.center = CGPointMake(self.bounds.size.width - nextLevelImage.size.width/2 - 30, self.center.y);
+    [nextLevelButton setImage:nextLevelImage forState:UIControlStateNormal];
+    [nextLevelButton setImage:[UIImage imageNamed:@"PlayAgainClicked"] forState:UIControlStateSelected];
+    [nextLevelButton addTarget:self action:@selector(nextLevelAction) forControlEvents:UIControlEventTouchUpInside];
+    nextLevelButton.opaque = YES;
+    [self addSubview:nextLevelButton];
+    
+    // Menu button
+    UIImage *menuImage = [UIImage imageNamed:@"MenuButton"];
+    UIButton *menuButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    menuButton.frame = CGRectMake(0, 0, menuImage.size.width, menuImage.size.height);
+    menuButton.center = CGPointMake(self.bounds.size.width - menuImage.size.width/2 - 10, self.bounds.size.height - menuImage.size.height/2 - 10);
+    [menuButton setImage:menuImage forState:UIControlStateNormal];
+    [menuButton setImage:[UIImage imageNamed:@"MenuButtonClicked"] forState:UIControlStateSelected];
+    [menuButton addTarget:self action:@selector(menuAction) forControlEvents:UIControlEventTouchUpInside];
+    menuButton.opaque = YES;
+    [self addSubview:menuButton];
+    
     
     // Label showing final score
     UILabel *playerScoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(playAgainMonkeyButton.center.x, playAgainMonkeyButton.center.y - playAgainImage.size.height/2.0 - 40, 120, 40)];
@@ -164,13 +187,6 @@
         competitorScoreLabel.textColor = [UIColor orangeColor];
         [self addSubview:competitorScoreLabel];
     }
-    
-    // TODO: Button for returning to main screen
-    
-    
-    // TODO: Button for going to next level
-    
-    
 }
 
 #pragma mark - User selection actions
@@ -178,7 +194,7 @@
 - (void)respawnAction
 {
     NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
-    [userInfo setObject:@"restartLevel" forKey:@"userSelection"];
+    [userInfo setObject:@"respawn" forKey:@"userSelection"];
     
     NSNotificationCenter* notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter postNotificationName:@"levelEndedUserSelection" object:self userInfo:userInfo];

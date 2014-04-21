@@ -139,7 +139,7 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     
     // Add score
     playerScore = 0;
-    SKLabelNode *scoreHudLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkboard SE"];
+    SKLabelNode *scoreHudLabel = [SKLabelNode labelNodeWithFontNamed:@"Englebert-Regular"];
     scoreHudLabel.position = CGPointMake(sceneFarLeftSide.x + hudBanana.size.width + 20, sceneFarTopSide.y);
     scoreHudLabel.verticalAlignmentMode = SKLabelVerticalAlignmentModeTop;
     scoreHudLabel.zPosition = 120;
@@ -760,7 +760,7 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     
     // Show bonus value
     SKNode *scoreHudLabel = [self childNodeWithName:@"scoreHudLabel"];
-    SKLabelNode *bonusPointsLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkboard SE"];
+    SKLabelNode *bonusPointsLabel = [SKLabelNode labelNodeWithFontNamed:@"Englebert-Regular"];
     bonusPointsLabel.text = [NSString stringWithFormat:@"%@%i", @"+", bonusPointsObject.numberOfPoints];
     bonusPointsLabel.position = CGPointMake(scoreHudLabel.position.x + scoreHudLabel.frame.size.width + 10.0, scoreHudLabel.position.y);
     bonusPointsLabel.verticalAlignmentMode = SKLabelVerticalAlignmentModeTop;

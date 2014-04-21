@@ -63,7 +63,7 @@
     } else {
         numberOfDeadMonkeysLabel.text = [NSString stringWithFormat:@"%@%li%@", @"You've killed ", (long)playerLevelRunData.numberOfTimesDied, @" monkeys"];
     }
-    numberOfDeadMonkeysLabel.font = [UIFont fontWithName:@"Chalkboard SE" size:26];
+    numberOfDeadMonkeysLabel.font = [UIFont fontWithName:@"Englebert-Regular" size:26];
     numberOfDeadMonkeysLabel.textAlignment = NSTextAlignmentCenter;
     numberOfDeadMonkeysLabel.textColor = [UIColor whiteColor];
     [self addSubview:numberOfDeadMonkeysLabel];
@@ -72,7 +72,7 @@
     UILabel *fireProgressionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 120, 200)];
     int fireProgression = roundf(playerLevelRunData.fireProgression * 100.);
     fireProgressionLabel.text = [NSString stringWithFormat:@"%@%i%@", @"Fire is ", fireProgression, @"% of the way to your banana!"];
-    fireProgressionLabel.font = [UIFont fontWithName:@"Chalkboard SE" size:16];
+    fireProgressionLabel.font = [UIFont fontWithName:@"Englebert-Regular" size:16];
     fireProgressionLabel.numberOfLines = 0; // Uses as many as needed
     fireProgressionLabel.textAlignment = NSTextAlignmentLeft;
     fireProgressionLabel.textColor = [UIColor whiteColor];
@@ -109,7 +109,7 @@
     [self addSubview:gameOverButton];
     
     // Game over label
-    gameOverLabel.font = [UIFont fontWithName:@"Chalkboard SE" size:26];
+    gameOverLabel.font = [UIFont fontWithName:@"Englebert-Regular" size:26];
     gameOverLabel.textAlignment = NSTextAlignmentCenter;
     gameOverLabel.center = CGPointMake(self.center.x, 26);
     gameOverLabel.textColor = [UIColor whiteColor];
@@ -165,7 +165,7 @@
     // Label showing final score
     UILabel *playerScoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 50)];
     playerScoreLabel.text = [NSString stringWithFormat:@"%@%li%@", @"You got ", (long)playerLevelRunData.totalPoints, @" points!"];
-    playerScoreLabel.font = [UIFont fontWithName:@"Chalkboard SE" size:36];
+    playerScoreLabel.font = [UIFont fontWithName:@"Englebert-Regular" size:36];
     playerScoreLabel.textAlignment = NSTextAlignmentCenter;
     playerScoreLabel.textColor = [UIColor whiteColor];
     [self addSubview:playerScoreLabel];
@@ -173,7 +173,7 @@
     // Label showing number of apples
     UILabel *numberOfApplesLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, playerScoreLabel.center.y + 10, self.bounds.size.width, 40)];
     numberOfApplesLabel.text = [NSString stringWithFormat:@"%@%li%@%li", @"Apples: ", (long)playerLevelRunData.numberOfBonusObjectsObtained, @"/", (long)playerLevelRunData.numberOfBonusObjectsAvailable];
-    numberOfApplesLabel.font = [UIFont fontWithName:@"Chalkboard SE" size:30];
+    numberOfApplesLabel.font = [UIFont fontWithName:@"Englebert-Regular" size:30];
     numberOfApplesLabel.textAlignment = NSTextAlignmentCenter;
     numberOfApplesLabel.textColor = [UIColor whiteColor];
     [self addSubview:numberOfApplesLabel];
@@ -181,7 +181,7 @@
     // Label showing number of dead monkeys
     UILabel *numberOfDeadMonkeysLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, numberOfApplesLabel.center.y + 5, self.bounds.size.width, 40)];
     numberOfDeadMonkeysLabel.text = [NSString stringWithFormat:@"%@%li", @"Dead monkeys: ", (long)playerLevelRunData.numberOfTimesDied];
-    numberOfDeadMonkeysLabel.font = [UIFont fontWithName:@"Chalkboard SE" size:30];
+    numberOfDeadMonkeysLabel.font = [UIFont fontWithName:@"Englebert-Regular" size:30];
     numberOfDeadMonkeysLabel.textAlignment = NSTextAlignmentCenter;
     numberOfDeadMonkeysLabel.textColor = [UIColor whiteColor];
     [self addSubview:numberOfDeadMonkeysLabel];
@@ -189,7 +189,7 @@
     // Label showing number of rapid ropes
     UILabel *numberOfRapidRopesLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, numberOfDeadMonkeysLabel.center.y + 5, self.bounds.size.width, 40)];
     numberOfRapidRopesLabel.text = [NSString stringWithFormat:@"%@%li", @"Rapid Ropes: ", (long)playerLevelRunData.numberOfRapidRopes];
-    numberOfRapidRopesLabel.font = [UIFont fontWithName:@"Chalkboard SE" size:30];
+    numberOfRapidRopesLabel.font = [UIFont fontWithName:@"Englebert-Regular" size:30];
     numberOfRapidRopesLabel.textAlignment = NSTextAlignmentCenter;
     numberOfRapidRopesLabel.textColor = [UIColor whiteColor];
     [self addSubview:numberOfRapidRopesLabel];
@@ -200,7 +200,7 @@
         UILabel *competitorScoreLabel = [[UILabel alloc] init];
         competitorScoreLabel.text = [NSString stringWithFormat:@"%li", (long)competitorScore];
         competitorScoreLabel.center = CGPointMake(playerScoreLabel.center.x + playerScoreLabel.bounds.size.width + 10, playerScoreLabel.center.y);
-        competitorScoreLabel.font = [UIFont fontWithName:@"Chalkboard SE" size:14];
+        competitorScoreLabel.font = [UIFont fontWithName:@"Englebert-Regular" size:14];
         competitorScoreLabel.textColor = [UIColor orangeColor];
         [self addSubview:competitorScoreLabel];
     }
@@ -210,7 +210,7 @@
     if (playerLevelRunData.totalPoints > previousHighScore) {
         UILabel *newHighScoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.size.width - 120, 0, 180, 40)];
         newHighScoreLabel.text = @"New high score!";
-        newHighScoreLabel.font = [UIFont fontWithName:@"Chalkboard SE" size:16];
+        newHighScoreLabel.font = [UIFont fontWithName:@"Englebert-Regular" size:16];
         newHighScoreLabel.textAlignment = NSTextAlignmentLeft;
         newHighScoreLabel.textColor = [UIColor orangeColor];
         [self addSubview:newHighScoreLabel];

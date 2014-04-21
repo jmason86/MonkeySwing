@@ -144,7 +144,7 @@
     UIImage *nextLevelImage = [UIImage imageNamed:@"NextLevelButton"];
     UIButton *nextLevelButton = [UIButton buttonWithType:UIButtonTypeCustom];
     nextLevelButton.frame = CGRectMake(0, 0, nextLevelImage.size.width, nextLevelImage.size.height);
-    nextLevelButton.center = CGPointMake(self.bounds.size.width - nextLevelImage.size.width/2 - 30, self.center.y);
+    nextLevelButton.center = CGPointMake(self.bounds.size.width - nextLevelImage.size.width/2, self.center.y);
     [nextLevelButton setImage:nextLevelImage forState:UIControlStateNormal];
     [nextLevelButton setImage:[UIImage imageNamed:@"PlayAgainClicked"] forState:UIControlStateSelected];
     [nextLevelButton addTarget:self action:@selector(nextLevelAction) forControlEvents:UIControlEventTouchUpInside];
@@ -162,20 +162,37 @@
     menuButton.opaque = YES;
     [self addSubview:menuButton];
     
-    
     // Label showing final score
-    UILabel *playerScoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(playAgainMonkeyButton.center.x, playAgainMonkeyButton.center.y - playAgainImage.size.height/2.0 - 40, 120, 40)];
-    playerScoreLabel.text = [NSString stringWithFormat:@"%li", (long)playerLevelRunData.totalPoints];
+    UILabel *playerScoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 50)];
+    playerScoreLabel.text = [NSString stringWithFormat:@"%@%li%@", @"You got ", (long)playerLevelRunData.totalPoints, @" points!"];
     playerScoreLabel.font = [UIFont fontWithName:@"Chalkboard SE" size:36];
+    playerScoreLabel.textAlignment = NSTextAlignmentCenter;
     playerScoreLabel.textColor = [UIColor whiteColor];
     [self addSubview:playerScoreLabel];
     
+    // Label showing number of apples
+    UILabel *numberOfApplesLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, playerScoreLabel.center.y + 10, self.bounds.size.width, 40)];
+    numberOfApplesLabel.text = [NSString stringWithFormat:@"%@%li%@%li", @"Apples: ", (long)playerLevelRunData.numberOfBonusObjectsObtained, @"/", (long)playerLevelRunData.numberOfBonusObjectsAvailable];
+    numberOfApplesLabel.font = [UIFont fontWithName:@"Chalkboard SE" size:30];
+    numberOfApplesLabel.textAlignment = NSTextAlignmentCenter;
+    numberOfApplesLabel.textColor = [UIColor whiteColor];
+    [self addSubview:numberOfApplesLabel];
+    
+    // Label showing number of dead monkeys
+    UILabel *numberOfDeadMonkeysLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, numberOfApplesLabel.center.y + 5, self.bounds.size.width, 40)];
+    numberOfDeadMonkeysLabel.text = [NSString stringWithFormat:@"%@%li", @"Dead monkeys: ", (long)playerLevelRunData.numberOfTimesDied];
+    numberOfDeadMonkeysLabel.font = [UIFont fontWithName:@"Chalkboard SE" size:30];
+    numberOfDeadMonkeysLabel.textAlignment = NSTextAlignmentCenter;
+    numberOfDeadMonkeysLabel.textColor = [UIColor whiteColor];
+    [self addSubview:numberOfDeadMonkeysLabel];
+    
     // Label showing number of rapid ropes
-    UILabel *numberofRapidRopesLabel = [[UILabel alloc] initWithFrame:CGRectMake(playerScoreLabel.center.x, playerScoreLabel.center.y - playerScoreLabel.frame.size.height, 120, 40)];
-    numberofRapidRopesLabel.text = [NSString stringWithFormat:@"%li", (long)playerLevelRunData.numberofRapidRopes];
-    numberofRapidRopesLabel.font = [UIFont fontWithName:@"Chalkboard SE" size:30];
-    numberofRapidRopesLabel.textColor = [UIColor whiteColor];
-    [self addSubview:numberofRapidRopesLabel];
+    UILabel *numberOfRapidRopesLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, numberOfDeadMonkeysLabel.center.y + 5, self.bounds.size.width, 40)];
+    numberOfRapidRopesLabel.text = [NSString stringWithFormat:@"%@%li", @"Rapid Ropes: ", (long)playerLevelRunData.numberOfRapidRopes];
+    numberOfRapidRopesLabel.font = [UIFont fontWithName:@"Chalkboard SE" size:30];
+    numberOfRapidRopesLabel.textAlignment = NSTextAlignmentCenter;
+    numberOfRapidRopesLabel.textColor = [UIColor whiteColor];
+    [self addSubview:numberOfRapidRopesLabel];
     
     // TOOD: Label comparing score to Game Center friends (just top friend? just nearest more points friend?)
     NSInteger competitorScore = [self getCompetitorScore];
@@ -186,6 +203,17 @@
         competitorScoreLabel.font = [UIFont fontWithName:@"Chalkboard SE" size:14];
         competitorScoreLabel.textColor = [UIColor orangeColor];
         [self addSubview:competitorScoreLabel];
+    }
+    
+    // TODO: Label indicating new high score
+    NSInteger previousHighScore = 0;
+    if (playerLevelRunData.totalPoints > previousHighScore) {
+        UILabel *newHighScoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.size.width - 120, 0, 180, 40)];
+        newHighScoreLabel.text = @"New high score!";
+        newHighScoreLabel.font = [UIFont fontWithName:@"Chalkboard SE" size:16];
+        newHighScoreLabel.textAlignment = NSTextAlignmentLeft;
+        newHighScoreLabel.textColor = [UIColor orangeColor];
+        [self addSubview:newHighScoreLabel];
     }
 }
 

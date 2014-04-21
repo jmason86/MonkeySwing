@@ -12,9 +12,9 @@
 
 @property (nonatomic) NSInteger totalPoints;
 @property (nonatomic) NSInteger numberOfBonusPointsObtained;
-@property (nonatomic) NSInteger numberOfBonusObjects;
 @property (nonatomic) NSInteger totalAvailableBonusPoints;
-@property (nonatomic) NSInteger numberofRapidRopes; 
+@property (nonatomic) NSInteger numberOfBonusObjectsAvailable;
+@property (nonatomic) NSInteger numberOfBonusObjectsObtained;
 @property (nonatomic) NSInteger numberOfTimesDied;
 @property (nonatomic) NSInteger numberOfRapidRopes;
 @property (nonatomic) NSInteger levelNumber;

@@ -39,8 +39,9 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     NSString *monkeyOnRopeWithName;
     SKNode *myWorld, *allFireNode;
     NSInteger numberOfBonusPointsObtained;
-    NSInteger numberOfBonusObjects;
     NSInteger totalAvailableBonusPoints;
+    NSInteger numberOfBonusObjectsAvailable;
+    NSInteger numberOfBonusObjectsObtained;
     
     // HUD parameters
     SKCropNode *hudFireCropNode;
@@ -48,7 +49,7 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     
     // Player progress stats
     PlayerLevelRunData *playerLevelRunData;
-    NSInteger numberofRapidRopes;
+    NSInteger numberOfRapidRopes;
 }
 @synthesize physicsParameters, levelNumber;
 
@@ -110,6 +111,7 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     // Add HUD
     [self addHUD];
     numberOfBonusPointsObtained = 0;
+    numberOfBonusObjectsObtained = 0;
     
     // Prepare to collect stats on the players progress
     playerLevelRunData = [[PlayerLevelRunData alloc] init];
@@ -297,7 +299,7 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     [fireTimer invalidate];
     
     // Reset rapid ropes count
-    numberofRapidRopes = 0;
+    //numberOfRapidRopes = 0;
     
     // Get rid of the dead monkey sprite
     [monkeyNode removeFromParent];
@@ -306,9 +308,18 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     playerLevelRunData.numberOfTimesDied++;
     playerLevelRunData.fireProgression = physicsParameters.fireNodeXSize / skyWidth * [allFireNode.children count];
     
+    // Update playerLevelRunData
+    playerLevelRunData.levelNumber = levelNumber;
+    playerLevelRunData.totalPoints = playerScore;
+    playerLevelRunData.numberOfBonusPointsObtained = numberOfBonusPointsObtained;
+    playerLevelRunData.totalAvailableBonusPoints = totalAvailableBonusPoints;
+    playerLevelRunData.numberOfBonusObjectsObtained = numberOfBonusObjectsObtained;
+    playerLevelRunData.numberOfBonusObjectsAvailable = numberOfBonusObjectsAvailable;
+    playerLevelRunData.numberOfRapidRopes = numberOfRapidRopes;
+    
     // Show level end view
     CGPoint centerInView = [self convertPointToView:CGPointMake(sceneFarLeftSide.x + sceneWidth/2, 0)];
-    LevelEndView *levelEndView = [[LevelEndView alloc] initWithFrame:CGRectMake(0, 0, self.size.width, self.size.height) forOutcome:@"monkeyFell" withRunData:playerLevelRunData];
+    LevelEndView *levelEndView = [[LevelEndView alloc] initWithFrame:CGRectMake(0, 0, self.size.width, self.size.height) forOutcome:@"monkeyWon" withRunData:playerLevelRunData]; // TODO: change this back to monkeyFell
     //LevelEndView *levelEndView = [[LevelEndView alloc] initWithFrame:CGRectMake(0, 0, self.size.width, self.size.height) forOutcome:@"monkeyWon" withRunData:playerLevelRunData]; // Just for debugging purposes
     levelEndView.center = centerInView;
     levelEndView.tag = 1;
@@ -328,8 +339,9 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     playerLevelRunData.totalPoints = playerScore;
     playerLevelRunData.numberOfBonusPointsObtained = numberOfBonusPointsObtained;
     playerLevelRunData.totalAvailableBonusPoints = totalAvailableBonusPoints;
-    playerLevelRunData.numberOfBonusObjects = numberOfBonusObjects;
-    playerLevelRunData.numberofRapidRopes = numberofRapidRopes;
+    playerLevelRunData.numberOfBonusObjectsObtained = numberOfBonusObjectsObtained;
+    playerLevelRunData.numberOfBonusObjectsAvailable = numberOfBonusObjectsAvailable;
+    playerLevelRunData.numberOfRapidRopes = numberOfRapidRopes;
     
     // Show level end view
     CGPoint centerInView = [self convertPointToView:CGPointMake(sceneFarLeftSide.x + sceneWidth/2, 0)];
@@ -447,9 +459,9 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
 {
     // Initialize parameters
     int ropeNumber = 0;
-    numberOfBonusObjects = 0;
+    numberOfBonusObjectsAvailable = 0;
     totalAvailableBonusPoints = 0;
-    numberofRapidRopes = 0;
+    numberOfRapidRopes = 0;
     
     for (NSDictionary *objectProperties in levelData) {
         // Handle ropes
@@ -545,7 +557,7 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
             [myWorld addChild:bonusPointSpriteNode];
             
             // Update bonus point instance variables
-            numberOfBonusObjects++;
+            numberOfBonusObjectsAvailable++;
             totalAvailableBonusPoints += numberOfPoints;
         }
     }
@@ -664,7 +676,7 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     // Check if this was a rapid rope
     double currentTime = CACurrentMediaTime(); // [seconds]
     if (currentTime - timeOfRopeGrab < 2.0) {
-        numberofRapidRopes++;
+        numberOfRapidRopes++;
     }
     
     // Make the rope and monkey contactless to allow monkey to move through
@@ -709,9 +721,9 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     
     if (contact.bodyA.categoryBitMask == bonusObjectCategory || contact.bodyB.categoryBitMask == bonusObjectCategory) {
         if ([contact.bodyA.node.name isEqualToString:@"monkey"]) {
-            [self bonusObjectwasCollected:contact.bodyB.node];
+            [self bonusObjectWasCollected:contact.bodyB.node];
         } else if ([contact.bodyB.node.name isEqualToString:@"monkey"]) {
-            [self bonusObjectwasCollected:contact.bodyA.node];
+            [self bonusObjectWasCollected:contact.bodyA.node];
         }
     }
 }
@@ -733,13 +745,14 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     }
 }
 
-- (void)bonusObjectwasCollected:(SKNode *)bonusObject
+- (void)bonusObjectWasCollected:(SKNode *)bonusObject
 {
     // Cast to BonusPointsObject and add points to score
     BonusPointsObject *bonusPointsObject = (BonusPointsObject *)bonusObject;
     playerScore = playerScore + bonusPointsObject.numberOfPoints;
     
     numberOfBonusPointsObtained = numberOfBonusPointsObtained + bonusPointsObject.numberOfPoints;
+    numberOfBonusObjectsObtained++;
     [self updateHUD];
     
     // TODO: Create animation for apple disappear

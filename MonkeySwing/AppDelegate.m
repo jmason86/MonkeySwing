@@ -12,7 +12,18 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    // Setup the persistent data structure in NSUserDefaults
+    NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
+    NSArray *defaultScores = [NSArray array];
+    NSArray *levels = [NSArray array];
+    for (int i = 1; i <= 20 ; i++ ) { // To change the number of levels, just change the max value of i
+        defaultScores = [defaultScores arrayByAddingObject:[NSNumber numberWithInt:0]];
+        levels = [levels arrayByAddingObject:[NSString stringWithFormat:@"%@%i", @"Level", i]];
+    }
+    NSDictionary *defaults = [NSDictionary dictionaryWithObjects:defaultScores forKeys:levels];
+    [standardDefaults registerDefaults:defaults];
+    [standardDefaults synchronize];
+    
     return YES;
 }
 							

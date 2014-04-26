@@ -10,6 +10,7 @@
 
 @interface PlayerLevelRunData : NSObject
 
+@property (nonatomic) NSInteger storedHighScore;
 @property (nonatomic) NSInteger totalPoints;
 @property (nonatomic) NSInteger numberOfBonusPointsObtained;
 @property (nonatomic) NSInteger totalAvailableBonusPoints;
@@ -17,7 +18,7 @@
 @property (nonatomic) NSInteger numberOfBonusObjectsObtained;
 @property (nonatomic) NSInteger numberOfTimesDied;
 @property (nonatomic) NSInteger numberOfRapidRopes;
-@property (nonatomic) NSInteger levelNumber;
+@property (nonatomic) int levelNumber;
 @property (nonatomic) CGFloat fireProgression;
 
 @end

@@ -48,6 +48,7 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     int playerScore;
     
     // Player progress stats
+    NSInteger storedHighScore;
     PlayerLevelRunData *playerLevelRunData;
     NSInteger numberOfRapidRopes;
 }
@@ -58,8 +59,12 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
 -(id)initWithSize:(CGSize)size
 {
     if (self = [super initWithSize:size]) {
-        // TODO: Change this - Set level number to 1 always for now
+        // TODO: Delete this - Set level number to 1 always for now. Should instead have levelNumber passed in.
         levelNumber = 1;
+        
+        // Get stored high score
+        NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
+        storedHighScore = [standardDefaults integerForKey:[NSString stringWithFormat:@"%@%i", @"Level", levelNumber]];
         
         // Initialize the physics parameters
         physicsParameters = [[PhysicsParameters alloc] init];
@@ -308,18 +313,9 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     playerLevelRunData.numberOfTimesDied++;
     playerLevelRunData.fireProgression = physicsParameters.fireNodeXSize / skyWidth * [allFireNode.children count];
     
-    // Update playerLevelRunData
-    playerLevelRunData.levelNumber = levelNumber;
-    playerLevelRunData.totalPoints = playerScore;
-    playerLevelRunData.numberOfBonusPointsObtained = numberOfBonusPointsObtained;
-    playerLevelRunData.totalAvailableBonusPoints = totalAvailableBonusPoints;
-    playerLevelRunData.numberOfBonusObjectsObtained = numberOfBonusObjectsObtained;
-    playerLevelRunData.numberOfBonusObjectsAvailable = numberOfBonusObjectsAvailable;
-    playerLevelRunData.numberOfRapidRopes = numberOfRapidRopes;
-    
     // Show level end view
     CGPoint centerInView = [self convertPointToView:CGPointMake(sceneFarLeftSide.x + sceneWidth/2, 0)];
-    LevelEndView *levelEndView = [[LevelEndView alloc] initWithFrame:CGRectMake(0, 0, self.size.width, self.size.height) forOutcome:@"monkeyWon" withRunData:playerLevelRunData]; // TODO: change this back to monkeyFell
+    LevelEndView *levelEndView = [[LevelEndView alloc] initWithFrame:CGRectMake(0, 0, self.size.width, self.size.height) forOutcome:@"monkeyFell" withRunData:playerLevelRunData];
     //LevelEndView *levelEndView = [[LevelEndView alloc] initWithFrame:CGRectMake(0, 0, self.size.width, self.size.height) forOutcome:@"monkeyWon" withRunData:playerLevelRunData]; // Just for debugging purposes
     levelEndView.center = centerInView;
     levelEndView.tag = 1;
@@ -342,6 +338,7 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     playerLevelRunData.numberOfBonusObjectsObtained = numberOfBonusObjectsObtained;
     playerLevelRunData.numberOfBonusObjectsAvailable = numberOfBonusObjectsAvailable;
     playerLevelRunData.numberOfRapidRopes = numberOfRapidRopes;
+    playerLevelRunData.storedHighScore = storedHighScore;
     
     // Show level end view
     CGPoint centerInView = [self convertPointToView:CGPointMake(sceneFarLeftSide.x + sceneWidth/2, 0)];

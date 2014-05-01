@@ -9,8 +9,12 @@
 #import "ViewController.h"
 #import "MyScene.h"
 #import "MainMenuScene.h"
+#import "GameKitHelper.h"
 
 @implementation ViewController
+{
+    SKScene *sceneToPresent;
+}
 
 - (void)viewWillLayoutSubviews
 {
@@ -23,12 +27,16 @@
         skView.showsNodeCount = YES;
         
         // Create and configure the scene
-        SKScene *scene = [MyScene sceneWithSize:skView.bounds.size]; // Change this to MainMenuScene when ready
-        scene.scaleMode = SKSceneScaleModeAspectFill;
-        scene.anchorPoint = CGPointMake(0.5, 0.5);
+        sceneToPresent = [MyScene sceneWithSize:skView.bounds.size]; // Change this to MainMenuScene when ready
+        sceneToPresent.scaleMode = SKSceneScaleModeAspectFill;
+        sceneToPresent.anchorPoint = CGPointMake(0.5, 0.5);
+        
+        // Game Center authentication
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showAuthenticationViewController) name:PresentAuthenticationViewController object:nil];
+        [[GameKitHelper sharedGameKitHelper] authenticateLocalPlayer];
         
         // Present scene
-        [skView presentScene:scene];
+        [skView presentScene:sceneToPresent];
     }
 }
 
@@ -56,5 +64,16 @@
     [super didReceiveMemoryWarning];
     // Release any cached data, images, etc that aren't in use.
 }
+
+#pragma mark - Game Center
+
+- (void)showAuthenticationViewController
+{
+    [sceneToPresent.scene.view setPaused:YES];
+    GameKitHelper *gameKitHelper = [GameKitHelper sharedGameKitHelper];
+    [self presentViewController:gameKitHelper.authenticationViewController animated:YES completion:nil];
+}
+
+// TODO: Method to unpause after authenticationViewController dismissed
 
 @end

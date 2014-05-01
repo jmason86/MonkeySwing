@@ -35,8 +35,10 @@
 		E4271082189F00E800007F33 /* StartGame@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E427107E189F00E800007F33 /* StartGame@2x.png */; };
 		E4271083189F00E800007F33 /* StartGameClicked.png in Resources */ = {isa = PBXBuildFile; fileRef = E427107F189F00E800007F33 /* StartGameClicked.png */; };
 		E4271084189F00E800007F33 /* StartGameClicked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4271080189F00E800007F33 /* StartGameClicked@2x.png */; };
+		E43567C0190CB554002ED25D /* GameKitHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E43567BF190CB554002ED25D /* GameKitHelper.m */; };
 		E458D7D518BDAC1C005D8D03 /* Level1.csv in Resources */ = {isa = PBXBuildFile; fileRef = E458D7D418BDAC1C005D8D03 /* Level1.csv */; };
 		E46317B618A5FEE600E911E6 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E4271007189E230400007F33 /* libz.dylib */; };
+		E4770F4D190F6636005E7200 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4770F4C190F6636005E7200 /* GameKit.framework */; };
 		E4880C4E18B44DF700DBE7B2 /* LevelEndView.m in Sources */ = {isa = PBXBuildFile; fileRef = E4880C4D18B44DF700DBE7B2 /* LevelEndView.m */; };
 		E48C15E318E3EA52000354A7 /* DeadMonkeysButtonClicked.png in Resources */ = {isa = PBXBuildFile; fileRef = E48C15DF18E3EA52000354A7 /* DeadMonkeysButtonClicked.png */; };
 		E48C15E418E3EA52000354A7 /* DeadMonkeysButtonClicked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E48C15E018E3EA52000354A7 /* DeadMonkeysButtonClicked@2x.png */; };
@@ -131,7 +133,10 @@
 		E427107E189F00E800007F33 /* StartGame@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StartGame@2x.png"; sourceTree = "<group>"; };
 		E427107F189F00E800007F33 /* StartGameClicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StartGameClicked.png; sourceTree = "<group>"; };
 		E4271080189F00E800007F33 /* StartGameClicked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StartGameClicked@2x.png"; sourceTree = "<group>"; };
+		E43567BE190CB554002ED25D /* GameKitHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameKitHelper.h; sourceTree = "<group>"; };
+		E43567BF190CB554002ED25D /* GameKitHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameKitHelper.m; sourceTree = "<group>"; };
 		E458D7D418BDAC1C005D8D03 /* Level1.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Level1.csv; sourceTree = "<group>"; };
+		E4770F4C190F6636005E7200 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		E4880C4C18B44DF700DBE7B2 /* LevelEndView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelEndView.h; sourceTree = "<group>"; };
 		E4880C4D18B44DF700DBE7B2 /* LevelEndView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelEndView.m; sourceTree = "<group>"; };
 		E48C15DF18E3EA52000354A7 /* DeadMonkeysButtonClicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DeadMonkeysButtonClicked.png; sourceTree = "<group>"; };
@@ -203,6 +208,7 @@
 				E46317B618A5FEE600E911E6 /* libz.dylib in Frameworks */,
 				E4DCD3751874E6D20040643C /* CoreGraphics.framework in Frameworks */,
 				E4DCD3771874E6D20040643C /* UIKit.framework in Frameworks */,
+				E4770F4D190F6636005E7200 /* GameKit.framework in Frameworks */,
 				E4DCD3791874E6D20040643C /* SpriteKit.framework in Frameworks */,
 				E4DCD3731874E6D20040643C /* Foundation.framework in Frameworks */,
 			);
@@ -296,6 +302,15 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
+		E43567BD190CB521002ED25D /* GameKit */ = {
+			isa = PBXGroup;
+			children = (
+				E43567BE190CB554002ED25D /* GameKitHelper.h */,
+				E43567BF190CB554002ED25D /* GameKitHelper.m */,
+			);
+			name = GameKit;
+			sourceTree = "<group>";
+		};
 		E4A5F8F518ACA646001B28B6 /* Levels */ = {
 			isa = PBXGroup;
 			children = (
@@ -349,6 +364,7 @@
 		E4DCD3711874E6D20040643C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E4770F4C190F6636005E7200 /* GameKit.framework */,
 				E4271007189E230400007F33 /* libz.dylib */,
 				E4DCD3721874E6D20040643C /* Foundation.framework */,
 				E4DCD3741874E6D20040643C /* CoreGraphics.framework */,
@@ -376,6 +392,7 @@
 				E4D6DF6F18931D7100F916D0 /* PhysicsParameters.m */,
 				E423238C18ADA93E00F852A0 /* BonusPointsObject.h */,
 				E423238D18ADA93E00F852A0 /* BonusPointsObject.m */,
+				E43567BD190CB521002ED25D /* GameKit */,
 				E4A5F8F518ACA646001B28B6 /* Levels */,
 				E4DCD37B1874E6D20040643C /* Supporting Files */,
 				E4A7CF9318767527009CD28B /* Standard Apple Stuff */,
@@ -465,6 +482,11 @@
 				TargetAttributes = {
 					E4DCD36E1874E6D20040643C = {
 						DevelopmentTeam = Y3EC579VUK;
+						SystemCapabilities = {
+							com.apple.GameCenter = {
+								enabled = 1;
+							};
+						};
 					};
 					E4DCD3961874E6D20040643C = {
 						TestTargetID = E4DCD36E1874E6D20040643C;
@@ -572,6 +594,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E43567C0190CB554002ED25D /* GameKitHelper.m in Sources */,
 				E49F78AE1883598900BDA47C /* JPMButton.m in Sources */,
 				E423238E18ADA93E00F852A0 /* BonusPointsObject.m in Sources */,
 				E4880C4E18B44DF700DBE7B2 /* LevelEndView.m in Sources */,
@@ -708,10 +731,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MonkeySwing/MonkeySwing-Prefix.pch";
 				INFOPLIST_FILE = "MonkeySwing/MonkeySwing-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -723,10 +748,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MonkeySwing/MonkeySwing-Prefix.pch";
 				INFOPLIST_FILE = "MonkeySwing/MonkeySwing-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				WRAPPER_EXTENSION = app;
 			};

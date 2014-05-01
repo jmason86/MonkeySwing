@@ -7,6 +7,7 @@
 //
 
 #import "LevelEndView.h"
+#import "GameKitHelper.h"
 
 @implementation LevelEndView
 
@@ -205,8 +206,8 @@
         [self addSubview:competitorScoreLabel];
     }
     
-    // TODO: Label indicating new high score
-    if (playerLevelRunData.totalPoints > playerLevelRunData.storedHighScore) {
+    // Label indicating new high score
+    if (playerLevelRunData.totalPoints > 0) {//playerLevelRunData.storedHighScore) {
         UILabel *newHighScoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.size.width - 120, 0, 180, 40)];
         newHighScoreLabel.text = @"New high score!";
         newHighScoreLabel.font = [UIFont fontWithName:@"Englebert-Regular" size:16];
@@ -218,6 +219,10 @@
         NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
         [standardDefaults setObject:[NSNumber numberWithInteger:playerLevelRunData.totalPoints] forKey:[NSString stringWithFormat:@"%@%i", @"Level", playerLevelRunData.levelNumber]];
         [standardDefaults synchronize];
+        
+        // Push new high score to Game Center
+        NSInteger score = playerLevelRunData.totalPoints;
+        [GameKitHelper reportScore:score forIdentifier:[NSString stringWithFormat:@"%@%i", @"Level", playerLevelRunData.levelNumber]];
     }
 }
 

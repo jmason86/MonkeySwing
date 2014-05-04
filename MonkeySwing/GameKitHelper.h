@@ -7,6 +7,7 @@
 //
 
 @import GameKit;
+#import "GameCenterFriendData.h"
 
 extern NSString *const PresentAuthenticationViewController;
 
@@ -14,10 +15,12 @@ extern NSString *const PresentAuthenticationViewController;
 
 @property (nonatomic, readonly) UIViewController *authenticationViewController;
 @property (nonatomic, readonly) NSError *lastError;
+@property (nonatomic, readonly) GameCenterFriendData *gameCenterFriendData;
 
 + (instancetype)sharedGameKitHelper;
 - (void)authenticateLocalPlayer;
 + (void)reportAchievementIdentifier:(NSString *)identifier percentComplete:(float)percent;
 + (void)reportScore:(Float64)score forIdentifier:(NSString *)identifier;
+- (void)getFriendsNextHigherScore:(NSInteger)score forLeaderboardIdentifier:(NSString *)identifier;
 
 @end

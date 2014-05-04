@@ -130,6 +130,9 @@
 
 - (void)setupMonkeyWon
 {
+    // Level name
+    NSString *levelName = [NSString stringWithFormat:@"%@%i", @"Level", playerLevelRunData.levelNumber];
+    
     // Button for playing the level again
     UIImage *playAgainImage = [UIImage imageNamed:@"PlayAgainButton"];
     UIButton *playAgainMonkeyButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -195,16 +198,11 @@
     numberOfRapidRopesLabel.textColor = [UIColor whiteColor];
     [self addSubview:numberOfRapidRopesLabel];
     
-    // TOOD: Label comparing score to Game Center friends (just top friend? just nearest more points friend?)
-    NSInteger competitorScore = [self getCompetitorScore];
-    if (competitorScore != 0) {
-        UILabel *competitorScoreLabel = [[UILabel alloc] init];
-        competitorScoreLabel.text = [NSString stringWithFormat:@"%li", (long)competitorScore];
-        competitorScoreLabel.center = CGPointMake(playerScoreLabel.center.x + playerScoreLabel.bounds.size.width + 10, playerScoreLabel.center.y);
-        competitorScoreLabel.font = [UIFont fontWithName:@"Englebert-Regular" size:14];
-        competitorScoreLabel.textColor = [UIColor orangeColor];
-        [self addSubview:competitorScoreLabel];
-    }
+    // Label and image comparing score to Game Center friend
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(competitorDisplayNameAndScoreReceived) name:@"competitor_display_name_saved" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(competitorPhotoReceived) name:@"competitor_photo_received" object:nil];
+    
+    [[GameKitHelper sharedGameKitHelper] getFriendsNextHigherScore:playerLevelRunData.totalPoints forLeaderboardIdentifier:levelName];
     
     // Label indicating new high score
     if (playerLevelRunData.totalPoints > 0) {//playerLevelRunData.storedHighScore) {
@@ -217,13 +215,44 @@
         
         // Save new high score to disk
         NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
-        [standardDefaults setObject:[NSNumber numberWithInteger:playerLevelRunData.totalPoints] forKey:[NSString stringWithFormat:@"%@%i", @"Level", playerLevelRunData.levelNumber]];
+        [standardDefaults setObject:[NSNumber numberWithInteger:playerLevelRunData.totalPoints] forKey:levelName];
         [standardDefaults synchronize];
         
         // Push new high score to Game Center
         NSInteger score = playerLevelRunData.totalPoints;
-        [GameKitHelper reportScore:score forIdentifier:[NSString stringWithFormat:@"%@%i", @"Level", playerLevelRunData.levelNumber]];
+        [GameKitHelper reportScore:score forIdentifier:levelName];
     }
+}
+
+- (void)competitorDisplayNameAndScoreReceived
+{
+    // Pull the data from the player into this class
+    GameKitHelper *gameKitHelper = [GameKitHelper sharedGameKitHelper];
+    GameCenterFriendData *competitorScoreInfo = gameKitHelper.gameCenterFriendData;
+    
+    // Parse the data
+    NSString *playerName = competitorScoreInfo.playerName;
+    NSString *competitorScore = competitorScoreInfo.score.formattedValue;
+    
+    // Create labels and images with player data
+    if (competitorScore != nil) {
+        UILabel *competitorScoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, -50, self.frame.size.width, self.frame.size.height)];
+        competitorScoreLabel.text = [NSString stringWithFormat:@"%@ beat you with %@!", playerName, competitorScore];
+        competitorScoreLabel.font = [UIFont fontWithName:@"Englebert-Regular" size:14];
+        competitorScoreLabel.textColor = [UIColor orangeColor];
+        [self addSubview:competitorScoreLabel];
+    }
+
+}
+
+- (void)competitorPhotoReceived
+{
+    // Pull the data from the player into this class
+    GameKitHelper *gameKitHelper = [GameKitHelper sharedGameKitHelper];
+    GameCenterFriendData *competitorScoreInfo = gameKitHelper.gameCenterFriendData;
+    
+    UIImage *competitorPhoto = competitorScoreInfo.playerPhoto;
+    [competitorPhoto drawAtPoint:CGPointMake(competitorPhoto.size.width, competitorPhoto.size.height)];
 }
 
 #pragma mark - User selection actions
@@ -262,13 +291,6 @@
     
     NSNotificationCenter* notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter postNotificationName:@"levelEndedUserSelection" object:self userInfo:userInfo];
-}
-
-#pragma mark - Game Center methods
-
-- (NSInteger)getCompetitorScore
-{
-    return 0;
 }
 
 @end

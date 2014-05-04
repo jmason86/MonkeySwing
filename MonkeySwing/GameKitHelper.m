@@ -9,6 +9,10 @@
 #import "GameKitHelper.h"
 
 NSString *const PresentAuthenticationViewController = @"present_authentication_view_controller";
+NSString *const CompetitorScoreReceived = @"competitor_score_received";
+NSString *const CompetitorDisplayNameSaved = @"competitor_display_name_saved";
+NSString *const CompetitorPhotoReceived = @"competitor_photo_received";
+
 
 @implementation GameKitHelper
 {
@@ -31,6 +35,7 @@ NSString *const PresentAuthenticationViewController = @"present_authentication_v
     self = [super init];
     if (self) {
         enableGameCenter = YES;
+        _gameCenterFriendData = [[GameCenterFriendData alloc] init];
     }
     return self;
 }
@@ -121,6 +126,75 @@ NSString *const PresentAuthenticationViewController = @"present_authentication_v
             NSLog(@"Error in reporting scores: %@", error);
         }
     }];
+}
+
+- (void)getFriendsNextHigherScore:(NSInteger)score forLeaderboardIdentifier:(NSString *)identifier
+{
+    GKLeaderboard *leaderboardRequest = [[GKLeaderboard alloc] init];
+    
+    if (leaderboardRequest != nil) {
+        leaderboardRequest.playerScope = GKLeaderboardPlayerScopeFriendsOnly;
+        leaderboardRequest.timeScope = GKLeaderboardTimeScopeAllTime;
+        leaderboardRequest.identifier = identifier;
+        leaderboardRequest.range = NSMakeRange(1, 25); // TODO: This is the highest score, want next best score
+        
+        // Get player score
+        [leaderboardRequest loadScoresWithCompletionHandler:^(NSArray *scores, NSError *error) {
+            if (error != nil) {
+                // Handle error
+            }
+            if (scores != nil) {
+                [self setFriendGKScore:[scores objectAtIndex:0]];
+            }
+        }];
+        
+        // Pass to another method for adding photo once the player score (including playerID) is obtained
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerScoreReceived) name:CompetitorScoreReceived object:nil];
+    }
+}
+
+- (void)setFriendGKScore:(GKScore *)scoreData
+{
+    _gameCenterFriendData.score = scoreData;
+    [[NSNotificationCenter defaultCenter] postNotificationName:CompetitorScoreReceived object:self];
+}
+
+- (void)playerScoreReceived
+{
+    // Get player name
+    if (_gameCenterFriendData.score.playerID != nil) {
+        [GKPlayer loadPlayersForIdentifiers:@[_gameCenterFriendData.score.playerID] withCompletionHandler: ^(NSArray *players, NSError *error) {
+            if (error != nil) {
+                // Handle error
+            }
+            if (players != nil) {
+                [self setFriendDisplayName:[players objectAtIndex:0]];
+            }
+        }];
+    }
+}
+
+- (void)setFriendDisplayName:(GKPlayer *)player
+{
+    _gameCenterFriendData.playerName = player.displayName;
+    [[NSNotificationCenter defaultCenter] postNotificationName:CompetitorDisplayNameSaved object:self];
+    
+    if (player != nil) {
+        [player loadPhotoForSize:GKPhotoSizeSmall withCompletionHandler:^(UIImage *photo, NSError *error) {
+            if (error != nil) {
+                // Handle error
+            }
+            if (photo != nil) {
+                [self setFriendPhoto:(UIImage *)photo];
+            }
+        }];
+    }
+}
+
+- (void)setFriendPhoto:(UIImage *)photo
+{
+    _gameCenterFriendData.playerPhoto = photo;
+    [[NSNotificationCenter defaultCenter] postNotificationName:CompetitorPhotoReceived object:self];
 }
 
 @end

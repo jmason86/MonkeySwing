@@ -185,7 +185,19 @@ NSString *const CompetitorPhotoReceived = @"competitor_photo_received";
                 // Handle error
             }
             if (photo != nil) {
-                [self setFriendPhoto:(UIImage *)photo];
+                CGImageRef photoRef = photo.CGImage;
+                CGRect photoRect = CGRectMake(0, 0, 50, 50);
+                CGContextRef bitmap = CGBitmapContextCreate(NULL, photoRect.size.width, photoRect.size.height, CGImageGetBitsPerComponent(photoRef), 0, CGImageGetColorSpace(photoRef),CGImageGetBitmapInfo(photoRef));
+                CGContextDrawImage(bitmap, photoRect, photoRef);
+                CGImageRef resizedPhotoRef = CGBitmapContextCreateImage(bitmap);
+                UIImage *resizedPhoto = [UIImage imageWithCGImage:resizedPhotoRef];
+                
+                // Clean up
+                CGContextRelease(bitmap);
+                CGImageRelease(resizedPhotoRef);
+                
+                
+                [self setFriendPhoto:(UIImage *)resizedPhoto];
             }
         }];
     }

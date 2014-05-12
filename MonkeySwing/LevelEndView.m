@@ -250,9 +250,12 @@
     // Pull the data from the player into this class
     GameKitHelper *gameKitHelper = [GameKitHelper sharedGameKitHelper];
     GameCenterFriendData *competitorScoreInfo = gameKitHelper.gameCenterFriendData;
-    
-    UIImage *competitorPhoto = competitorScoreInfo.playerPhoto;
-    [competitorPhoto drawAtPoint:CGPointMake(competitorPhoto.size.width, competitorPhoto.size.height)];
+
+    UIImage *competitorPhotoImage = competitorScoreInfo.playerPhoto;
+    [competitorPhotoImage drawInRect:CGRectMake(50, 50, 50, 50)];
+    UIImageView *competitorPhotoImageView = [[UIImageView alloc] initWithImage:competitorPhotoImage];
+    competitorPhotoImageView.center = CGPointMake(50, 50);
+    [self addSubview:competitorPhotoImageView];
 }
 
 #pragma mark - User selection actions

@@ -17,6 +17,7 @@
 static const uint32_t monkeyCategory = 0x1 << 0;
 static const uint32_t ropeCategory = 0x1 << 1;
 static const uint32_t bonusObjectCategory = 0x1 << 2;
+static const uint32_t leafCategory = 0x1 << 3;
 
 @implementation MyScene
 {
@@ -29,7 +30,7 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     
     // Times
     NSTimeInterval touchBeganTime;
-    NSTimer *fireTimer;
+    NSTimer *fireTimer, *leafTimer;
     double timeOfRopeGrab;
     
     // Touches
@@ -60,7 +61,7 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
 {
     if (self = [super initWithSize:size]) {
         // TODO: Delete this - Set level number to 1 always for now. Should instead have levelNumber passed in.
-        levelNumber = 1;
+        levelNumber = 2;
         
         // Get stored high score
         NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
@@ -98,6 +99,9 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     
     // Add fire
     [self addFireToWorld];
+    
+    // Add leaves
+    [self addRandomLeaves];
     
     // Add ropes
     NSArray *levelData = [JPMLevelInterpreter loadLevelFileNumber:levelNumber];
@@ -384,7 +388,7 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
 - (void)addBackgroundToWorld
 {
     // Add sky
-    SKSpriteNode *skyBackground = [SKSpriteNode spriteNodeWithImageNamed:@"FullLevel1"];
+    SKSpriteNode *skyBackground = [SKSpriteNode spriteNodeWithImageNamed:@"FullLevel2"];
     skyBackground.anchorPoint = CGPointMake(0, 0);
     skyBackground.position = CGPointMake(skyBackground.frame.origin.x - sceneWidth/2, skyBackground.frame.origin.y - sceneHeight/2);
     skyBackground.name = @"skyBackground";
@@ -451,7 +455,51 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
     }
 }
 
-// Every tree that is taller than the sceneHeight gets a rope
+- (void)addRandomLeaves
+{
+    // Setup a timer to add leaves
+    leafTimer = [NSTimer scheduledTimerWithTimeInterval:6.0 target:self selector:@selector(leafTimer) userInfo:nil repeats:YES];
+}
+
+- (void)leafTimer
+{
+    // Randomly pick which kind of leaf
+    float randomLeafNumber = arc4random() % 10;
+    NSString *leafNumber = [[NSString alloc] init];
+    if (randomLeafNumber > 5) {
+        leafNumber = @"1";
+    } else {
+        leafNumber = @"2";
+    }
+    
+    // Create and add leaf
+    SKSpriteNode *leafNode = [SKSpriteNode spriteNodeWithImageNamed:[NSString stringWithFormat:@"%@%@", @"Leaf", leafNumber]];
+    leafNode.position = CGPointMake([self childNodeWithName:@"//monkey"].position.x + randomLeafNumber * 3, sceneFarTopSide.y);
+    leafNode.name = @"Leaf";
+    leafNode.zPosition = 111;
+    [myWorld addChild:leafNode];
+    
+    // Create random wind vector
+    float randomWindX = arc4random() % 10;
+    float randomWindXDirection = arc4random() % 10;
+    if (randomWindXDirection > 5) {
+        randomWindX = -randomWindX;
+    }
+    float randomLeafFallImpulse = (arc4random() % 10) + 15;
+    
+    // Give physics properties to leaf
+    leafNode.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:leafNode.size];
+    leafNode.physicsBody.mass = physicsParameters.leafMass;
+    leafNode.physicsBody.restitution = physicsParameters.leafRestitution;
+    leafNode.physicsBody.linearDamping = physicsParameters.leafLinearDamping;
+    leafNode.physicsBody.angularDamping = physicsParameters.leafAngularDamping;
+    leafNode.physicsBody.categoryBitMask = leafCategory;
+    leafNode.physicsBody.contactTestBitMask = leafCategory;
+    leafNode.physicsBody.collisionBitMask = leafCategory;
+    [leafNode.physicsBody applyImpulse:CGVectorMake(randomWindX, -randomLeafFallImpulse)];
+    leafNode.physicsBody.affectedByGravity = NO;
+}
+
 - (void)addRopesAndBonusesToWorldWithLevelData:(NSArray *)levelData
 {
     // Initialize parameters
@@ -801,7 +849,6 @@ static const uint32_t bonusObjectCategory = 0x1 << 2;
             [self removeAllChildren];
             [self createNewWorld];
         }
-        
     }
 }
 

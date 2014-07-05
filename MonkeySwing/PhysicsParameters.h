@@ -28,6 +28,12 @@
 @property (nonatomic) CGVector monkeyInitialVelocity;
 @property (nonatomic) CGVector monkeyJumpImpulse;
 
+// Leaf parameters
+@property (nonatomic) CGFloat leafMass;
+@property (nonatomic) CGFloat leafRestitution;
+@property (nonatomic) CGFloat leafLinearDamping;
+@property (nonatomic) CGFloat leafAngularDamping;
+
 // Fire parameters
 @property (nonatomic) CGFloat fireRiseRate;
 @property (nonatomic) CGFloat fireNodeXSize;

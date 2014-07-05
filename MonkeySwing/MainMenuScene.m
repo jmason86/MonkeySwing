@@ -186,7 +186,7 @@
 {
     SKTransition *reveal = [SKTransition doorwayWithDuration:1.6];
     MyScene *gameplayScene = [[MyScene alloc] initWithSize:self.size];
-    gameplayScene.levelNumber = 1; // TODO: This should really depend on a user selection
+    gameplayScene.levelNumber = 2; // TODO: This should really depend on a user selection
     [self.scene.view presentScene:gameplayScene transition:reveal];
 }
 

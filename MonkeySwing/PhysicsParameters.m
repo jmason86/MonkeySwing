@@ -13,6 +13,7 @@
 @synthesize gravity;
 @synthesize ropeDensity, ropeRestitution, ropeLinearDamping, ropeAngularDamping, ropeRotationLimit;
 @synthesize monkeyDensity, monkeyRestitution, monkeyLinearDamping, monkeyAngularDamping, monkeyInitialVelocity, monkeyJumpImpulse;
+@synthesize leafMass, leafRestitution, leafLinearDamping, leafAngularDamping;
 @synthesize fireRiseRate, fireNodeXSize, fireTimerRate;
 @synthesize swipeToXVelocityConversion, swipeToYVelocityConversion;
 
@@ -35,6 +36,12 @@
     monkeyAngularDamping = 0.1;   // range = 0-1, default = 0.1
     monkeyInitialVelocity = CGVectorMake(120, 0);
     monkeyJumpImpulse = CGVectorMake(200, 80);
+    
+    // Leaf parameters
+    leafMass = 0.3;               // SI, default = 1.0
+    leafRestitution = 0.8;        // range = 0-1, default = 0.2
+    leafLinearDamping = 0.001;    // range = 0-1, default = 0.2
+    leafAngularDamping = 0.01;    // range = 0-1, default = 0.2
     
     // Fire parameters
     fireRiseRate = 1.0;

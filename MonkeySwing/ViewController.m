@@ -28,7 +28,7 @@
     if (!skView.scene) {
         skView.showsFPS = YES;
         skView.showsNodeCount = YES;
-        
+        /*
         // Setup page view controller
         self.pageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
         self.pageController.dataSource = self;
@@ -39,10 +39,10 @@
         [self addChildViewController:self.pageController];
         [[self view] addSubview:[self.pageController view]];
         [self.pageController didMoveToParentViewController:self];
+        */
         
-        /*
         // Create and configure the scene
-        sceneToPresent = [MainMenuScene sceneWithSize:skView.bounds.size]; // TOOD: Change this to MainMenuScene when ready
+        sceneToPresent = [MyScene sceneWithSize:skView.bounds.size]; // TOOD: Change this to MainMenuScene when ready
         sceneToPresent.scaleMode = SKSceneScaleModeAspectFill;
         sceneToPresent.anchorPoint = CGPointMake(0.5, 0.5);
          
@@ -52,7 +52,7 @@
         
         // Present scene
         [skView presentScene:sceneToPresent];
-         */
+        
     }
 }
 
@@ -92,7 +92,7 @@
 
 // TODO: Method to unpause after authenticationViewController dismissed
 
-#pragma mark - Scroll View Methods
+#pragma mark - Scroll View
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
 {
@@ -148,21 +148,18 @@
     switch (index) {
         case 0:
         {
-            NSLog(@"Main menu page 0");
             MainMenuPage0ViewController *mainMenuPage0ViewController = [[MainMenuPage0ViewController alloc] initWithNibName:@"MainMenuPage0ViewController" bundle:nil];
             return mainMenuPage0ViewController;
             break;
         }
         case 1:
         {
-            NSLog(@"Main menu page 1");
             MainMenuPage1ViewController *mainMenuPage1ViewController = [[MainMenuPage1ViewController alloc] initWithNibName:@"MainMenuPage1ViewController" bundle:nil];
             return mainMenuPage1ViewController;
             break;
         }
         case 2:
         {
-            NSLog(@"Main menu page 2");
             MainMenuPage2ViewController *mainMenuPage2ViewController = [[MainMenuPage2ViewController alloc] initWithNibName:@"MainMenuPage2ViewController" bundle:nil];
             return mainMenuPage2ViewController;
             break;

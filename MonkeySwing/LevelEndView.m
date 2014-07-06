@@ -8,6 +8,7 @@
 
 #import "LevelEndView.h"
 #import "GameKitHelper.h"
+#import "JCRBlurView.h"
 
 @implementation LevelEndView
 
@@ -21,6 +22,11 @@
     if (self) {
         playerLevelRunData = playerLevelRunDataInput; // Only have to do this because need to use initWithFrame so can't call a normall setter method first
         
+        // Blur background
+        JCRBlurView *blurView = [JCRBlurView new];
+        [blurView setFrame:self.bounds];
+        [self addSubview:blurView];
+
         // Send to relevant method for outcome
         if ([outcome isEqualToString:@"monkeyFell"]) {
             [self setupMonkeyFell];
@@ -55,7 +61,7 @@
     [menuButton setImage:[UIImage imageNamed:@"MenuButtonClicked"] forState:UIControlStateSelected];
     [menuButton addTarget:self action:@selector(menuAction) forControlEvents:UIControlEventTouchUpInside];
     menuButton.opaque = YES;
-    [self addSubview:menuButton];
+    [self insertSubview:menuButton aboveSubview:respawnMonkeyButton];
     
     // Label showing how many monkeys you've killed
     UILabel *numberOfDeadMonkeysLabel = [[UILabel alloc] initWithFrame:CGRectMake(respawnMonkeyButton.center.x - 200, respawnMonkeyButton.center.y - respawnImage.size.height/2.0 - 40, 400, 40)];
@@ -64,33 +70,37 @@
     } else {
         numberOfDeadMonkeysLabel.text = [NSString stringWithFormat:@"%@%li%@", @"You've killed ", (long)playerLevelRunData.numberOfTimesDied, @" monkeys"];
     }
-    numberOfDeadMonkeysLabel.font = [UIFont fontWithName:@"Englebert-Regular" size:26];
+    numberOfDeadMonkeysLabel.font = [UIFont fontWithName:@"Flux Architect" size:26];
     numberOfDeadMonkeysLabel.textAlignment = NSTextAlignmentCenter;
     numberOfDeadMonkeysLabel.textColor = [UIColor whiteColor];
-    [self addSubview:numberOfDeadMonkeysLabel];
+    numberOfDeadMonkeysLabel.shadowColor = [UIColor blackColor];
+    numberOfDeadMonkeysLabel.shadowOffset = CGSizeMake(-1.0, 0.0);
+    [self insertSubview:numberOfDeadMonkeysLabel aboveSubview:respawnMonkeyButton];
     
     // Label pointing out how much the fire has progressed
     UILabel *fireProgressionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 120, 200)];
     int fireProgression = roundf(playerLevelRunData.fireProgression * 100.);
     fireProgressionLabel.text = [NSString stringWithFormat:@"%@%i%@", @"Fire is ", fireProgression, @"% of the way to your banana!"];
-    fireProgressionLabel.font = [UIFont fontWithName:@"Englebert-Regular" size:16];
+    fireProgressionLabel.font = [UIFont fontWithName:@"Flux Architect" size:16];
     fireProgressionLabel.numberOfLines = 0; // Uses as many as needed
     fireProgressionLabel.textAlignment = NSTextAlignmentLeft;
     fireProgressionLabel.textColor = [UIColor whiteColor];
-    [self addSubview:fireProgressionLabel];
+    fireProgressionLabel.shadowColor = [UIColor blackColor];
+    fireProgressionLabel.shadowOffset = CGSizeMake(-1.0, 0.0);
+    [self insertSubview:fireProgressionLabel aboveSubview:respawnMonkeyButton];
     
     // Add arrow between HUD and fire progression label
     UIImageView *arrowView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Arrow"]];
     UIImage *hudFire = [UIImage imageNamed:@"HudFire"];
     arrowView.center = CGPointMake(hudFire.size.width * playerLevelRunData.fireProgression, hudFire.size.height * 2);
-    [self addSubview:arrowView];
+    [self insertSubview:arrowView aboveSubview:respawnMonkeyButton];
 }
 
 - (void)setupGameOver
 {
     // Prepare the correct image for the restart button
     UIImage *gameOverImage;
-    UILabel *gameOverLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.center.x, self.center.y, 400, 40)];
+    UILabel *gameOverLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.center.x, self.center.y, self.frame.size.width, 40)];
     if (playerLevelRunData.fireProgression >= 1) {
         gameOverImage = [UIImage imageNamed:@"GameOverByFireButton"];
         gameOverLabel.text = @"The fire consumed your bananna!";
@@ -110,11 +120,13 @@
     [self addSubview:gameOverButton];
     
     // Game over label
-    gameOverLabel.font = [UIFont fontWithName:@"Englebert-Regular" size:26];
+    gameOverLabel.font = [UIFont fontWithName:@"Flux Architect" size:23];
     gameOverLabel.textAlignment = NSTextAlignmentCenter;
     gameOverLabel.center = CGPointMake(self.center.x, 26);
     gameOverLabel.textColor = [UIColor whiteColor];
-    [self addSubview:gameOverLabel];
+    gameOverLabel.shadowColor = [UIColor blackColor];
+    gameOverLabel.shadowOffset = CGSizeMake(-1.0, 0.0);
+    [self insertSubview:gameOverButton aboveSubview:gameOverButton];
     
     // Menu button
     UIImage *menuImage = [UIImage imageNamed:@"MenuButton"];
@@ -125,7 +137,7 @@
     [menuButton setImage:[UIImage imageNamed:@"MenuButtonClicked"] forState:UIControlStateSelected];
     [menuButton addTarget:self action:@selector(menuAction) forControlEvents:UIControlEventTouchUpInside];
     menuButton.opaque = YES;
-    [self addSubview:menuButton];
+    [self insertSubview:menuButton aboveSubview:gameOverButton];
 }
 
 - (void)setupMonkeyWon
@@ -153,7 +165,7 @@
     [nextLevelButton setImage:[UIImage imageNamed:@"PlayAgainClicked"] forState:UIControlStateSelected];
     [nextLevelButton addTarget:self action:@selector(nextLevelAction) forControlEvents:UIControlEventTouchUpInside];
     nextLevelButton.opaque = YES;
-    [self addSubview:nextLevelButton];
+    [self insertSubview:nextLevelButton aboveSubview:playAgainMonkeyButton];
     
     // Menu button
     UIImage *menuImage = [UIImage imageNamed:@"MenuButton"];
@@ -164,39 +176,47 @@
     [menuButton setImage:[UIImage imageNamed:@"MenuButtonClicked"] forState:UIControlStateSelected];
     [menuButton addTarget:self action:@selector(menuAction) forControlEvents:UIControlEventTouchUpInside];
     menuButton.opaque = YES;
-    [self addSubview:menuButton];
+    [self insertSubview:menuButton aboveSubview:playAgainMonkeyButton];
     
     // Label showing final score
     UILabel *playerScoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 50)];
     playerScoreLabel.text = [NSString stringWithFormat:@"%@%li%@", @"You got ", (long)playerLevelRunData.totalPoints, @" points!"];
-    playerScoreLabel.font = [UIFont fontWithName:@"Englebert-Regular" size:36];
+    playerScoreLabel.font = [UIFont fontWithName:@"Flux Architect" size:36];
     playerScoreLabel.textAlignment = NSTextAlignmentCenter;
     playerScoreLabel.textColor = [UIColor whiteColor];
-    [self addSubview:playerScoreLabel];
+    playerScoreLabel.shadowColor = [UIColor blackColor];
+    playerScoreLabel.shadowOffset = CGSizeMake(-1.0, 0.0);
+    [self insertSubview:playerScoreLabel aboveSubview:playAgainMonkeyButton];
     
     // Label showing number of apples
     UILabel *numberOfApplesLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, playerScoreLabel.center.y + 10, self.bounds.size.width, 40)];
     numberOfApplesLabel.text = [NSString stringWithFormat:@"%@%li%@%li", @"Apples: ", (long)playerLevelRunData.numberOfBonusObjectsObtained, @"/", (long)playerLevelRunData.numberOfBonusObjectsAvailable];
-    numberOfApplesLabel.font = [UIFont fontWithName:@"Englebert-Regular" size:30];
+    numberOfApplesLabel.font = [UIFont fontWithName:@"Flux Architect" size:30];
     numberOfApplesLabel.textAlignment = NSTextAlignmentCenter;
     numberOfApplesLabel.textColor = [UIColor whiteColor];
-    [self addSubview:numberOfApplesLabel];
+    numberOfApplesLabel.shadowColor = [UIColor blackColor];
+    numberOfApplesLabel.shadowOffset = CGSizeMake(-1.0, 0.0);
+    [self insertSubview:numberOfApplesLabel aboveSubview:playAgainMonkeyButton];
     
     // Label showing number of dead monkeys
     UILabel *numberOfDeadMonkeysLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, numberOfApplesLabel.center.y + 5, self.bounds.size.width, 40)];
     numberOfDeadMonkeysLabel.text = [NSString stringWithFormat:@"%@%li", @"Dead monkeys: ", (long)playerLevelRunData.numberOfTimesDied];
-    numberOfDeadMonkeysLabel.font = [UIFont fontWithName:@"Englebert-Regular" size:30];
+    numberOfDeadMonkeysLabel.font = [UIFont fontWithName:@"Flux Architect" size:30];
     numberOfDeadMonkeysLabel.textAlignment = NSTextAlignmentCenter;
     numberOfDeadMonkeysLabel.textColor = [UIColor whiteColor];
-    [self addSubview:numberOfDeadMonkeysLabel];
+    numberOfDeadMonkeysLabel.shadowColor = [UIColor blackColor];
+    numberOfDeadMonkeysLabel.shadowOffset = CGSizeMake(-1.0, 0.0);
+    [self insertSubview:numberOfDeadMonkeysLabel aboveSubview:playAgainMonkeyButton];
     
     // Label showing number of rapid ropes
     UILabel *numberOfRapidRopesLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, numberOfDeadMonkeysLabel.center.y + 5, self.bounds.size.width, 40)];
     numberOfRapidRopesLabel.text = [NSString stringWithFormat:@"%@%li", @"Rapid Ropes: ", (long)playerLevelRunData.numberOfRapidRopes];
-    numberOfRapidRopesLabel.font = [UIFont fontWithName:@"Englebert-Regular" size:30];
+    numberOfRapidRopesLabel.font = [UIFont fontWithName:@"Flux Architect" size:30];
     numberOfRapidRopesLabel.textAlignment = NSTextAlignmentCenter;
     numberOfRapidRopesLabel.textColor = [UIColor whiteColor];
-    [self addSubview:numberOfRapidRopesLabel];
+    numberOfRapidRopesLabel.shadowColor = [UIColor blackColor];
+    numberOfRapidRopesLabel.shadowOffset = CGSizeMake(-1.0, 0.0);
+    [self insertSubview:numberOfRapidRopesLabel aboveSubview:playAgainMonkeyButton];
     
     // Label and image comparing score to Game Center friend
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(competitorDisplayNameAndScoreReceived) name:@"competitor_display_name_saved" object:nil];
@@ -208,10 +228,12 @@
     if (playerLevelRunData.totalPoints > 0) {//playerLevelRunData.storedHighScore) {
         UILabel *newHighScoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.size.width - 120, 0, 180, 40)];
         newHighScoreLabel.text = @"New high score!";
-        newHighScoreLabel.font = [UIFont fontWithName:@"Englebert-Regular" size:16];
+        newHighScoreLabel.font = [UIFont fontWithName:@"Flux Architect" size:16];
         newHighScoreLabel.textAlignment = NSTextAlignmentLeft;
         newHighScoreLabel.textColor = [UIColor orangeColor];
-        [self addSubview:newHighScoreLabel];
+        newHighScoreLabel.shadowColor = [UIColor blackColor];
+        newHighScoreLabel.shadowOffset = CGSizeMake(-1.0, 0.0);
+        [self insertSubview:newHighScoreLabel aboveSubview:playAgainMonkeyButton];
         
         // Save new high score to disk
         NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
@@ -238,8 +260,10 @@
     if (competitorScore != nil) {
         UILabel *competitorScoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, -50, self.frame.size.width, self.frame.size.height)];
         competitorScoreLabel.text = [NSString stringWithFormat:@"%@ beat you with %@!", playerName, competitorScore];
-        competitorScoreLabel.font = [UIFont fontWithName:@"Englebert-Regular" size:14];
+        competitorScoreLabel.font = [UIFont fontWithName:@"Flux Architect" size:14];
         competitorScoreLabel.textColor = [UIColor orangeColor];
+        competitorScoreLabel.shadowColor = [UIColor blackColor];
+        competitorScoreLabel.shadowOffset = CGSizeMake(-1.0, 0.0);
         [self addSubview:competitorScoreLabel];
     }
 

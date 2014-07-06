@@ -61,7 +61,7 @@ static const uint32_t leafCategory = 0x1 << 3;
 {
     if (self = [super initWithSize:size]) {
         // TODO: Delete this - Set level number to 1 always for now. Should instead have levelNumber passed in.
-        levelNumber = 2;
+        levelNumber = 1;
         
         // Get stored high score
         NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
@@ -148,7 +148,7 @@ static const uint32_t leafCategory = 0x1 << 3;
     
     // Add score
     playerScore = 0;
-    SKLabelNode *scoreHudLabel = [SKLabelNode labelNodeWithFontNamed:@"Englebert-Regular"];
+    SKLabelNode *scoreHudLabel = [SKLabelNode labelNodeWithFontNamed:@"Flux Architect"];
     scoreHudLabel.position = CGPointMake(sceneFarLeftSide.x + hudBanana.size.width + 20, sceneFarTopSide.y);
     scoreHudLabel.verticalAlignmentMode = SKLabelVerticalAlignmentModeTop;
     scoreHudLabel.zPosition = 120;
@@ -388,7 +388,7 @@ static const uint32_t leafCategory = 0x1 << 3;
 - (void)addBackgroundToWorld
 {
     // Add sky
-    SKSpriteNode *skyBackground = [SKSpriteNode spriteNodeWithImageNamed:@"FullLevel2"];
+    SKSpriteNode *skyBackground = [SKSpriteNode spriteNodeWithImageNamed:@"FullLevel1"];
     skyBackground.anchorPoint = CGPointMake(0, 0);
     skyBackground.position = CGPointMake(skyBackground.frame.origin.x - sceneWidth/2, skyBackground.frame.origin.y - sceneHeight/2);
     skyBackground.name = @"skyBackground";
@@ -805,7 +805,7 @@ static const uint32_t leafCategory = 0x1 << 3;
     
     // Show bonus value
     SKNode *scoreHudLabel = [self childNodeWithName:@"scoreHudLabel"];
-    SKLabelNode *bonusPointsLabel = [SKLabelNode labelNodeWithFontNamed:@"Englebert-Regular"];
+    SKLabelNode *bonusPointsLabel = [SKLabelNode labelNodeWithFontNamed:@"Flux Architect"];
     bonusPointsLabel.text = [NSString stringWithFormat:@"%@%i", @"+", bonusPointsObject.numberOfPoints];
     bonusPointsLabel.position = CGPointMake(scoreHudLabel.position.x + scoreHudLabel.frame.size.width + 10.0, scoreHudLabel.position.y);
     bonusPointsLabel.verticalAlignmentMode = SKLabelVerticalAlignmentModeTop;

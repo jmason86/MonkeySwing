@@ -15,8 +15,6 @@
 		E46317B618A5FEE600E911E6 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E4271007189E230400007F33 /* libz.dylib */; };
 		E46F69E91964FD3D0001E462 /* MainMenuPage1ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E46F69E71964FD3D0001E462 /* MainMenuPage1ViewController.m */; };
 		E46F69EA1964FD3D0001E462 /* MainMenuPage1ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E46F69E81964FD3D0001E462 /* MainMenuPage1ViewController.xib */; };
-		E46F69EE196505B10001E462 /* MainMenuPage2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E46F69EC196505B10001E462 /* MainMenuPage2ViewController.m */; };
-		E46F69EF196505B10001E462 /* MainMenuPage2ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E46F69ED196505B10001E462 /* MainMenuPage2ViewController.xib */; };
 		E46F69F3196506020001E462 /* MainMenuPage0ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E46F69F1196506020001E462 /* MainMenuPage0ViewController.m */; };
 		E46F69F4196506020001E462 /* MainMenuPage0ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E46F69F2196506020001E462 /* MainMenuPage0ViewController.xib */; };
 		E4770F4D190F6636005E7200 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4770F4C190F6636005E7200 /* GameKit.framework */; };
@@ -78,8 +76,6 @@
 		E4D34A941969AF05000E7210 /* RespawnButtonClicked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4D34A5A1969AF05000E7210 /* RespawnButtonClicked@2x.png */; };
 		E4D34A951969AF05000E7210 /* Rope Segment.png in Resources */ = {isa = PBXBuildFile; fileRef = E4D34A5B1969AF05000E7210 /* Rope Segment.png */; };
 		E4D34A961969AF05000E7210 /* Rope Segment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4D34A5C1969AF05000E7210 /* Rope Segment@2x.png */; };
-		E4D34A971969AF05000E7210 /* StartGame.png in Resources */ = {isa = PBXBuildFile; fileRef = E4D34A5D1969AF05000E7210 /* StartGame.png */; };
-		E4D34A981969AF05000E7210 /* StartGame@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4D34A5E1969AF05000E7210 /* StartGame@2x.png */; };
 		E4D34A991969AF05000E7210 /* StartGameClicked.png in Resources */ = {isa = PBXBuildFile; fileRef = E4D34A5F1969AF05000E7210 /* StartGameClicked.png */; };
 		E4D34A9A1969AF05000E7210 /* StartGameClicked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4D34A601969AF05000E7210 /* StartGameClicked@2x.png */; };
 		E4D34A9D1969AF94000E7210 /* Flux_Architect_Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4D34A9B1969AF94000E7210 /* Flux_Architect_Bold.ttf */; };
@@ -91,6 +87,12 @@
 		E4D34ADC1969C7CB000E7210 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4D34ADB1969C7CB000E7210 /* CoreImage.framework */; };
 		E4D34ADD1969C7D2000E7210 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4D34AC31969C005000E7210 /* QuartzCore.framework */; };
 		E4D34AE01969D6B0000E7210 /* JCRBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D34ADF1969D6B0000E7210 /* JCRBlurView.m */; };
+		E4D34AE51969DDD8000E7210 /* Rope.png in Resources */ = {isa = PBXBuildFile; fileRef = E4D34AE11969DDD8000E7210 /* Rope.png */; };
+		E4D34AE61969DDD8000E7210 /* Rope@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4D34AE21969DDD8000E7210 /* Rope@2x.png */; };
+		E4D34AE71969DDD8000E7210 /* Sky.png in Resources */ = {isa = PBXBuildFile; fileRef = E4D34AE31969DDD8000E7210 /* Sky.png */; };
+		E4D34AE81969DDD8000E7210 /* Sky@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4D34AE41969DDD8000E7210 /* Sky@2x.png */; };
+		E4D34AEB1969DEB4000E7210 /* StartGame.png in Resources */ = {isa = PBXBuildFile; fileRef = E4D34AE91969DEB4000E7210 /* StartGame.png */; };
+		E4D34AEC1969DEB4000E7210 /* StartGame@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4D34AEA1969DEB4000E7210 /* StartGame@2x.png */; };
 		E4D6DF7018931D7100F916D0 /* PhysicsParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D6DF6F18931D7100F916D0 /* PhysicsParameters.m */; };
 		E4DCD3731874E6D20040643C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4DCD3721874E6D20040643C /* Foundation.framework */; };
 		E4DCD3751874E6D20040643C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4DCD3741874E6D20040643C /* CoreGraphics.framework */; };
@@ -137,9 +139,6 @@
 		E46F69E61964FD3D0001E462 /* MainMenuPage1ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuPage1ViewController.h; sourceTree = "<group>"; };
 		E46F69E71964FD3D0001E462 /* MainMenuPage1ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuPage1ViewController.m; sourceTree = "<group>"; };
 		E46F69E81964FD3D0001E462 /* MainMenuPage1ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenuPage1ViewController.xib; sourceTree = "<group>"; };
-		E46F69EB196505B10001E462 /* MainMenuPage2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuPage2ViewController.h; sourceTree = "<group>"; };
-		E46F69EC196505B10001E462 /* MainMenuPage2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuPage2ViewController.m; sourceTree = "<group>"; };
-		E46F69ED196505B10001E462 /* MainMenuPage2ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenuPage2ViewController.xib; sourceTree = "<group>"; };
 		E46F69F0196506020001E462 /* MainMenuPage0ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuPage0ViewController.h; sourceTree = "<group>"; };
 		E46F69F1196506020001E462 /* MainMenuPage0ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuPage0ViewController.m; sourceTree = "<group>"; };
 		E46F69F2196506020001E462 /* MainMenuPage0ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenuPage0ViewController.xib; sourceTree = "<group>"; };
@@ -206,8 +205,6 @@
 		E4D34A5A1969AF05000E7210 /* RespawnButtonClicked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RespawnButtonClicked@2x.png"; sourceTree = "<group>"; };
 		E4D34A5B1969AF05000E7210 /* Rope Segment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Rope Segment.png"; sourceTree = "<group>"; };
 		E4D34A5C1969AF05000E7210 /* Rope Segment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Rope Segment@2x.png"; sourceTree = "<group>"; };
-		E4D34A5D1969AF05000E7210 /* StartGame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StartGame.png; sourceTree = "<group>"; };
-		E4D34A5E1969AF05000E7210 /* StartGame@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StartGame@2x.png"; sourceTree = "<group>"; };
 		E4D34A5F1969AF05000E7210 /* StartGameClicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StartGameClicked.png; sourceTree = "<group>"; };
 		E4D34A601969AF05000E7210 /* StartGameClicked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StartGameClicked@2x.png"; sourceTree = "<group>"; };
 		E4D34A9B1969AF94000E7210 /* Flux_Architect_Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Flux_Architect_Bold.ttf; sourceTree = "<group>"; };
@@ -223,6 +220,12 @@
 		E4D34ADB1969C7CB000E7210 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		E4D34ADE1969D6B0000E7210 /* JCRBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRBlurView.h; sourceTree = "<group>"; };
 		E4D34ADF1969D6B0000E7210 /* JCRBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRBlurView.m; sourceTree = "<group>"; };
+		E4D34AE11969DDD8000E7210 /* Rope.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Rope.png; sourceTree = "<group>"; };
+		E4D34AE21969DDD8000E7210 /* Rope@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Rope@2x.png"; sourceTree = "<group>"; };
+		E4D34AE31969DDD8000E7210 /* Sky.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sky.png; sourceTree = "<group>"; };
+		E4D34AE41969DDD8000E7210 /* Sky@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Sky@2x.png"; sourceTree = "<group>"; };
+		E4D34AE91969DEB4000E7210 /* StartGame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StartGame.png; sourceTree = "<group>"; };
+		E4D34AEA1969DEB4000E7210 /* StartGame@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StartGame@2x.png"; sourceTree = "<group>"; };
 		E4D6DF6E18931D7100F916D0 /* PhysicsParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysicsParameters.h; sourceTree = "<group>"; };
 		E4D6DF6F18931D7100F916D0 /* PhysicsParameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhysicsParameters.m; sourceTree = "<group>"; };
 		E4DCD36F1874E6D20040643C /* MonkeySwing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MonkeySwing.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -338,6 +341,10 @@
 				E4D34A2C1969AF05000E7210 /* Banana@2x.png */,
 				E4D34AA31969B877000E7210 /* Dark filter.png */,
 				E4D34AA41969B877000E7210 /* Dark filter@2x.png */,
+				E4D34AE11969DDD8000E7210 /* Rope.png */,
+				E4D34AE21969DDD8000E7210 /* Rope@2x.png */,
+				E4D34AE31969DDD8000E7210 /* Sky.png */,
+				E4D34AE41969DDD8000E7210 /* Sky@2x.png */,
 				E4D34A2D1969AF05000E7210 /* DeadMonkeysButton.png */,
 				E4D34A2E1969AF05000E7210 /* DeadMonkeysButton@2x.png */,
 				E4D34A2F1969AF05000E7210 /* DeadMonkeysButtonClicked.png */,
@@ -386,8 +393,8 @@
 				E4D34A5A1969AF05000E7210 /* RespawnButtonClicked@2x.png */,
 				E4D34A5B1969AF05000E7210 /* Rope Segment.png */,
 				E4D34A5C1969AF05000E7210 /* Rope Segment@2x.png */,
-				E4D34A5D1969AF05000E7210 /* StartGame.png */,
-				E4D34A5E1969AF05000E7210 /* StartGame@2x.png */,
+				E4D34AE91969DEB4000E7210 /* StartGame.png */,
+				E4D34AEA1969DEB4000E7210 /* StartGame@2x.png */,
 				E4D34A5F1969AF05000E7210 /* StartGameClicked.png */,
 				E4D34A601969AF05000E7210 /* StartGameClicked@2x.png */,
 			);
@@ -454,9 +461,6 @@
 				E46F69E61964FD3D0001E462 /* MainMenuPage1ViewController.h */,
 				E46F69E71964FD3D0001E462 /* MainMenuPage1ViewController.m */,
 				E46F69E81964FD3D0001E462 /* MainMenuPage1ViewController.xib */,
-				E46F69EB196505B10001E462 /* MainMenuPage2ViewController.h */,
-				E46F69EC196505B10001E462 /* MainMenuPage2ViewController.m */,
-				E46F69ED196505B10001E462 /* MainMenuPage2ViewController.xib */,
 				E4DCD38C1874E6D20040643C /* MyScene.h */,
 				E4DCD38D1874E6D20040643C /* MyScene.m */,
 				E4880C4C18B44DF700DBE7B2 /* LevelEndView.h */,
@@ -600,11 +604,13 @@
 				E4D34A991969AF05000E7210 /* StartGameClicked.png in Resources */,
 				E4D34A631969AF05000E7210 /* Arrow.png in Resources */,
 				E4D34A7E1969AF05000E7210 /* MenuButton@2x.png in Resources */,
+				E4D34AEC1969DEB4000E7210 /* StartGame@2x.png in Resources */,
+				E4D34AE71969DDD8000E7210 /* Sky.png in Resources */,
 				E4D34A891969AF05000E7210 /* NextLevelButtonClicked@2x.png in Resources */,
 				E4DCD37F1874E6D20040643C /* InfoPlist.strings in Resources */,
 				E4DCD3921874E6D20040643C /* Images.xcassets in Resources */,
-				E46F69EF196505B10001E462 /* MainMenuPage2ViewController.xib in Resources */,
 				E4D34AA51969B877000E7210 /* Dark filter.png in Resources */,
+				E4D34AE51969DDD8000E7210 /* Rope.png in Resources */,
 				E4D34A751969AF05000E7210 /* HudFire.png in Resources */,
 				E4D34A841969AF05000E7210 /* MonkeyAngry@2x.png in Resources */,
 				E4D34A661969AF05000E7210 /* Banana@2x.png in Resources */,
@@ -636,16 +642,16 @@
 				E4D34A811969AF05000E7210 /* Monkey.png in Resources */,
 				E4D34A9A1969AF05000E7210 /* StartGameClicked@2x.png in Resources */,
 				E4D34A861969AF05000E7210 /* MonkeyGearTail@2x.png in Resources */,
-				E4D34A981969AF05000E7210 /* StartGame@2x.png in Resources */,
+				E4D34AE81969DDD8000E7210 /* Sky@2x.png in Resources */,
 				E46F69F4196506020001E462 /* MainMenuPage0ViewController.xib in Resources */,
 				E4F23707193BA6C400850B61 /* Level2.csv in Resources */,
 				E4D34A701969AF05000E7210 /* GameOverByFireButton@2x.png in Resources */,
+				E4D34AEB1969DEB4000E7210 /* StartGame.png in Resources */,
 				E4D34A8B1969AF05000E7210 /* PlayAgainButton.png in Resources */,
 				E4D34A641969AF05000E7210 /* Arrow@2x.png in Resources */,
 				E46F69EA1964FD3D0001E462 /* MainMenuPage1ViewController.xib in Resources */,
 				E4D34A7D1969AF05000E7210 /* MenuButton.png in Resources */,
 				E4D34A921969AF05000E7210 /* RespawnButton@2x.png in Resources */,
-				E4D34A971969AF05000E7210 /* StartGame.png in Resources */,
 				E4D34A851969AF05000E7210 /* MonkeyGearTail.png in Resources */,
 				E4DCD3EE1874FD120040643C /* spark.png in Resources */,
 				E4D34A961969AF05000E7210 /* Rope Segment@2x.png in Resources */,
@@ -667,6 +673,7 @@
 				E4D34A8D1969AF05000E7210 /* PlayAgainButtonClicked.png in Resources */,
 				E4D34A6E1969AF05000E7210 /* FullLevel2@2x.png in Resources */,
 				E4D34AA61969B877000E7210 /* Dark filter@2x.png in Resources */,
+				E4D34AE61969DDD8000E7210 /* Rope@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -685,7 +692,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E46F69EE196505B10001E462 /* MainMenuPage2ViewController.m in Sources */,
 				E43567C0190CB554002ED25D /* GameKitHelper.m in Sources */,
 				E45C90961913442B00956737 /* GameCenterFriendData.m in Sources */,
 				E49F78AE1883598900BDA47C /* JPMButton.m in Sources */,

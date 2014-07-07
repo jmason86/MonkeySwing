@@ -12,7 +12,6 @@
 #import "GameKitHelper.h"
 #import "MainMenuPage0ViewController.h"
 #import "MainMenuPage1ViewController.h"
-#import "MainMenuPage2ViewController.h"
 
 @implementation ViewController
 {
@@ -28,19 +27,20 @@
     if (!skView.scene) {
         skView.showsFPS = YES;
         skView.showsNodeCount = YES;
-        /*
+        
         // Setup page view controller
         self.pageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
         self.pageController.dataSource = self;
-        [[self.pageController view] setFrame:[[self view] bounds]];
+        [[self.pageController view] setFrame:CGRectMake(0, 0, [[self view] bounds].size.width, [[self view] bounds].size.height + 37)];
+        //[[self.pageController view] setFrame:[[self view] bounds]];
         MainMenuPage0ViewController *mainMenuPage0ViewController = (MainMenuPage0ViewController *)[self viewControllerAtIndex:0];
         NSArray *viewControllers = [NSArray arrayWithObject:mainMenuPage0ViewController];
         [self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
         [self addChildViewController:self.pageController];
         [[self view] addSubview:[self.pageController view]];
         [self.pageController didMoveToParentViewController:self];
-        */
         
+        /*
         // Create and configure the scene
         sceneToPresent = [MyScene sceneWithSize:skView.bounds.size]; // TOOD: Change this to MainMenuScene when ready
         sceneToPresent.scaleMode = SKSceneScaleModeAspectFill;
@@ -52,7 +52,7 @@
         
         // Present scene
         [skView presentScene:sceneToPresent];
-        
+        */
     }
 }
 
@@ -105,10 +105,6 @@
         MainMenuPage1ViewController *mainMenuPage1ViewController = (MainMenuPage1ViewController *)viewController;
         pageIndex = mainMenuPage1ViewController.index;
         pageIndex--;
-    } else if ([viewController isKindOfClass:[MainMenuPage2ViewController class]]) {
-        MainMenuPage2ViewController *mainMenuPage2ViewController = (MainMenuPage2ViewController *)viewController;
-        pageIndex = mainMenuPage2ViewController.index;
-        pageIndex--;
     }
     
     if (pageIndex < 0) {
@@ -128,10 +124,6 @@
     } else if ([viewController isKindOfClass:[MainMenuPage1ViewController class]]) {
         MainMenuPage1ViewController *mainMenuPage1ViewController = (MainMenuPage1ViewController *)viewController;
         pageIndex = mainMenuPage1ViewController.index;
-        pageIndex++;
-    } else if ([viewController isKindOfClass:[MainMenuPage2ViewController class]]) {
-        MainMenuPage2ViewController *mainMenuPage2ViewController = (MainMenuPage2ViewController *)viewController;
-        pageIndex = mainMenuPage2ViewController.index;
         pageIndex++;
     }
     
@@ -158,12 +150,6 @@
             return mainMenuPage1ViewController;
             break;
         }
-        case 2:
-        {
-            MainMenuPage2ViewController *mainMenuPage2ViewController = [[MainMenuPage2ViewController alloc] initWithNibName:@"MainMenuPage2ViewController" bundle:nil];
-            return mainMenuPage2ViewController;
-            break;
-        }
         default:
         {
             NSLog(@"Switch statement out of range");
@@ -174,8 +160,8 @@
 }
 
 - (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController
-{
-    return 3;
+{
+    return 2;
 }
 
 - (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController

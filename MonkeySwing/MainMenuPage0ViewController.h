@@ -7,8 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <SpriteKit/SpriteKit.h>
 
 @interface MainMenuPage0ViewController : UIViewController
 
 @property (readonly, nonatomic) NSInteger index;
+
+- (IBAction)startGameTapped:(UIButton *)sender;
+
 @end

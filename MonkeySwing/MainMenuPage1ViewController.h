@@ -12,4 +12,8 @@
 
 @property (readonly, nonatomic) NSInteger index;
 
+- (IBAction)musicSwitchChanged:(UISwitch *)sender;
+- (IBAction)soundSwitchChanged:(UISwitch *)sender;
+- (IBAction)resetButtonTapped:(UIButton *)sender;
+
 @end

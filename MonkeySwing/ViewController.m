@@ -27,12 +27,12 @@
     if (!skView.scene) {
         skView.showsFPS = YES;
         skView.showsNodeCount = YES;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startGameTappedNotification) name:@"startGameTapped" object:nil];
         
         // Setup page view controller
         self.pageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
         self.pageController.dataSource = self;
         [[self.pageController view] setFrame:CGRectMake(0, 0, [[self view] bounds].size.width, [[self view] bounds].size.height + 37)];
-        //[[self.pageController view] setFrame:[[self view] bounds]];
         MainMenuPage0ViewController *mainMenuPage0ViewController = (MainMenuPage0ViewController *)[self viewControllerAtIndex:0];
         NSArray *viewControllers = [NSArray arrayWithObject:mainMenuPage0ViewController];
         [self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
@@ -79,6 +79,23 @@
 {
     [super didReceiveMemoryWarning];
     // Release any cached data, images, etc that aren't in use.
+}
+
+- (void)startGameTappedNotification
+{
+    [self.pageController.view removeFromSuperview];
+    SKView *skView = (SKView *)self.view;
+    // Create and configure the scene
+    sceneToPresent = [MyScene sceneWithSize:skView.bounds.size]; // TOOD: Change this to MainMenuScene when ready
+    sceneToPresent.scaleMode = SKSceneScaleModeAspectFill;
+    sceneToPresent.anchorPoint = CGPointMake(0.5, 0.5);
+    
+    // Game Center authentication
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showAuthenticationViewController) name:PresentAuthenticationViewController object:nil];
+    [[GameKitHelper sharedGameKitHelper] authenticateLocalPlayer];
+    
+    // Present scene
+    [skView presentScene:sceneToPresent];
 }
 
 #pragma mark - Game Center
@@ -152,7 +169,6 @@
         }
         default:
         {
-            NSLog(@"Switch statement out of range");
             break;
         }
     }
@@ -160,7 +176,7 @@
 }
 
 - (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController
-{
+{
     return 2;
 }
 

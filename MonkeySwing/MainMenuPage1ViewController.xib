@@ -21,23 +21,35 @@
                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ts3-gN-Cwl">
                     <rect key="frame" x="499" y="93" width="51" height="31"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <connections>
+                        <action selector="musicSwitchChanged:" destination="-1" eventType="valueChanged" id="Zss-c6-4GS"/>
+                    </connections>
                 </switch>
                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zTU-1U-zak">
                     <rect key="frame" x="499" y="154" width="51" height="31"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <connections>
+                        <action selector="soundSwitchChanged:" destination="-1" eventType="valueChanged" id="i1p-W7-5fi"/>
+                    </connections>
                 </switch>
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="MonkeyGearTail.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ove-mX-rBn">
                     <rect key="frame" x="73" y="-1" width="122" height="103"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                </imageView>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="ResetButton.png" translatesAutoresizingMaskIntoConstraints="NO" id="VUO-qo-Sif">
-                    <rect key="frame" x="495" y="206" width="75" height="57"/>
                     <autoresizingMask key="autoresizingMask"/>
                 </imageView>
                 <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="2" currentPage="1" translatesAutoresizingMaskIntoConstraints="NO" id="YyZ-3G-BGY">
                     <rect key="frame" x="265" y="283" width="39" height="37"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </pageControl>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IOe-JO-PTC">
+                    <rect key="frame" x="467" y="214" width="130" height="57"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" image="ResetButton.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="resetButtonTapped:" destination="-1" eventType="touchUpInside" id="opT-i6-eE5"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstAttribute="centerY" secondItem="b00-RS-cID" secondAttribute="centerY" id="7Pj-8A-nil"/>

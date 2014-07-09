@@ -35,4 +35,12 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)musicSwitchChanged:(UISwitch *)sender {
+}
+
+- (IBAction)soundSwitchChanged:(UISwitch *)sender {
+}
+
+- (IBAction)resetButtonTapped:(UIButton *)sender {
+}
 @end

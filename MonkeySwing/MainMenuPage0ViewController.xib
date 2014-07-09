@@ -10,12 +10,12 @@
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT" customClass="SKView">
             <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="Sky.png" translatesAutoresizingMaskIntoConstraints="NO" id="x6m-F3-7eJ">
-                    <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="MainMenuBackground.png" translatesAutoresizingMaskIntoConstraints="NO" id="v0n-p6-58i">
+                    <rect key="frame" x="0.0" y="0.0" width="569" height="321"/>
                     <autoresizingMask key="autoresizingMask"/>
                 </imageView>
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="Banana.png" translatesAutoresizingMaskIntoConstraints="NO" id="F3g-sh-Vkd">
@@ -36,25 +36,24 @@
                     <state key="normal" image="StartGame.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="startGameTapped:" destination="-1" eventType="touchUpInside" id="0LS-Tc-eg9"/>
+                    </connections>
                 </button>
                 <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="2" translatesAutoresizingMaskIntoConstraints="NO" id="22D-Jq-JQK">
                     <rect key="frame" x="270" y="283" width="39" height="37"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </pageControl>
             </subviews>
-            <constraints>
-                <constraint firstAttribute="centerX" secondItem="x6m-F3-7eJ" secondAttribute="centerX" id="I6B-QG-HbO"/>
-                <constraint firstAttribute="centerY" secondItem="x6m-F3-7eJ" secondAttribute="centerY" id="d66-7F-2Eq"/>
-            </constraints>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
     </objects>
     <resources>
         <image name="Banana.png" width="48" height="85"/>
+        <image name="MainMenuBackground.png" width="569" height="321"/>
         <image name="MonkeyAngry.png" width="143" height="172"/>
         <image name="Rope.png" width="36" height="232"/>
-        <image name="Sky.png" width="568" height="320"/>
-        <image name="StartGame.png" width="239" height="39"/>
+        <image name="StartGame.png" width="234" height="33"/>
     </resources>
 </document>

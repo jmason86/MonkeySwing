@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainMenuPage0ViewController">
             <connections>
+                <outlet property="continueButton" destination="Fpc-rc-hop" id="CYg-kq-6bY"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -18,10 +19,6 @@
                     <rect key="frame" x="0.0" y="0.0" width="569" height="321"/>
                     <autoresizingMask key="autoresizingMask"/>
                 </imageView>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="Banana.png" translatesAutoresizingMaskIntoConstraints="NO" id="F3g-sh-Vkd">
-                    <rect key="frame" x="438" y="70" width="48" height="85"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                </imageView>
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="Rope.png" translatesAutoresizingMaskIntoConstraints="NO" id="RK2-5t-LHe">
                     <rect key="frame" x="261" y="-4" width="36" height="232"/>
                     <autoresizingMask key="autoresizingMask"/>
@@ -30,30 +27,40 @@
                     <rect key="frame" x="166" y="40" width="143" height="172"/>
                     <autoresizingMask key="autoresizingMask"/>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Ww-2x-z2S">
-                    <rect key="frame" x="118" y="246" width="332" height="39"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" image="StartGame.png">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="startGameTapped:" destination="-1" eventType="touchUpInside" id="0LS-Tc-eg9"/>
-                    </connections>
-                </button>
                 <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="2" translatesAutoresizingMaskIntoConstraints="NO" id="22D-Jq-JQK">
                     <rect key="frame" x="270" y="283" width="39" height="37"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </pageControl>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ADh-XP-7hl">
+                    <rect key="frame" x="0.0" y="283" width="134" height="33"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" image="LevelButton.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="levelsButtonTapped:" destination="-1" eventType="touchUpInside" id="7yG-JU-3uP"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fpc-rc-hop">
+                    <rect key="frame" x="395" y="283" width="168" height="33"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" image="ContinueButton.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="continueButtonTapped:" destination="-1" eventType="touchUpInside" id="Rm9-mH-YuM"/>
+                    </connections>
+                </button>
             </subviews>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
     </objects>
     <resources>
-        <image name="Banana.png" width="48" height="85"/>
+        <image name="ContinueButton.png" width="168" height="33"/>
+        <image name="LevelButton.png" width="134" height="33"/>
         <image name="MainMenuBackground.png" width="569" height="321"/>
         <image name="MonkeyAngry.png" width="143" height="172"/>
         <image name="Rope.png" width="36" height="232"/>
-        <image name="StartGame.png" width="234" height="33"/>
     </resources>
 </document>

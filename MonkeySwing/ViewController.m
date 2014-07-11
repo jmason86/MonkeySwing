@@ -27,7 +27,8 @@
     if (!skView.scene) {
         skView.showsFPS = YES;
         skView.showsNodeCount = YES;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startGameTappedNotification) name:@"startGameTapped" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(levelsButtonTappedNotification) name:@"levelsButtonTapped" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(continueButtonTappedNotification) name:@"continueButtonTapped" object:nil];
         
         // Setup page view controller
         self.pageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
@@ -39,20 +40,6 @@
         [self addChildViewController:self.pageController];
         [[self view] addSubview:[self.pageController view]];
         [self.pageController didMoveToParentViewController:self];
-        
-        /*
-        // Create and configure the scene
-        sceneToPresent = [MyScene sceneWithSize:skView.bounds.size]; // TOOD: Change this to MainMenuScene when ready
-        sceneToPresent.scaleMode = SKSceneScaleModeAspectFill;
-        sceneToPresent.anchorPoint = CGPointMake(0.5, 0.5);
-         
-        // Game Center authentication
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showAuthenticationViewController) name:PresentAuthenticationViewController object:nil];
-        [[GameKitHelper sharedGameKitHelper] authenticateLocalPlayer];
-        
-        // Present scene
-        [skView presentScene:sceneToPresent];
-        */
     }
 }
 
@@ -81,12 +68,17 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
-- (void)startGameTappedNotification
+- (void)levelsButtonTappedNotification
+{
+    // TODO: New view controller with xib for level selection
+}
+
+- (void)continueButtonTappedNotification
 {
     [self.pageController.view removeFromSuperview];
     SKView *skView = (SKView *)self.view;
     // Create and configure the scene
-    sceneToPresent = [MyScene sceneWithSize:skView.bounds.size]; // TOOD: Change this to MainMenuScene when ready
+    sceneToPresent = [MyScene sceneWithSize:skView.bounds.size]; // TODO: Change this to a Level Selection screen and button tap + a "continue" button and loading of MyScene
     sceneToPresent.scaleMode = SKSceneScaleModeAspectFill;
     sceneToPresent.anchorPoint = CGPointMake(0.5, 0.5);
     

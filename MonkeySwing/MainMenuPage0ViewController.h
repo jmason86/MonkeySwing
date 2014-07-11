@@ -12,7 +12,9 @@
 @interface MainMenuPage0ViewController : UIViewController
 
 @property (readonly, nonatomic) NSInteger index;
+@property (strong, nonatomic) IBOutlet UIButton *continueButton;
 
-- (IBAction)startGameTapped:(UIButton *)sender;
+- (IBAction)levelsButtonTapped:(UIButton *)sender;
+- (IBAction)continueButtonTapped:(UIButton *)sender;
 
 @end

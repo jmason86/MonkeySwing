@@ -29,7 +29,7 @@
         
         // TODO: Don't show continue button if player hasn't beaten any levels
         if (1 > 2) {
-            continueButton.hidden = YES;
+            continueButton.hidden = YES;
         }
     }
     return self;

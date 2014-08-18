@@ -9,7 +9,7 @@
 #import <SpriteKit/SpriteKit.h>
 #import "PhysicsParameters.h"
 
-@interface MyScene : SKScene <SKPhysicsContactDelegate>
+@interface GamePlayScene : SKScene <SKPhysicsContactDelegate>
 
 @property (nonatomic, strong) PhysicsParameters *physicsParameters;
 @property (nonatomic) int levelNumber;

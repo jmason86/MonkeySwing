@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 James Paul Mason. All rights reserved.
 //
 
-#import "MyScene.h"
+#import "GamePlayScene.h"
 #import "JPMButton.h"
 #import "JPMLevelInterpreter.h"
 #import "BonusPointsObject.h"
@@ -19,7 +19,7 @@ static const uint32_t ropeCategory = 0x1 << 1;
 static const uint32_t bonusObjectCategory = 0x1 << 2;
 static const uint32_t leafCategory = 0x1 << 3;
 
-@implementation MyScene
+@implementation GamePlayScene
 {
     // Locations
     CGPoint sceneFarLeftSide, sceneFarRightSide, sceneFarTopSide, sceneFarBottomSide, skyFarLeftSide, skyFarRightSide, skyFarTopSide, skyFarBottomSide;

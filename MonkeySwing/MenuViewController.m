@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 James Paul Mason. All rights reserved.
 //
 
-#import "ViewController.h"
-#import "MyScene.h"
+#import "MenuViewController.h"
+#import "GamePlayScene.h"
 #import "GameKitHelper.h"
-#import "LevelSelectionViewController.h"
-#import "PageContentViewController.h"
+#import "LevelSelectionContentViewController.h"
+#import "MainMenuContentViewController.h"
 
-@implementation ViewController
+@implementation MenuViewController
 {
     SKView *skViewToPresent;
     SKScene *sceneToPresent;
@@ -51,7 +51,7 @@
     if ([mainMenuOrLevelSelection isEqualToString:@"mainMenu"]) {
         isLevelScreen = NO;
         _pageImages = @[@"MainMenuBackground.png", @"MainMenuSettingsBackground.png"];
-        PageContentViewController *startingViewController = (PageContentViewController *)[self viewControllerAtIndex:0];
+        MainMenuContentViewController *startingViewController = (MainMenuContentViewController *)[self viewControllerAtIndex:0];
         viewControllers = @[startingViewController];
     } else if ([mainMenuOrLevelSelection isEqualToString:@"levelSelection"]) {
         // Clear away all the stuff from the main menu view
@@ -61,8 +61,8 @@
         
         // Make the stuff for the level selection view
         isLevelScreen = YES;
-        _pageImages = @[@"Level1SelectionScreen.png", @"Level2SelectionScreen.png"];
-        LevelSelectionViewController *startingViewController = (LevelSelectionViewController *)[self viewControllerAtIndex:0];
+        _pageImages = @[@"Level1SelectionScreen.png", @"Level2SelectionScreen.png", @"Level3SelectionScreen.png"];
+        LevelSelectionContentViewController *startingViewController = (LevelSelectionContentViewController *)[self viewControllerAtIndex:0];
         viewControllers = nil;
         viewControllers = @[startingViewController];
     }
@@ -135,7 +135,7 @@
     skViewToPresent = (SKView *)self.view;
     
     // Create and configure the scene
-    sceneToPresent = [MyScene sceneWithSize:skViewToPresent.bounds.size];
+    sceneToPresent = [GamePlayScene sceneWithSize:skViewToPresent.bounds.size];
     sceneToPresent.scaleMode = SKSceneScaleModeAspectFill;
     sceneToPresent.anchorPoint = CGPointMake(0.5, 0.5);
     
@@ -174,7 +174,7 @@
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
 {
-    NSUInteger index = ((PageContentViewController *) viewController).pageIndex;
+    NSUInteger index = ((MainMenuContentViewController *) viewController).pageIndex;
     
     if (self.pageControl.currentPage != 0) {
         self.pageControl.currentPage = 0;
@@ -193,7 +193,7 @@
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
 {
-    NSUInteger index = ((PageContentViewController*) viewController).pageIndex;
+    NSUInteger index = ((MainMenuContentViewController*) viewController).pageIndex;
     
     if (self.pageControl.currentPage != 1) {
         self.pageControl.currentPage = 1;
@@ -219,12 +219,12 @@
     
     // Create a new view controller and pass suitable data.
     if (!isLevelScreen) {
-        PageContentViewController *pageContentViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PageContentViewController"];
+        MainMenuContentViewController *pageContentViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PageContentViewController"];
         pageContentViewController.backgroundImage = self.pageImages[index];
         pageContentViewController.pageIndex = index;
         return pageContentViewController;
     } else {
-        LevelSelectionViewController *levelSelectionViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LevelSelectionViewController"];
+        LevelSelectionContentViewController *levelSelectionViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LevelSelectionViewController"];
         levelSelectionViewController.backgroundImage = self.pageImages[index];
         levelSelectionViewController.pageIndex = index;
         return levelSelectionViewController;

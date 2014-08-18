@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 James Paul Mason. All rights reserved.
 //
 
-#import "LevelSelectionViewController.h"
+#import "LevelSelectionContentViewController.h"
 
-@interface LevelSelectionViewController ()
+@interface LevelSelectionContentViewController ()
 
 @end
 
-@implementation LevelSelectionViewController
+@implementation LevelSelectionContentViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,8 +33,13 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)menuButtonTapped:(UIButton *)sender {
+- (IBAction)menuButtonTapped:(UIButton *)sender
+{
+    NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
+    [userInfo setObject:@"goToMainMenu" forKey:@"userSelection"];
     
+    NSNotificationCenter* notificationCenter = [NSNotificationCenter defaultCenter];
+    [notificationCenter postNotificationName:@"levelEndedUserSelection" object:self userInfo:userInfo];
 }
 
 @end

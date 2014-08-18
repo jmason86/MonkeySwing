@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LevelSelectionViewController : UIViewController
+@interface LevelSelectionContentViewController : UIViewController
 
 @property NSUInteger pageIndex;
 @property NSString *backgroundImage;

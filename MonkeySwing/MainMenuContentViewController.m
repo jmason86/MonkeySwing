@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 James Paul Mason. All rights reserved.
 //
 
-#import "PageContentViewController.h"
+#import "MainMenuContentViewController.h"
 
-@interface PageContentViewController ()
+@interface MainMenuContentViewController ()
 
 @end
 
-@implementation PageContentViewController
+@implementation MainMenuContentViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

@@ -41,7 +41,7 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MonkeySwing/MyScene.m"
+            filePath = "MonkeySwing/GamePlayScene.m"
             timestampString = "429239144.137926"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"

@@ -53,6 +53,9 @@
         _pageImages = @[@"MainMenuBackground.png", @"MainMenuSettingsBackground.png"];
         MainMenuContentViewController *startingViewController = (MainMenuContentViewController *)[self viewControllerAtIndex:0];
         viewControllers = @[startingViewController];
+        
+        // Extend the view controller to the bottom of the screen
+        self.pageViewController.view.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height + 40);
     } else if ([mainMenuOrLevelSelection isEqualToString:@"levelSelection"]) {
         // Clear away all the stuff from the main menu view
         self.pageViewController = nil;
@@ -65,11 +68,14 @@
         LevelSelectionContentViewController *startingViewController = (LevelSelectionContentViewController *)[self viewControllerAtIndex:0];
         viewControllers = nil;
         viewControllers = @[startingViewController];
+        
+        // Extend the view controller to the bottom of the screen
+        self.pageViewController.view.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height + 40);
     }
     [self.pageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
     
     // Change the size of page view controller
-    self.pageViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 30);
+    //self.pageViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 30); // TODO: Don't think this is useful for anything
     
     // Add view controller and views
     [self addChildViewController:_pageViewController];
@@ -85,8 +91,7 @@
         }
     }
     
-    // Extend the view controller to the bottom of the screen
-    self.pageViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height + 40);
+
     
     // Tell page indicator how many pages there are
     self.pageControl.numberOfPages = self.pageImages.count;

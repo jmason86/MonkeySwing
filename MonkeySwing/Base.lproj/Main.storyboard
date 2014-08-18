@@ -38,12 +38,12 @@
         <!--Page View Controller-->
         <scene sceneID="hdd-oU-B7S">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eU5-la-YpL" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <pageViewController storyboardIdentifier="PageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Ae7-uY-2sE" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="7bT-dm-fEq"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </pageViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="eU5-la-YpL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="264" y="779"/>
         </scene>
@@ -77,7 +77,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="022-JI-IRC">
-                                <rect key="frame" x="42" y="14" width="138" height="68"/>
+                                <rect key="frame" x="410" y="232" width="138" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="MenuButton.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>

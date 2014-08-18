@@ -8,15 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LevelSelectionViewController : UIViewController <UIPageViewControllerDataSource>
+@interface LevelSelectionViewController : UIViewController
 
-@property (readonly, nonatomic) NSInteger index;
-@property (strong, nonatomic) IBOutlet UIView *backgroundView;
+@property NSUInteger pageIndex;
+@property NSString *backgroundImage;
+@property (strong, nonatomic) IBOutlet UIImageView *backgroundImageView;
 @property (strong, nonatomic) IBOutlet UILabel *bestTimeLabel;
 @property (strong, nonatomic) IBOutlet UILabel *highScoreLabel;
-@property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
-@property (strong, nonatomic) UIPageViewController *pageController;
-@property (nonatomic) NSInteger numberOfLevels;
 
 - (IBAction)menuButtonTapped:(UIButton *)sender;
+
 @end

@@ -9,18 +9,14 @@
 /* Begin PBXBuildFile section */
 		E41BEA531976073300EA7801 /* PageContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E41BEA521976073300EA7801 /* PageContentViewController.m */; };
 		E423238E18ADA93E00F852A0 /* BonusPointsObject.m in Sources */ = {isa = PBXBuildFile; fileRef = E423238D18ADA93E00F852A0 /* BonusPointsObject.m */; };
-		E4271017189ED60800007F33 /* MainMenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = E4271016189ED60800007F33 /* MainMenuScene.m */; };
 		E43567C0190CB554002ED25D /* GameKitHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E43567BF190CB554002ED25D /* GameKitHelper.m */; };
 		E458D7D518BDAC1C005D8D03 /* Level1.csv in Resources */ = {isa = PBXBuildFile; fileRef = E458D7D418BDAC1C005D8D03 /* Level1.csv */; };
 		E45C90961913442B00956737 /* GameCenterFriendData.m in Sources */ = {isa = PBXBuildFile; fileRef = E45C90951913442B00956737 /* GameCenterFriendData.m */; };
 		E46317B618A5FEE600E911E6 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E4271007189E230400007F33 /* libz.dylib */; };
-		E46F69E91964FD3D0001E462 /* MainMenuPage1ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E46F69E71964FD3D0001E462 /* MainMenuPage1ViewController.m */; };
-		E46F69EA1964FD3D0001E462 /* MainMenuPage1ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E46F69E81964FD3D0001E462 /* MainMenuPage1ViewController.xib */; };
-		E46F69F3196506020001E462 /* MainMenuPage0ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E46F69F1196506020001E462 /* MainMenuPage0ViewController.m */; };
-		E46F69F4196506020001E462 /* MainMenuPage0ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E46F69F2196506020001E462 /* MainMenuPage0ViewController.xib */; };
+		E468A283198B3831005D890F /* Level3SelectionScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = E468A281198B3831005D890F /* Level3SelectionScreen.png */; };
+		E468A284198B3831005D890F /* Level3SelectionScreen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E468A282198B3831005D890F /* Level3SelectionScreen@2x.png */; };
 		E4770F4D190F6636005E7200 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4770F4C190F6636005E7200 /* GameKit.framework */; };
 		E4794A1E19733C1C00CE739B /* LevelSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4794A1C19733C1C00CE739B /* LevelSelectionViewController.m */; };
-		E4794A1F19733C1C00CE739B /* LevelSelectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4794A1D19733C1C00CE739B /* LevelSelectionViewController.xib */; };
 		E4794A5719733CAD00CE739B /* Apple.png in Resources */ = {isa = PBXBuildFile; fileRef = E4794A2119733CAD00CE739B /* Apple.png */; };
 		E4794A5819733CAD00CE739B /* Apple@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4794A2219733CAD00CE739B /* Apple@2x.png */; };
 		E4794A5919733CAD00CE739B /* Arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = E4794A2319733CAD00CE739B /* Arrow.png */; };
@@ -124,23 +120,16 @@
 		E423238C18ADA93E00F852A0 /* BonusPointsObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BonusPointsObject.h; sourceTree = "<group>"; };
 		E423238D18ADA93E00F852A0 /* BonusPointsObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BonusPointsObject.m; sourceTree = "<group>"; };
 		E4271007189E230400007F33 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		E4271015189ED60800007F33 /* MainMenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuScene.h; sourceTree = "<group>"; };
-		E4271016189ED60800007F33 /* MainMenuScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuScene.m; sourceTree = "<group>"; };
 		E43567BE190CB554002ED25D /* GameKitHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameKitHelper.h; sourceTree = "<group>"; };
 		E43567BF190CB554002ED25D /* GameKitHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameKitHelper.m; sourceTree = "<group>"; };
 		E458D7D418BDAC1C005D8D03 /* Level1.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Level1.csv; sourceTree = "<group>"; };
 		E45C90941913442B00956737 /* GameCenterFriendData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCenterFriendData.h; sourceTree = "<group>"; };
 		E45C90951913442B00956737 /* GameCenterFriendData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCenterFriendData.m; sourceTree = "<group>"; };
-		E46F69E61964FD3D0001E462 /* MainMenuPage1ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuPage1ViewController.h; sourceTree = "<group>"; };
-		E46F69E71964FD3D0001E462 /* MainMenuPage1ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuPage1ViewController.m; sourceTree = "<group>"; };
-		E46F69E81964FD3D0001E462 /* MainMenuPage1ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenuPage1ViewController.xib; sourceTree = "<group>"; };
-		E46F69F0196506020001E462 /* MainMenuPage0ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuPage0ViewController.h; sourceTree = "<group>"; };
-		E46F69F1196506020001E462 /* MainMenuPage0ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuPage0ViewController.m; sourceTree = "<group>"; };
-		E46F69F2196506020001E462 /* MainMenuPage0ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenuPage0ViewController.xib; sourceTree = "<group>"; };
+		E468A281198B3831005D890F /* Level3SelectionScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Level3SelectionScreen.png; sourceTree = "<group>"; };
+		E468A282198B3831005D890F /* Level3SelectionScreen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Level3SelectionScreen@2x.png"; sourceTree = "<group>"; };
 		E4770F4C190F6636005E7200 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		E4794A1B19733C1C00CE739B /* LevelSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelSelectionViewController.h; sourceTree = "<group>"; };
 		E4794A1C19733C1C00CE739B /* LevelSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelSelectionViewController.m; sourceTree = "<group>"; };
-		E4794A1D19733C1C00CE739B /* LevelSelectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LevelSelectionViewController.xib; sourceTree = "<group>"; };
 		E4794A2119733CAD00CE739B /* Apple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Apple.png; sourceTree = "<group>"; };
 		E4794A2219733CAD00CE739B /* Apple@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Apple@2x.png"; sourceTree = "<group>"; };
 		E4794A2319733CAD00CE739B /* Arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Arrow.png; sourceTree = "<group>"; };
@@ -316,6 +305,8 @@
 				E4794A3A19733CAD00CE739B /* Level1SelectionScreen@2x.png */,
 				E4794A3B19733CAD00CE739B /* Level2SelectionScreen.png */,
 				E4794A3C19733CAD00CE739B /* Level2SelectionScreen@2x.png */,
+				E468A281198B3831005D890F /* Level3SelectionScreen.png */,
+				E468A282198B3831005D890F /* Level3SelectionScreen@2x.png */,
 				E4794A3D19733CAD00CE739B /* LevelButton.png */,
 				E4794A3E19733CAD00CE739B /* LevelButton@2x.png */,
 				E4794A3F19733CAD00CE739B /* MainMenuBackground.png */,
@@ -363,9 +354,6 @@
 				E4DCD3911874E6D20040643C /* Images.xcassets */,
 				E4DCD3831874E6D20040643C /* AppDelegate.h */,
 				E4DCD3841874E6D20040643C /* AppDelegate.m */,
-				E4DCD3861874E6D20040643C /* Main.storyboard */,
-				E4DCD3891874E6D20040643C /* ViewController.h */,
-				E4DCD38A1874E6D20040643C /* ViewController.m */,
 			);
 			name = "Standard Apple Stuff";
 			sourceTree = "<group>";
@@ -431,17 +419,13 @@
 		E4DCD37A1874E6D20040643C /* MonkeySwing */ = {
 			isa = PBXGroup;
 			children = (
-				E4271015189ED60800007F33 /* MainMenuScene.h */,
-				E4271016189ED60800007F33 /* MainMenuScene.m */,
-				E46F69F0196506020001E462 /* MainMenuPage0ViewController.h */,
-				E46F69F1196506020001E462 /* MainMenuPage0ViewController.m */,
-				E46F69F2196506020001E462 /* MainMenuPage0ViewController.xib */,
-				E46F69E61964FD3D0001E462 /* MainMenuPage1ViewController.h */,
-				E46F69E71964FD3D0001E462 /* MainMenuPage1ViewController.m */,
-				E46F69E81964FD3D0001E462 /* MainMenuPage1ViewController.xib */,
+				E4DCD3861874E6D20040643C /* Main.storyboard */,
+				E4DCD3891874E6D20040643C /* ViewController.h */,
+				E4DCD38A1874E6D20040643C /* ViewController.m */,
+				E41BEA511976073300EA7801 /* PageContentViewController.h */,
+				E41BEA521976073300EA7801 /* PageContentViewController.m */,
 				E4794A1B19733C1C00CE739B /* LevelSelectionViewController.h */,
 				E4794A1C19733C1C00CE739B /* LevelSelectionViewController.m */,
-				E4794A1D19733C1C00CE739B /* LevelSelectionViewController.xib */,
 				E4DCD38C1874E6D20040643C /* MyScene.h */,
 				E4DCD38D1874E6D20040643C /* MyScene.m */,
 				E4880C4C18B44DF700DBE7B2 /* LevelEndView.h */,
@@ -472,8 +456,6 @@
 				E4DCD37D1874E6D20040643C /* InfoPlist.strings */,
 				E4DCD3801874E6D20040643C /* main.m */,
 				E4DCD3821874E6D20040643C /* MonkeySwing-Prefix.pch */,
-				E41BEA511976073300EA7801 /* PageContentViewController.h */,
-				E41BEA521976073300EA7801 /* PageContentViewController.m */,
 				E4DCD3EB1874FD120040643C /* ParticleFire.sks */,
 				E4DCD3EC1874FD120040643C /* spark.png */,
 			);
@@ -598,11 +580,10 @@
 				E4794A5919733CAD00CE739B /* Arrow.png in Resources */,
 				E4794A6E19733CAD00CE739B /* Leaf2@2x.png in Resources */,
 				E4794A5B19733CAD00CE739B /* Banana.png in Resources */,
-				E4794A1F19733C1C00CE739B /* LevelSelectionViewController.xib in Resources */,
 				E4794A7E19733CAD00CE739B /* MonkeyAngry@2x.png in Resources */,
 				E4794A5719733CAD00CE739B /* Apple.png in Resources */,
 				E4DCD3ED1874FD120040643C /* ParticleFire.sks in Resources */,
-				E46F69F4196506020001E462 /* MainMenuPage0ViewController.xib in Resources */,
+				E468A283198B3831005D890F /* Level3SelectionScreen.png in Resources */,
 				E4794A6819733CAD00CE739B /* HudBanana@2x.png in Resources */,
 				E4794A7019733CAD00CE739B /* Level1SelectionScreen@2x.png in Resources */,
 				E4794A8819733CAD00CE739B /* RespawnButton@2x.png in Resources */,
@@ -612,7 +593,6 @@
 				E4794A6A19733CAD00CE739B /* HudFire@2x.png in Resources */,
 				E4794A7F19733CAD00CE739B /* MonkeyGearTail.png in Resources */,
 				E4794A7919733CAD00CE739B /* MenuButton.png in Resources */,
-				E46F69EA1964FD3D0001E462 /* MainMenuPage1ViewController.xib in Resources */,
 				E4794A7819733CAD00CE739B /* MainMenuSettingsBackground@2x.png in Resources */,
 				E4794A7119733CAD00CE739B /* Level2SelectionScreen.png in Resources */,
 				E4794A7419733CAD00CE739B /* LevelButton@2x.png in Resources */,
@@ -643,6 +623,7 @@
 				E4794A8619733CAD00CE739B /* ResetButton@2x.png in Resources */,
 				E4794A8A19733CAD00CE739B /* Rope Segment@2x.png in Resources */,
 				E4794A6D19733CAD00CE739B /* Leaf2.png in Resources */,
+				E468A284198B3831005D890F /* Level3SelectionScreen@2x.png in Resources */,
 				E4794A8719733CAD00CE739B /* RespawnButton.png in Resources */,
 				E4794A8519733CAD00CE739B /* ResetButton.png in Resources */,
 				E4794A6F19733CAD00CE739B /* Level1SelectionScreen.png in Resources */,
@@ -669,7 +650,6 @@
 				E43567C0190CB554002ED25D /* GameKitHelper.m in Sources */,
 				E45C90961913442B00956737 /* GameCenterFriendData.m in Sources */,
 				E49F78AE1883598900BDA47C /* JPMButton.m in Sources */,
-				E46F69E91964FD3D0001E462 /* MainMenuPage1ViewController.m in Sources */,
 				E423238E18ADA93E00F852A0 /* BonusPointsObject.m in Sources */,
 				E4880C4E18B44DF700DBE7B2 /* LevelEndView.m in Sources */,
 				E4DCD38E1874E6D20040643C /* MyScene.m in Sources */,
@@ -679,10 +659,8 @@
 				E4D34AE01969D6B0000E7210 /* JCRBlurView.m in Sources */,
 				E41BEA531976073300EA7801 /* PageContentViewController.m in Sources */,
 				E4DCD3851874E6D20040643C /* AppDelegate.m in Sources */,
-				E4271017189ED60800007F33 /* MainMenuScene.m in Sources */,
 				E4794A1E19733C1C00CE739B /* LevelSelectionViewController.m in Sources */,
 				E4DCD3811874E6D20040643C /* main.m in Sources */,
-				E46F69F3196506020001E462 /* MainMenuPage0ViewController.m in Sources */,
 				E4D6DF7018931D7100F916D0 /* PhysicsParameters.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,10 +8,7 @@
 
 #import "ViewController.h"
 #import "MyScene.h"
-#import "MainMenuScene.h"
 #import "GameKitHelper.h"
-#import "MainMenuPage0ViewController.h"
-#import "MainMenuPage1ViewController.h"
 #import "LevelSelectionViewController.h"
 #import "PageContentViewController.h"
 
@@ -19,57 +16,67 @@
 {
     SKView *skViewToPresent;
     SKScene *sceneToPresent;
+    BOOL isLevelScreen;
 }
 
 - (void)viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
-    /*
-    SKView *skView = (SKView *)self.view;
-    
-    if (!skView.scene) {
-        skView.showsFPS = YES;
-        skView.showsNodeCount = YES;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(levelsButtonTappedNotification) name:@"levelsButtonTapped" object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(continueButtonTappedNotification) name:@"continueButtonTapped" object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(menuButtonTappedNotification:) name:@"levelEndedUserSelection" object:nil];
-        
-        // Setup page view controller
-        self.pageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
-        self.pageController.dataSource = self;
-        [[self.pageController view] setFrame:CGRectMake(0, 0, [[self view] bounds].size.width, [[self view] bounds].size.height + 37)];
-        MainMenuPage0ViewController *mainMenuPage0ViewController = (MainMenuPage0ViewController *)[self viewControllerAtIndex:0];
-        NSArray *viewControllers = [NSArray arrayWithObject:mainMenuPage0ViewController];
-        [self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
-        [self addChildViewController:self.pageController];
-        [[self view] addSubview:[self.pageController view]];
-        [self.pageController didMoveToParentViewController:self];
-    }
-     */
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    _pageTitles = @[@"Over 200 Tips and Tricks", @"Discover Hidden Features"];
-    _pageImages = @[@"MainMenuBackground.png", @"MainMenuSettingsBackground.png"];
+    [self setupMenuViews:@"mainMenu"];
     
+    // Subscribe to notifations
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(levelsButtonTappedNotification) name:@"levelsButtonTapped" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(continueButtonTappedNotification) name:@"continueButtonTapped" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(menuButtonTappedNotification:) name:@"levelEndedUserSelection" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showAuthenticationViewController) name:PresentAuthenticationViewController object:nil];
+    
+    // Game center
+    [[GameKitHelper sharedGameKitHelper] authenticateLocalPlayer];
+}
+
+- (void)setupMenuViews:(NSString *)mainMenuOrLevelSelection
+{
     // Create page view controller
     self.pageViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
     self.pageViewController.dataSource = self;
     
-    PageContentViewController *startingViewController = (PageContentViewController *)[self viewControllerAtIndex:0];
-    NSArray *viewControllers = @[startingViewController];
+    // Prepare content views for the page view controller
+    NSArray *viewControllers;
+    if ([mainMenuOrLevelSelection isEqualToString:@"mainMenu"]) {
+        isLevelScreen = NO;
+        _pageImages = @[@"MainMenuBackground.png", @"MainMenuSettingsBackground.png"];
+        PageContentViewController *startingViewController = (PageContentViewController *)[self viewControllerAtIndex:0];
+        viewControllers = @[startingViewController];
+    } else if ([mainMenuOrLevelSelection isEqualToString:@"levelSelection"]) {
+        // Clear away all the stuff from the main menu view
+        self.pageViewController = nil;
+        self.pageViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
+        self.pageViewController.dataSource = self;
+        
+        // Make the stuff for the level selection view
+        isLevelScreen = YES;
+        _pageImages = @[@"Level1SelectionScreen.png", @"Level2SelectionScreen.png"];
+        LevelSelectionViewController *startingViewController = (LevelSelectionViewController *)[self viewControllerAtIndex:0];
+        viewControllers = nil;
+        viewControllers = @[startingViewController];
+    }
     [self.pageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
     
     // Change the size of page view controller
     self.pageViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 30);
     
+    // Add view controller and views
     [self addChildViewController:_pageViewController];
     [self.view addSubview:_pageViewController.view];
     [self.pageViewController didMoveToParentViewController:self];
     
+    // Add an additional page control indicator
     for (UIView *view in self.pageViewController.view.subviews) {
         if ([view isKindOfClass:[UIPageControl class]]) {
             UIPageControl *pageControl = (UIPageControl *)view;
@@ -79,14 +86,14 @@
     }
     
     // Extend the view controller to the bottom of the screen
-    self.pageViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height+40);
+    self.pageViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height + 40);
     
-    self.pageControl.numberOfPages = self.pageTitles.count;
+    // Tell page indicator how many pages there are
+    self.pageControl.numberOfPages = self.pageImages.count;
+    self.pageControl.tag = 1;
+    
+    // Add the page indicator
     [self.view addSubview:_pageControl.viewForBaselineLayout];
-    //_pageControl = [UIPageControl appearance];
-    //_pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
-    //_pageControl.currentPageIndicatorTintColor = [UIColor blackColor];
-    //_pageControl.backgroundColor = [UIColor clearColor];
 }
 
 - (BOOL)shouldAutorotate
@@ -116,17 +123,15 @@
 
 - (void)levelsButtonTappedNotification
 {
-    [self.pageController.view removeFromSuperview];
+    [self.pageViewController.view removeFromSuperview];
     
-    // Create and display LevelSelectionViewController
-    LevelSelectionViewController *levelSelectionViewController = [[LevelSelectionViewController alloc] initWithNibName:@"LevelSelectionViewController" bundle:nil];
-    [self presentViewController:levelSelectionViewController animated:NO completion:nil];
-    
+    [self setupMenuViews:@"levelSelection"];
 }
 
 - (void)continueButtonTappedNotification
 {
-    [self.pageController.view removeFromSuperview];
+    [self.pageViewController.view removeFromSuperview];
+    [self.pageControl removeFromSuperview];
     skViewToPresent = (SKView *)self.view;
     
     // Create and configure the scene
@@ -150,6 +155,7 @@
             [view removeFromSuperview];
         }
         [skViewToPresent presentScene:nil];
+        [self setupMenuViews:@"mainMenu"];
     }
 }
 
@@ -168,24 +174,6 @@
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
 {
-    /*NSInteger pageIndex = 0;
-    if ([viewController isKindOfClass:[MainMenuPage0ViewController class]]) {
-        MainMenuPage0ViewController *mainMenuPage0ViewController = (MainMenuPage0ViewController *)viewController;
-        pageIndex = mainMenuPage0ViewController.index;
-        pageIndex--;
-    } else if ([viewController isKindOfClass:[MainMenuPage1ViewController class]]) {
-        MainMenuPage1ViewController *mainMenuPage1ViewController = (MainMenuPage1ViewController *)viewController;
-        pageIndex = mainMenuPage1ViewController.index;
-        pageIndex--;
-    }
-    
-    if (pageIndex < 0) {
-        return nil;
-    }
-    
-    return [self viewControllerAtIndex:pageIndex];
-     */
-    
     NSUInteger index = ((PageContentViewController *) viewController).pageIndex;
     
     if (self.pageControl.currentPage != 0) {
@@ -205,24 +193,6 @@
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
 {
-    /*NSInteger pageIndex = 0;
-    if ([viewController isKindOfClass:[MainMenuPage0ViewController class]]) {
-        MainMenuPage0ViewController *mainMenuPage0ViewController = (MainMenuPage0ViewController *)viewController;
-        pageIndex = mainMenuPage0ViewController.index;
-        pageIndex++;
-    } else if ([viewController isKindOfClass:[MainMenuPage1ViewController class]]) {
-        MainMenuPage1ViewController *mainMenuPage1ViewController = (MainMenuPage1ViewController *)viewController;
-        pageIndex = mainMenuPage1ViewController.index;
-        pageIndex++;
-    }
-    
-    if (pageIndex == 3) {
-        return nil;
-    }
-    
-    return [self viewControllerAtIndex:pageIndex];
-     */
-    
     NSUInteger index = ((PageContentViewController*) viewController).pageIndex;
     
     if (self.pageControl.currentPage != 1) {
@@ -234,7 +204,7 @@
     }
     
     index++;
-    if (index == [self.pageTitles count]) {
+    if (index == [self.pageImages count]) {
         return nil;
     }
     
@@ -243,39 +213,22 @@
 
 - (UIViewController *)viewControllerAtIndex:(NSUInteger)index
 {
-    
-    /*switch (index) {
-        case 0:
-        {
-            MainMenuPage0ViewController *mainMenuPage0ViewController = [[MainMenuPage0ViewController alloc] initWithNibName:@"MainMenuPage0ViewController" bundle:nil];
-            return mainMenuPage0ViewController;
-            break;
-        }
-        case 1:
-        {
-            MainMenuPage1ViewController *mainMenuPage1ViewController = [[MainMenuPage1ViewController alloc] initWithNibName:@"MainMenuPage1ViewController" bundle:nil];
-            return mainMenuPage1ViewController;
-            break;
-        }
-        default:
-        {
-            break;
-        }
-    }
-    return nil;
-     */
-    
-    if (([self.pageTitles count] == 0) || (index >= [self.pageTitles count])) {
+    if (([self.pageImages count] == 0) || (index >= [self.pageImages count])) {
         return nil;
     }
     
     // Create a new view controller and pass suitable data.
-    PageContentViewController *pageContentViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PageContentViewController"];
-    pageContentViewController.titleText = self.pageTitles[index];
-    pageContentViewController.imageFile = self.pageImages[index];
-    pageContentViewController.pageIndex = index;
-    
-    return pageContentViewController;
+    if (!isLevelScreen) {
+        PageContentViewController *pageContentViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PageContentViewController"];
+        pageContentViewController.backgroundImage = self.pageImages[index];
+        pageContentViewController.pageIndex = index;
+        return pageContentViewController;
+    } else {
+        LevelSelectionViewController *levelSelectionViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LevelSelectionViewController"];
+        levelSelectionViewController.backgroundImage = self.pageImages[index];
+        levelSelectionViewController.pageIndex = index;
+        return levelSelectionViewController;
+    }
 }
 
 - (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController
@@ -288,6 +241,4 @@
     return 0;
 }
 
-- (IBAction)startTutorial:(UIButton *)sender {
-}
 @end

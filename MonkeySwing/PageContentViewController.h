@@ -11,9 +11,8 @@
 @interface PageContentViewController : UIViewController
 
 @property NSUInteger pageIndex;
-@property NSString *titleText;
-@property NSString *imageFile;
-@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property NSString *backgroundImage;
+@property BOOL isContinueButtonAvailable;
 @property (strong, nonatomic) IBOutlet UIImageView *backgroundImageView;
 
 @end

@@ -166,6 +166,9 @@ static const uint32_t leafCategory = 0x1 << 3;
     
     // If fire got all the way, game over
     if (fractionFireProgress >= 1.0) {
+        // Pause the game
+        self.scene.view.paused = YES;
+        
         // Configure PlayerLevelRunData
         playerLevelRunData.fireProgression = fractionFireProgress;
         
@@ -649,6 +652,9 @@ static const uint32_t leafCategory = 0x1 << 3;
         }
     }
     
+    // Unpause the game
+    self.scene.view.paused = NO;
+    
     // Add a new monkey
     [self addMonkeyToWorld];
     
@@ -661,6 +667,8 @@ static const uint32_t leafCategory = 0x1 << 3;
     [self removeAllChildren];
     BOOL newLevel = (BOOL) [self initWithSize:CGSizeMake(self.size.width, self.size.height)]; // TODO: Casting to BOOL can't be the best practice, what is?
     if (newLevel) {
+        // Unpause the game
+        self.scene.view.paused = NO;
     }
 }
 
@@ -837,7 +845,8 @@ static const uint32_t leafCategory = 0x1 << 3;
             [self respawnAction];
         }
         if ([userSelection isEqualToString:@"restartLevel"]) {
-            
+            // Unpause
+            self.scene.view.paused = NO;
             // Remove the level end view
             for (UIView *subview in self.view.subviews) {
                 if (subview.tag == 1) {

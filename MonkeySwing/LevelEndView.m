@@ -117,9 +117,10 @@
     [gameOverButton setImage:[UIImage imageNamed:@"GameOverByFireButtonClicked"] forState:UIControlStateSelected];
     [gameOverButton addTarget:self action:@selector(playAgainAction) forControlEvents:UIControlEventTouchUpInside];
     gameOverButton.opaque = YES;
-    [self addSubview:gameOverButton];
+    [self insertSubview:gameOverButton atIndex:0];
     
     // Game over label
+    gameOverLabel.text = @"THe fire consumed your banana!";
     gameOverLabel.font = [UIFont fontWithName:@"Flux Architect" size:23];
     gameOverLabel.textAlignment = NSTextAlignmentCenter;
     gameOverLabel.center = CGPointMake(self.center.x, 26);

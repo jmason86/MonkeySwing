@@ -10,6 +10,8 @@
 
 @interface LevelSelectionContentViewController : UIViewController
 
+@property NSString *bestTimeString;
+@property NSString *highScoreString;
 @property NSUInteger pageIndex;
 @property NSString *backgroundImage;
 @property (strong, nonatomic) IBOutlet UIImageView *backgroundImageView;
@@ -17,5 +19,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *highScoreLabel;
 
 - (IBAction)menuButtonTapped:(UIButton *)sender;
+- (IBAction)playButtonTapped:(UIButton *)sender;
 
 @end

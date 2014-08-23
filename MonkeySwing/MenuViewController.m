@@ -91,8 +91,6 @@
         }
     }
     
-
-    
     // Tell page indicator how many pages there are
     self.pageControl.numberOfPages = self.pageImages.count;
     self.pageControl.tag = 1;

@@ -74,6 +74,8 @@
 		E4880C4E18B44DF700DBE7B2 /* LevelEndView.m in Sources */ = {isa = PBXBuildFile; fileRef = E4880C4D18B44DF700DBE7B2 /* LevelEndView.m */; };
 		E49F78AE1883598900BDA47C /* JPMButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E49F78AD1883598900BDA47C /* JPMButton.m */; };
 		E4A5F8F418AC9977001B28B6 /* JPMLevelInterpreter.m in Sources */ = {isa = PBXBuildFile; fileRef = E4A5F8F318AC9977001B28B6 /* JPMLevelInterpreter.m */; };
+		E4A6C21219A8E6A600C65656 /* PlayButton.png in Resources */ = {isa = PBXBuildFile; fileRef = E4A6C21019A8E6A600C65656 /* PlayButton.png */; };
+		E4A6C21319A8E6A600C65656 /* PlayButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4A6C21119A8E6A600C65656 /* PlayButton@2x.png */; };
 		E4B5B97C18DAB9B60092E231 /* PlayerLevelRunData.m in Sources */ = {isa = PBXBuildFile; fileRef = E4B5B97B18DAB9B60092E231 /* PlayerLevelRunData.m */; };
 		E4D34A9D1969AF94000E7210 /* Flux_Architect_Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4D34A9B1969AF94000E7210 /* Flux_Architect_Bold.ttf */; };
 		E4D34A9E1969AF94000E7210 /* Flux_Architect_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4D34A9C1969AF94000E7210 /* Flux_Architect_Regular.ttf */; };
@@ -190,6 +192,8 @@
 		E49F78AD1883598900BDA47C /* JPMButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPMButton.m; sourceTree = "<group>"; };
 		E4A5F8F218AC9977001B28B6 /* JPMLevelInterpreter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPMLevelInterpreter.h; sourceTree = "<group>"; };
 		E4A5F8F318AC9977001B28B6 /* JPMLevelInterpreter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPMLevelInterpreter.m; sourceTree = "<group>"; };
+		E4A6C21019A8E6A600C65656 /* PlayButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlayButton.png; sourceTree = "<group>"; };
+		E4A6C21119A8E6A600C65656 /* PlayButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlayButton@2x.png"; sourceTree = "<group>"; };
 		E4B5B97A18DAB9B60092E231 /* PlayerLevelRunData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerLevelRunData.h; sourceTree = "<group>"; };
 		E4B5B97B18DAB9B60092E231 /* PlayerLevelRunData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerLevelRunData.m; sourceTree = "<group>"; };
 		E4D34A9B1969AF94000E7210 /* Flux_Architect_Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Flux_Architect_Bold.ttf; sourceTree = "<group>"; };
@@ -325,6 +329,8 @@
 				E4794A4C19733CAD00CE739B /* NextLevelButtons.png */,
 				E4794A4D19733CAD00CE739B /* PlayAgainButton.png */,
 				E4794A4E19733CAD00CE739B /* PlayAgainButton@2x.png */,
+				E4A6C21019A8E6A600C65656 /* PlayButton.png */,
+				E4A6C21119A8E6A600C65656 /* PlayButton@2x.png */,
 				E4794A4F19733CAD00CE739B /* ResetButton.png */,
 				E4794A5019733CAD00CE739B /* ResetButton@2x.png */,
 				E4794A5119733CAD00CE739B /* RespawnButton.png */,
@@ -579,6 +585,7 @@
 				E4DCD3881874E6D20040643C /* Main.storyboard in Resources */,
 				E4794A5919733CAD00CE739B /* Arrow.png in Resources */,
 				E4794A6E19733CAD00CE739B /* Leaf2@2x.png in Resources */,
+				E4A6C21219A8E6A600C65656 /* PlayButton.png in Resources */,
 				E4794A5B19733CAD00CE739B /* Banana.png in Resources */,
 				E4794A7E19733CAD00CE739B /* MonkeyAngry@2x.png in Resources */,
 				E4794A5719733CAD00CE739B /* Apple.png in Resources */,
@@ -596,6 +603,7 @@
 				E4794A7819733CAD00CE739B /* MainMenuSettingsBackground@2x.png in Resources */,
 				E4794A7119733CAD00CE739B /* Level2SelectionScreen.png in Resources */,
 				E4794A7419733CAD00CE739B /* LevelButton@2x.png in Resources */,
+				E4A6C21319A8E6A600C65656 /* PlayButton@2x.png in Resources */,
 				E4794A8919733CAD00CE739B /* Rope Segment.png in Resources */,
 				E4DCD3EE1874FD120040643C /* spark.png in Resources */,
 				E4794A8019733CAD00CE739B /* MonkeyGearTail@2x.png in Resources */,

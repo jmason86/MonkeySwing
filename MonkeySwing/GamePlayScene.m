@@ -19,6 +19,11 @@ static const uint32_t ropeCategory = 0x1 << 1;
 static const uint32_t bonusObjectCategory = 0x1 << 2;
 static const uint32_t leafCategory = 0x1 << 3;
 
+@interface GamePlayScene ()
+    // Parallax background
+    @property (nonatomic, strong) PBParallaxScrolling * parallaxBackground;
+@end
+
 @implementation GamePlayScene
 {
     // Locations
@@ -30,7 +35,7 @@ static const uint32_t leafCategory = 0x1 << 3;
     
     // Times
     NSTimeInterval touchBeganTime;
-    NSTimer *fireTimer, *leafTimer;
+    NSTimer *fireTimer, *leafTimer, *upwardFireTimer;
     double timeOfRopeGrab;
     
     // Touches
@@ -97,11 +102,24 @@ static const uint32_t leafCategory = 0x1 << 3;
     // Add background images (sky and forest) to myWorld
     [self addBackgroundToWorld];
     
+    // Add parallax scrolling images
+    if ([self childNodeWithName:@"monkey"].position.x > 0.0) { // TODO: Need to store previous position to determine direction of travel, and need to change this in the update method
+        self.direction = kPBParallaxBackgroundDirectionRight;
+    }
+    NSArray *imageNames = @[@"LevelButton", @"MonkeyGearTail"];
+    PBParallaxScrolling *parallax = [[PBParallaxScrolling alloc] initWithBackgrounds:imageNames size:self.view.bounds.size direction:_direction fastestSpeed:kPBParallaxBackgroundDefaultSpeed andSpeedDecrease:kPBParallaxBackgroundDefaultSpeedDifferential];
+    self.parallaxBackground = parallax;
+    [self insertChild:parallax atIndex:self.children.count];
+    
+    
     // Add fire
     [self addFireToWorld];
     
     // Add leaves
     [self addRandomLeaves];
+    
+    // Add random upward fire
+    [self addRandomUpwardFire];
     
     // Add ropes
     NSArray *levelData = [JPMLevelInterpreter loadLevelFileNumber:levelNumber];
@@ -196,6 +214,8 @@ static const uint32_t leafCategory = 0x1 << 3;
 - (void)update:(CFTimeInterval)currentTime
 {
     [self updateHUD];
+    [self.parallaxBackground update:currentTime];
+    
 }
 
 - (void)didSimulatePhysics
@@ -391,15 +411,21 @@ static const uint32_t leafCategory = 0x1 << 3;
 - (void)addBackgroundToWorld
 {
     // Add sky
-    SKSpriteNode *skyBackground = [SKSpriteNode spriteNodeWithImageNamed:@"FullLevel1"];
-    skyBackground.anchorPoint = CGPointMake(0, 0);
-    skyBackground.position = CGPointMake(skyBackground.frame.origin.x - sceneWidth/2, skyBackground.frame.origin.y - sceneHeight/2);
-    skyBackground.name = @"skyBackground";
-    [myWorld addChild:skyBackground];
+    SKSpriteNode *background = [SKSpriteNode spriteNodeWithImageNamed:@"FullLevel1"];
+    background.anchorPoint = CGPointMake(0, 0);
+    background.position = CGPointMake(background.frame.origin.x - sceneWidth/2, background.frame.origin.y - sceneHeight/2);
+    background.name = @"skyBackground";
+    [myWorld addChild:background];
+    
+    // Add parallax
+    UIInterpolatingMotionEffect *horizontalMotionEffect = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.x" type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
+    horizontalMotionEffect.minimumRelativeValue = @(-1000);
+    horizontalMotionEffect.maximumRelativeValue = @(1000);
+    [background.scene.view addMotionEffect:horizontalMotionEffect];
     
     // Update global parameters with sky values
-    skyWidth = skyBackground.size.width;
-    skyHeight = skyBackground.size.height;
+    skyWidth = background.size.width;
+    skyHeight = background.size.height;
     skyFarLeftSide = CGPointMake(sceneFarLeftSide.x, 0);
     skyFarRightSide = CGPointMake(sceneFarLeftSide.x + skyWidth, 0);
     skyFarTopSide = CGPointMake(0, sceneFarBottomSide.y + skyHeight);
@@ -458,6 +484,48 @@ static const uint32_t leafCategory = 0x1 << 3;
     }
 }
 
+- (void)addRandomUpwardFire
+{
+    upwardFireTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(upwardFireTimer) userInfo:nil repeats:YES];
+}
+
+- (void)upwardFireTimer
+{
+    // Randomly decide whether to do an upward fire node
+    float randomFireNumber = arc4random() % 10;
+    if (randomFireNumber > 1) {
+        // Determine a random position offset
+        float randomPositionOffset = arc4random() % 150;
+        float randomFireNodeChoice = arc4random() % 10;
+        if (randomFireNodeChoice > 5) {
+            randomPositionOffset = -randomPositionOffset;
+        }
+        // Create fire emitter node
+        NSString *firePath = [[NSBundle mainBundle] pathForResource:@"ParticleFire" ofType:@"sks"];
+        SKEmitterNode *fireEmitterNode = [NSKeyedUnarchiver unarchiveObjectWithFile:firePath];
+        fireEmitterNode.zPosition = 112;
+        [fireEmitterNode setParticlePositionRange:CGVectorMake(10, 10)];
+        [fireEmitterNode setParticleSize:CGSizeMake(35, 35)];
+        [fireEmitterNode setParticleSpeedRange:50];
+        fireEmitterNode.position = CGPointMake([self childNodeWithName:@"monkey"].position.x + randomPositionOffset, sceneFarBottomSide.y);
+        
+        // Add physics parameters to fire node
+        fireEmitterNode.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(50, 50)];
+        fireEmitterNode.physicsBody.mass = 0;
+        fireEmitterNode.physicsBody.restitution = physicsParameters.leafRestitution;
+        fireEmitterNode.physicsBody.linearDamping = physicsParameters.leafLinearDamping;
+        fireEmitterNode.physicsBody.angularDamping = physicsParameters.leafAngularDamping;
+        fireEmitterNode.physicsBody.categoryBitMask = leafCategory;
+        fireEmitterNode.physicsBody.contactTestBitMask = leafCategory;
+        fireEmitterNode.physicsBody.collisionBitMask = leafCategory;
+        [fireEmitterNode.physicsBody applyImpulse:CGVectorMake(0, 10000)]; // TODO: Figure out why these bits of fire aren't moving up.
+        fireEmitterNode.physicsBody.affectedByGravity = NO;
+        
+        
+        [myWorld addChild:fireEmitterNode];
+    }
+}
+
 - (void)addRandomLeaves
 {
     // Setup a timer to add leaves
@@ -482,6 +550,20 @@ static const uint32_t leafCategory = 0x1 << 3;
     leafNode.zPosition = 111;
     [myWorld addChild:leafNode];
     
+    // Decide if the leaf will have a fire node attached
+    float randomFireNodeChoice = arc4random() % 10;
+    if (randomFireNodeChoice > 7) {
+        // Create fire emitter node
+        NSString *firePath = [[NSBundle mainBundle] pathForResource:@"ParticleFire" ofType:@"sks"];
+        SKEmitterNode *fireEmitterNode = [NSKeyedUnarchiver unarchiveObjectWithFile:firePath];
+        fireEmitterNode.zPosition = 112;
+        [fireEmitterNode setParticlePositionRange:CGVectorMake(10, 10)];
+        [fireEmitterNode setParticleSize:CGSizeMake(35, 35)];
+        [fireEmitterNode setParticleSpeedRange:50];
+        fireEmitterNode.position = CGPointMake(0, 0);
+        [leafNode addChild:fireEmitterNode];
+    }
+    
     // Create random wind vector
     float randomWindX = arc4random() % 10;
     float randomWindXDirection = arc4random() % 10;
@@ -489,6 +571,13 @@ static const uint32_t leafCategory = 0x1 << 3;
         randomWindX = -randomWindX;
     }
     float randomLeafFallImpulse = (arc4random() % 10) + 15;
+    
+    // Create random wind angular impulse
+    float randomWindAngular = arc4random() % 4;
+    float randomWindTorqueDirection = arc4random() % 10;
+    if (randomWindTorqueDirection > 5) {
+        randomWindAngular = -randomWindAngular;
+    }
     
     // Give physics properties to leaf
     leafNode.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:leafNode.size];
@@ -500,6 +589,7 @@ static const uint32_t leafCategory = 0x1 << 3;
     leafNode.physicsBody.contactTestBitMask = leafCategory;
     leafNode.physicsBody.collisionBitMask = leafCategory;
     [leafNode.physicsBody applyImpulse:CGVectorMake(randomWindX, -randomLeafFallImpulse)];
+    [leafNode.physicsBody applyAngularImpulse:randomWindAngular];
     leafNode.physicsBody.affectedByGravity = NO;
 }
 

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="LVB-YS-i5n">
     <dependencies>
-        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -59,16 +58,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ms1-Lv-UtM">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ms1-Lv-UtM">
                                 <rect key="frame" x="-8" y="0.0" width="576" height="333"/>
                             </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Best Time: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XhO-Qt-Fev">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Best Time: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XhO-Qt-Fev">
                                 <rect key="frame" x="168" y="90" width="264" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="264" id="VY8-CI-TUu"/>
+                                    <constraint firstAttribute="height" constant="21" id="mXa-tX-h1P"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="High Score:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ibt-WB-Ywi">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="High Score:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ibt-WB-Ywi">
                                 <rect key="frame" x="168" y="119" width="264" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
@@ -94,23 +97,24 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="XhO-Qt-Fev" firstAttribute="top" secondItem="stB-Ym-jNm" secondAttribute="bottom" constant="70" id="5Tb-q0-Bbf"/>
                             <constraint firstItem="022-JI-IRC" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hG3-Ui-QSt" secondAttribute="trailing" constant="74" id="6k6-IN-lHF"/>
-                            <constraint firstItem="XhO-Qt-Fev" firstAttribute="centerX" secondItem="ibt-WB-Ywi" secondAttribute="centerX" id="E24-UC-CZk"/>
-                            <constraint firstItem="XhO-Qt-Fev" firstAttribute="centerX" secondItem="ms1-Lv-UtM" secondAttribute="centerX" constant="20" id="Gf0-i5-biS"/>
-                            <constraint firstItem="hG3-Ui-QSt" firstAttribute="top" secondItem="ms1-Lv-UtM" secondAttribute="bottom" constant="-84" id="PaC-dO-lob"/>
-                            <constraint firstItem="ms1-Lv-UtM" firstAttribute="top" secondItem="stB-Ym-jNm" secondAttribute="bottom" id="SXo-Zq-sc3"/>
-                            <constraint firstItem="ms1-Lv-UtM" firstAttribute="top" secondItem="XhO-Qt-Fev" secondAttribute="bottom" constant="-111" id="aey-wI-fyk"/>
-                            <constraint firstItem="022-JI-IRC" firstAttribute="leading" secondItem="ms1-Lv-UtM" secondAttribute="trailing" constant="-158" id="bK6-xK-oEe"/>
-                            <constraint firstItem="ms1-Lv-UtM" firstAttribute="leading" secondItem="BBJ-Wy-D6j" secondAttribute="leadingMargin" constant="-24" id="eUy-gF-UW6"/>
-                            <constraint firstItem="ms1-Lv-UtM" firstAttribute="centerX" secondItem="hG3-Ui-QSt" secondAttribute="centerX" constant="-4.5" id="ebB-Qg-81p"/>
-                            <constraint firstItem="ibt-WB-Ywi" firstAttribute="top" secondItem="XhO-Qt-Fev" secondAttribute="bottom" constant="8" id="ewZ-z0-0cz"/>
+                            <constraint firstItem="XhO-Qt-Fev" firstAttribute="leading" secondItem="BBJ-Wy-D6j" secondAttribute="leading" constant="168" id="9at-gd-amD"/>
+                            <constraint firstItem="XhO-Qt-Fev" firstAttribute="trailing" secondItem="ibt-WB-Ywi" secondAttribute="trailing" id="Lfg-kr-p3G"/>
+                            <constraint firstItem="XhO-Qt-Fev" firstAttribute="leading" secondItem="ibt-WB-Ywi" secondAttribute="leading" id="Ob0-1y-Ptt"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="ms1-Lv-UtM" secondAttribute="bottom" constant="-13" id="S10-Wk-k4y"/>
+                            <constraint firstItem="ms1-Lv-UtM" firstAttribute="trailing" secondItem="stB-Ym-jNm" secondAttribute="trailing" id="SYp-1J-Y59"/>
+                            <constraint firstItem="022-JI-IRC" firstAttribute="leading" secondItem="hG3-Ui-QSt" secondAttribute="trailing" constant="74" id="ard-QZ-9QB"/>
+                            <constraint firstItem="ms1-Lv-UtM" firstAttribute="leading" secondItem="BBJ-Wy-D6j" secondAttribute="leadingMargin" constant="-24" id="gl3-QG-3e3"/>
                             <constraint firstItem="022-JI-IRC" firstAttribute="centerY" secondItem="hG3-Ui-QSt" secondAttribute="centerY" constant="0.5" id="kqz-4r-0OK"/>
-                            <constraint firstItem="ms1-Lv-UtM" firstAttribute="trailing" secondItem="stB-Ym-jNm" secondAttribute="trailing" id="udF-DH-XC6"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="ms1-Lv-UtM" secondAttribute="bottom" constant="-13" id="yir-K9-2zy"/>
+                            <constraint firstItem="hG3-Ui-QSt" firstAttribute="centerX" secondItem="BBJ-Wy-D6j" secondAttribute="centerX" id="n1C-pc-cFK"/>
+                            <constraint firstItem="YEd-eS-VZe" firstAttribute="top" secondItem="hG3-Ui-QSt" secondAttribute="bottom" constant="38" id="vHB-KL-cJL"/>
+                            <constraint firstItem="ms1-Lv-UtM" firstAttribute="top" secondItem="BBJ-Wy-D6j" secondAttribute="top" id="yGd-Ic-9WT"/>
+                            <constraint firstItem="ibt-WB-Ywi" firstAttribute="top" secondItem="XhO-Qt-Fev" secondAttribute="bottom" constant="8" symbolic="YES" id="zG4-Kw-lNM"/>
                         </constraints>
                     </view>
-                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="568" height="320"/>
                     <connections>
                         <outlet property="backgroundImageView" destination="ms1-Lv-UtM" id="beq-Yv-xrR"/>
                         <outlet property="bestTimeLabel" destination="XhO-Qt-Fev" id="a7J-uE-jed"/>
@@ -148,24 +152,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CtI-0D-fqs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="480" y="1279.2253521126759"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="gXL-e4-KQm">
-            <objects>
-                <viewController id="jIC-Um-AMy" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="E7D-es-sAr"/>
-                        <viewControllerLayoutGuide type="bottom" id="DZm-WF-LbM"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="XIp-0S-nOj">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="tnp-9G-477" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="260.625" y="143.66197183098592"/>
         </scene>
     </scenes>
     <resources>

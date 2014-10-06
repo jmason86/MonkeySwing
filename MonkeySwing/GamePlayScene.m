@@ -16,8 +16,8 @@
 // Collision categories
 static const uint32_t monkeyCategory = 0x1 << 0;
 static const uint32_t ropeCategory = 0x1 << 1;
-static const uint32_t bonusObjectCategory = 0x1 << 2;
-static const uint32_t leafCategory = 0x1 << 3;
+static const uint32_t bonusObjectCategory = 0x1 << 2; // << means bitshift. Each bit shift is a multiply by 2 (e.g., this line means 1 * 2 * 2)
+static const uint32_t leafCategory = 0; // Means that these should not interact with anything
 
 @interface GamePlayScene ()
     // Parallax background

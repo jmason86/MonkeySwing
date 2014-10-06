@@ -85,7 +85,6 @@
 		E4D34AD71969C58E000E7210 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4D34AD61969C58E000E7210 /* Accelerate.framework */; };
 		E4D34ADC1969C7CB000E7210 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4D34ADB1969C7CB000E7210 /* CoreImage.framework */; };
 		E4D34ADD1969C7D2000E7210 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4D34AC31969C005000E7210 /* QuartzCore.framework */; };
-		E4D34AE01969D6B0000E7210 /* JCRBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D34ADF1969D6B0000E7210 /* JCRBlurView.m */; };
 		E4D6DF7018931D7100F916D0 /* PhysicsParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D6DF6F18931D7100F916D0 /* PhysicsParameters.m */; };
 		E4DCD3731874E6D20040643C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4DCD3721874E6D20040643C /* Foundation.framework */; };
 		E4DCD3751874E6D20040643C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4DCD3741874E6D20040643C /* CoreGraphics.framework */; };
@@ -211,8 +210,6 @@
 		E4D34AC31969C005000E7210 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		E4D34AD61969C58E000E7210 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		E4D34ADB1969C7CB000E7210 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
-		E4D34ADE1969D6B0000E7210 /* JCRBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRBlurView.h; sourceTree = "<group>"; };
-		E4D34ADF1969D6B0000E7210 /* JCRBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRBlurView.m; sourceTree = "<group>"; };
 		E4D6DF6E18931D7100F916D0 /* PhysicsParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysicsParameters.h; sourceTree = "<group>"; };
 		E4D6DF6F18931D7100F916D0 /* PhysicsParameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhysicsParameters.m; sourceTree = "<group>"; };
 		E4DCD36F1874E6D20040643C /* MonkeySwing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MonkeySwing.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -379,15 +376,6 @@
 			name = Fonts;
 			sourceTree = "<group>";
 		};
-		E4D34AAA1969BADC000E7210 /* Image Blur */ = {
-			isa = PBXGroup;
-			children = (
-				E4D34ADE1969D6B0000E7210 /* JCRBlurView.h */,
-				E4D34ADF1969D6B0000E7210 /* JCRBlurView.m */,
-			);
-			name = "Image Blur";
-			sourceTree = "<group>";
-		};
 		E4DCD3661874E6D20040643C = {
 			isa = PBXGroup;
 			children = (
@@ -454,7 +442,6 @@
 				E4D6DF6F18931D7100F916D0 /* PhysicsParameters.m */,
 				E423238C18ADA93E00F852A0 /* BonusPointsObject.h */,
 				E423238D18ADA93E00F852A0 /* BonusPointsObject.m */,
-				E4D34AAA1969BADC000E7210 /* Image Blur */,
 				E43567BD190CB521002ED25D /* GameKit */,
 				E4A5F8F518ACA646001B28B6 /* Levels */,
 				E4DCD37B1874E6D20040643C /* Supporting Files */,
@@ -674,7 +661,6 @@
 				E4B5B97C18DAB9B60092E231 /* PlayerLevelRunData.m in Sources */,
 				E4DCD38B1874E6D20040643C /* MenuViewController.m in Sources */,
 				E4A5F8F418AC9977001B28B6 /* JPMLevelInterpreter.m in Sources */,
-				E4D34AE01969D6B0000E7210 /* JCRBlurView.m in Sources */,
 				E4A6C21619AA5F8800C65656 /* ScrollingSpriteNode.m in Sources */,
 				E41BEA531976073300EA7801 /* MainMenuContentViewController.m in Sources */,
 				E4DCD3851874E6D20040643C /* AppDelegate.m in Sources */,

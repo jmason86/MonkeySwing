@@ -69,7 +69,7 @@
             UIImage *continueButtonImage = [UIImage imageNamed:@"ContinueButton"];
             UIButton *continueButton = [UIButton buttonWithType:UIButtonTypeCustom];
             continueButton.frame = CGRectMake(0, 0, continueButtonImage.size.width, continueButtonImage.size.height);
-            continueButton.center = CGPointMake(self.view.bounds.size.height - continueButtonImage.size.width/2 - 5, self.view.bounds.size.width - continueButtonImage.size.height/2 - 5);
+            continueButton.center = CGPointMake(self.view.bounds.size.height - continueButtonImage.size.width/2 - 5, self.view.bounds.size.width - continueButtonImage.size.height/2 - 305);
             [continueButton setImage:continueButtonImage forState:UIControlStateNormal];
             [continueButton addTarget:self action:@selector(continueButtonTapped) forControlEvents:UIControlEventTouchUpInside];
             continueButton.opaque = YES;

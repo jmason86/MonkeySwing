@@ -8,9 +8,12 @@
 
 #import "LevelEndView.h"
 #import "GameKitHelper.h"
-#import "JCRBlurView.h"
 
 @implementation LevelEndView
+{
+    UIVisualEffectView *blurEffectView;
+    UIVisualEffectView *vibrancyEffectView;
+}
 
 @synthesize playerLevelRunData;
 
@@ -23,9 +26,15 @@
         playerLevelRunData = playerLevelRunDataInput; // Only have to do this because need to use initWithFrame so can't call a normall setter method first
         
         // Blur background
-        JCRBlurView *blurView = [JCRBlurView new];
-        [blurView setFrame:self.bounds];
-        [self addSubview:blurView];
+        UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+        blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+        blurEffectView.frame = self.bounds;
+        [self addSubview:blurEffectView];
+        
+        // Text vibrancy effect
+        UIVibrancyEffect *vibrancyEffect = [UIVibrancyEffect effectForBlurEffect:blurEffect];
+        vibrancyEffectView = [[UIVisualEffectView alloc] initWithEffect:vibrancyEffect];
+        [vibrancyEffectView setFrame:self.bounds];
 
         // Send to relevant method for outcome
         if ([outcome isEqualToString:@"monkeyFell"]) {
@@ -72,10 +81,11 @@
     }
     numberOfDeadMonkeysLabel.font = [UIFont fontWithName:@"Flux Architect" size:26];
     numberOfDeadMonkeysLabel.textAlignment = NSTextAlignmentCenter;
-    numberOfDeadMonkeysLabel.textColor = [UIColor whiteColor];
-    numberOfDeadMonkeysLabel.shadowColor = [UIColor blackColor];
-    numberOfDeadMonkeysLabel.shadowOffset = CGSizeMake(-1.0, 0.0);
-    [self insertSubview:numberOfDeadMonkeysLabel aboveSubview:respawnMonkeyButton];
+    //numberOfDeadMonkeysLabel.textColor = [UIColor whiteColor];
+    //numberOfDeadMonkeysLabel.shadowColor = [UIColor blackColor];
+    //numberOfDeadMonkeysLabel.shadowOffset = CGSizeMake(-1.0, 0.0);
+    [[vibrancyEffectView contentView] addSubview:numberOfDeadMonkeysLabel];
+    
     
     // Label pointing out how much the fire has progressed
     UILabel *fireProgressionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 120, 200)];
@@ -84,16 +94,19 @@
     fireProgressionLabel.font = [UIFont fontWithName:@"Flux Architect" size:16];
     fireProgressionLabel.numberOfLines = 0; // Uses as many as needed
     fireProgressionLabel.textAlignment = NSTextAlignmentLeft;
-    fireProgressionLabel.textColor = [UIColor whiteColor];
-    fireProgressionLabel.shadowColor = [UIColor blackColor];
-    fireProgressionLabel.shadowOffset = CGSizeMake(-1.0, 0.0);
-    [self insertSubview:fireProgressionLabel aboveSubview:respawnMonkeyButton];
+    //fireProgressionLabel.textColor = [UIColor whiteColor];
+    //fireProgressionLabel.shadowColor = [UIColor blackColor];
+    //fireProgressionLabel.shadowOffset = CGSizeMake(-1.0, 0.0);
+    [[vibrancyEffectView contentView] addSubview:fireProgressionLabel];
     
     // Add arrow between HUD and fire progression label
     UIImageView *arrowView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Arrow"]];
     UIImage *hudFire = [UIImage imageNamed:@"HudFire"];
     arrowView.center = CGPointMake(hudFire.size.width * playerLevelRunData.fireProgression, hudFire.size.height * 2);
     [self insertSubview:arrowView aboveSubview:respawnMonkeyButton];
+    
+    // Add the vibrant text to the blur view
+    [[blurEffectView contentView] addSubview:vibrancyEffectView];
 }
 
 - (void)setupGameOver
@@ -120,14 +133,13 @@
     [self insertSubview:gameOverButton atIndex:0];
     
     // Game over label
-    gameOverLabel.text = @"THe fire consumed your banana!";
     gameOverLabel.font = [UIFont fontWithName:@"Flux Architect" size:23];
     gameOverLabel.textAlignment = NSTextAlignmentCenter;
     gameOverLabel.center = CGPointMake(self.center.x, 26);
-    gameOverLabel.textColor = [UIColor whiteColor];
-    gameOverLabel.shadowColor = [UIColor blackColor];
+    //gameOverLabel.textColor = [UIColor whiteColor];
+    //gameOverLabel.shadowColor = [UIColor blackColor];
     gameOverLabel.shadowOffset = CGSizeMake(-1.0, 0.0);
-    [self insertSubview:gameOverButton aboveSubview:gameOverButton];
+    [[vibrancyEffectView contentView] addSubview:gameOverLabel];
     
     // Menu button
     UIImage *menuImage = [UIImage imageNamed:@"MenuButton"];
@@ -139,6 +151,9 @@
     [menuButton addTarget:self action:@selector(menuAction) forControlEvents:UIControlEventTouchUpInside];
     menuButton.opaque = YES;
     [self insertSubview:menuButton aboveSubview:gameOverButton];
+    
+    // Add the vibrant text to the blur view
+    [[blurEffectView contentView] addSubview:vibrancyEffectView];
 }
 
 - (void)setupMonkeyWon
@@ -184,40 +199,40 @@
     playerScoreLabel.text = [NSString stringWithFormat:@"%@%li%@", @"You got ", (long)playerLevelRunData.totalPoints, @" points!"];
     playerScoreLabel.font = [UIFont fontWithName:@"Flux Architect" size:36];
     playerScoreLabel.textAlignment = NSTextAlignmentCenter;
-    playerScoreLabel.textColor = [UIColor whiteColor];
-    playerScoreLabel.shadowColor = [UIColor blackColor];
+    //playerScoreLabel.textColor = [UIColor whiteColor];
+    //playerScoreLabel.shadowColor = [UIColor blackColor];
     playerScoreLabel.shadowOffset = CGSizeMake(-1.0, 0.0);
-    [self insertSubview:playerScoreLabel aboveSubview:playAgainMonkeyButton];
+    [[vibrancyEffectView contentView] addSubview:playerScoreLabel];
     
     // Label showing number of apples
     UILabel *numberOfApplesLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, playerScoreLabel.center.y + 10, self.bounds.size.width, 40)];
     numberOfApplesLabel.text = [NSString stringWithFormat:@"%@%li%@%li", @"Apples: ", (long)playerLevelRunData.numberOfBonusObjectsObtained, @"/", (long)playerLevelRunData.numberOfBonusObjectsAvailable];
     numberOfApplesLabel.font = [UIFont fontWithName:@"Flux Architect" size:30];
     numberOfApplesLabel.textAlignment = NSTextAlignmentCenter;
-    numberOfApplesLabel.textColor = [UIColor whiteColor];
-    numberOfApplesLabel.shadowColor = [UIColor blackColor];
+    //numberOfApplesLabel.textColor = [UIColor whiteColor];
+    //numberOfApplesLabel.shadowColor = [UIColor blackColor];
     numberOfApplesLabel.shadowOffset = CGSizeMake(-1.0, 0.0);
-    [self insertSubview:numberOfApplesLabel aboveSubview:playAgainMonkeyButton];
+    [[vibrancyEffectView contentView] addSubview:numberOfApplesLabel];
     
     // Label showing number of dead monkeys
     UILabel *numberOfDeadMonkeysLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, numberOfApplesLabel.center.y + 5, self.bounds.size.width, 40)];
     numberOfDeadMonkeysLabel.text = [NSString stringWithFormat:@"%@%li", @"Dead monkeys: ", (long)playerLevelRunData.numberOfTimesDied];
     numberOfDeadMonkeysLabel.font = [UIFont fontWithName:@"Flux Architect" size:30];
     numberOfDeadMonkeysLabel.textAlignment = NSTextAlignmentCenter;
-    numberOfDeadMonkeysLabel.textColor = [UIColor whiteColor];
-    numberOfDeadMonkeysLabel.shadowColor = [UIColor blackColor];
+    //numberOfDeadMonkeysLabel.textColor = [UIColor whiteColor];
+    //numberOfDeadMonkeysLabel.shadowColor = [UIColor blackColor];
     numberOfDeadMonkeysLabel.shadowOffset = CGSizeMake(-1.0, 0.0);
-    [self insertSubview:numberOfDeadMonkeysLabel aboveSubview:playAgainMonkeyButton];
+    [[vibrancyEffectView contentView] addSubview:numberOfDeadMonkeysLabel];
     
     // Label showing number of rapid ropes
     UILabel *numberOfRapidRopesLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, numberOfDeadMonkeysLabel.center.y + 5, self.bounds.size.width, 40)];
     numberOfRapidRopesLabel.text = [NSString stringWithFormat:@"%@%li", @"Rapid Ropes: ", (long)playerLevelRunData.numberOfRapidRopes];
     numberOfRapidRopesLabel.font = [UIFont fontWithName:@"Flux Architect" size:30];
     numberOfRapidRopesLabel.textAlignment = NSTextAlignmentCenter;
-    numberOfRapidRopesLabel.textColor = [UIColor whiteColor];
-    numberOfRapidRopesLabel.shadowColor = [UIColor blackColor];
+    //numberOfRapidRopesLabel.textColor = [UIColor whiteColor];
+    //numberOfRapidRopesLabel.shadowColor = [UIColor blackColor];
     numberOfRapidRopesLabel.shadowOffset = CGSizeMake(-1.0, 0.0);
-    [self insertSubview:numberOfRapidRopesLabel aboveSubview:playAgainMonkeyButton];
+    [[vibrancyEffectView contentView] addSubview:numberOfRapidRopesLabel];
     
     // Label and image comparing score to Game Center friend
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(competitorDisplayNameAndScoreReceived) name:@"competitor_display_name_saved" object:nil];
@@ -231,10 +246,10 @@
         newHighScoreLabel.text = @"New high score!";
         newHighScoreLabel.font = [UIFont fontWithName:@"Flux Architect" size:16];
         newHighScoreLabel.textAlignment = NSTextAlignmentLeft;
-        newHighScoreLabel.textColor = [UIColor orangeColor];
-        newHighScoreLabel.shadowColor = [UIColor blackColor];
+        //newHighScoreLabel.textColor = [UIColor orangeColor];
+        //newHighScoreLabel.shadowColor = [UIColor blackColor];
         newHighScoreLabel.shadowOffset = CGSizeMake(-1.0, 0.0);
-        [self insertSubview:newHighScoreLabel aboveSubview:playAgainMonkeyButton];
+        [[vibrancyEffectView contentView] addSubview:newHighScoreLabel];
         
         // Save new high score to disk
         NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
@@ -245,6 +260,9 @@
         NSInteger score = playerLevelRunData.totalPoints;
         [GameKitHelper reportScore:score forIdentifier:levelName];
     }
+    
+    // Add the vibrant text to the blur view
+    [[blurEffectView contentView] addSubview:vibrancyEffectView];
 }
 
 - (void)competitorDisplayNameAndScoreReceived
@@ -262,12 +280,14 @@
         UILabel *competitorScoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, -50, self.frame.size.width, self.frame.size.height)];
         competitorScoreLabel.text = [NSString stringWithFormat:@"%@ beat you with %@!", playerName, competitorScore];
         competitorScoreLabel.font = [UIFont fontWithName:@"Flux Architect" size:14];
-        competitorScoreLabel.textColor = [UIColor orangeColor];
-        competitorScoreLabel.shadowColor = [UIColor blackColor];
+        //competitorScoreLabel.textColor = [UIColor orangeColor];
+        //competitorScoreLabel.shadowColor = [UIColor blackColor];
         competitorScoreLabel.shadowOffset = CGSizeMake(-1.0, 0.0);
-        [self addSubview:competitorScoreLabel];
+        [[vibrancyEffectView contentView] addSubview:competitorScoreLabel];
     }
-
+    
+    // Add the vibrant tetx to the blur view
+    [[blurEffectView contentView] addSubview:vibrancyEffectView];
 }
 
 - (void)competitorPhotoReceived

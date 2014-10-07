@@ -34,12 +34,21 @@
         UIImage *levelsButtonImage = [UIImage imageNamed:@"LevelButton"];
         UIButton *levelsButton = [UIButton buttonWithType:UIButtonTypeCustom];
         levelsButton.frame = CGRectMake(0, 0, levelsButtonImage.size.width, levelsButtonImage.size.height);
-        levelsButton.center = CGPointMake(0 + levelsButtonImage.size.width/2 + 5, self.view.bounds.size.width - levelsButtonImage.size.height/2 - 5); // Have to use self.view.bounds.size.width for the height here because iOS doesn't know that I'm in landscape for some reason
         [levelsButton setImage:levelsButtonImage forState:UIControlStateNormal];
         [levelsButton addTarget:self action:@selector(levelsButtonTapped) forControlEvents:UIControlEventTouchUpInside];
         levelsButton.opaque = YES;
         levelsButton.tag = 1;
+        levelsButton.translatesAutoresizingMaskIntoConstraints = NO;
         [self.view addSubview:levelsButton];
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:levelsButton attribute:NSLayoutAttributeBottom
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:self.backgroundImageView attribute:NSLayoutAttributeBottom
+                                                             multiplier:1.0 constant:-16]];
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:levelsButton attribute:NSLayoutAttributeLeft
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:self.backgroundImageView attribute:NSLayoutAttributeLeft
+                                                             multiplier:1.0 constant:16]];
+        
         
         UIImageView *monkeyImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"MonkeyAngry"]];
         monkeyImageView.center = CGPointMake(-25, 50);
@@ -69,11 +78,19 @@
             UIImage *continueButtonImage = [UIImage imageNamed:@"ContinueButton"];
             UIButton *continueButton = [UIButton buttonWithType:UIButtonTypeCustom];
             continueButton.frame = CGRectMake(0, 0, continueButtonImage.size.width, continueButtonImage.size.height);
-            continueButton.center = CGPointMake(self.view.bounds.size.height - continueButtonImage.size.width/2 - 5, self.view.bounds.size.width - continueButtonImage.size.height/2 - 305);
             [continueButton setImage:continueButtonImage forState:UIControlStateNormal];
             [continueButton addTarget:self action:@selector(continueButtonTapped) forControlEvents:UIControlEventTouchUpInside];
             continueButton.opaque = YES;
             [self.view addSubview:continueButton];
+            continueButton.translatesAutoresizingMaskIntoConstraints = NO;
+            [self.view addConstraint:[NSLayoutConstraint constraintWithItem:continueButton
+                                                                  attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual
+                                                                     toItem:self.backgroundImageView attribute:NSLayoutAttributeTrailing
+                                                                 multiplier:1.0 constant:-16]];
+            [self.view addConstraint:[NSLayoutConstraint constraintWithItem:continueButton
+                                                                  attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual
+                                                                     toItem:self.backgroundImageView attribute:NSLayoutAttributeBottom
+                                                                 multiplier:1.0 constant:-16]];
         }
     }
     

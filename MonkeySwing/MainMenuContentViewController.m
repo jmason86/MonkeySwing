@@ -83,12 +83,12 @@
             continueButton.opaque = YES;
             [self.view addSubview:continueButton];
             continueButton.translatesAutoresizingMaskIntoConstraints = NO;
-            [self.view addConstraint:[NSLayoutConstraint constraintWithItem:continueButton
-                                                                  attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual
+            [self.view addConstraint:[NSLayoutConstraint constraintWithItem:continueButton attribute:NSLayoutAttributeTrailing
+                                                                  relatedBy:NSLayoutRelationEqual
                                                                      toItem:self.backgroundImageView attribute:NSLayoutAttributeTrailing
                                                                  multiplier:1.0 constant:-16]];
-            [self.view addConstraint:[NSLayoutConstraint constraintWithItem:continueButton
-                                                                  attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual
+            [self.view addConstraint:[NSLayoutConstraint constraintWithItem:continueButton attribute:NSLayoutAttributeBottom
+                                                                  relatedBy:NSLayoutRelationEqual
                                                                      toItem:self.backgroundImageView attribute:NSLayoutAttributeBottom
                                                                  multiplier:1.0 constant:-16]];
         }
@@ -112,25 +112,50 @@
         [monkeyGearImageView.layer addAnimation:swingAnimation forKey:@"SwingingRotation"];
         
         UISwitch *musicSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(0, 0, 0, 0)]; // This frame gets overridden anyway
-        musicSwitch.center = CGPointMake(self.view.bounds.size.height - musicSwitch.bounds.size.width/2 - 10, 108);
+        musicSwitch.translatesAutoresizingMaskIntoConstraints = NO;
         musicSwitch.on = YES;
         [musicSwitch addTarget:self action:@selector(musicSwitchToggled) forControlEvents:UIControlEventValueChanged];
         [self.view addSubview:musicSwitch];
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:musicSwitch attribute:NSLayoutAttributeTrailing
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:self.backgroundImageView attribute:NSLayoutAttributeTrailing
+                                                             multiplier:1.0 constant:-16]];
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:musicSwitch attribute:NSLayoutAttributeTop
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:self.backgroundImageView attribute:NSLayoutAttributeTop
+                                                             multiplier:1.0 constant:95]];
+        
         
         UISwitch *soundSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-        soundSwitch.center = CGPointMake(musicSwitch.center.x, musicSwitch.center.y + 65);
+        soundSwitch.translatesAutoresizingMaskIntoConstraints = NO;
         soundSwitch.on = YES;
         [soundSwitch addTarget:self action:@selector(soundSwitchToggled) forControlEvents:UIControlEventValueChanged];
         [self.view addSubview:soundSwitch];
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:soundSwitch attribute:NSLayoutAttributeCenterX
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:musicSwitch attribute:NSLayoutAttributeCenterX
+                                                             multiplier:1.0 constant:0]];
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:soundSwitch attribute:NSLayoutAttributeTop
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:musicSwitch attribute:NSLayoutAttributeBottom
+                                                             multiplier:1.0 constant:30]];
         
         UIImage *resetButtonImage = [UIImage imageNamed:@"ResetButton"];
         UIButton *resetButton= [UIButton buttonWithType:UIButtonTypeCustom];
         resetButton.frame = CGRectMake(0, 0, resetButtonImage.size.width, resetButtonImage.size.height);
-        resetButton.center = CGPointMake(soundSwitch.center.x, soundSwitch.center.y + 65); // Have to use self.view.bounds.size.width for the height here because iOS doesn't know that I'm in landscape for some reason
+        resetButton.translatesAutoresizingMaskIntoConstraints = NO;
         [resetButton setImage:resetButtonImage forState:UIControlStateNormal];
         [resetButton addTarget:self action:@selector(resetButtonTapped) forControlEvents:UIControlEventTouchUpInside];
         resetButton.opaque = YES;
         [self.view addSubview:resetButton];
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:resetButton attribute:NSLayoutAttributeCenterX
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:soundSwitch attribute:NSLayoutAttributeCenterX
+                                                             multiplier:1.0 constant:0]];
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:resetButton attribute:NSLayoutAttributeTop
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:soundSwitch attribute:NSLayoutAttributeBottom
+                                                             multiplier:1.0 constant:30]];
     }
 }
 

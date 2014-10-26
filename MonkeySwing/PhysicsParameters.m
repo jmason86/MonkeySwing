@@ -20,7 +20,7 @@
 - (id)init
 {
     // World parameters
-    gravity = CGVectorMake(0, -3); // SI, default = (0, -9.8)
+    gravity = CGVectorMake(0, 0); // SI, default = (0, -9.8)
     
     // Rope parameters
     ropeDensity = 13.0;            // SI, default = 1.0

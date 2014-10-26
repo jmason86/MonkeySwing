@@ -44,7 +44,7 @@
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eU5-la-YpL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="495" y="822.88732394366195"/>
+            <point key="canvasLocation" x="1903" y="414"/>
         </scene>
         <!--Level Selection Content View Controller-->
         <scene sceneID="u5n-wJ-bvC">
@@ -59,8 +59,22 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ms1-Lv-UtM">
-                                <rect key="frame" x="-8" y="0.0" width="576" height="333"/>
+                                <rect key="frame" x="0.0" y="0.0" width="576" height="333"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="103" placeholderIntrinsicHeight="33" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hG3-Ui-QSt">
+                                <rect key="frame" x="233" y="249" width="103" height="33"/>
+                                <state key="normal" image="PlayButton.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="playButtonTapped:" destination="Nkl-IQ-K25" eventType="touchUpInside" id="zUL-cQ-LUW"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="High Score:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ibt-WB-Ywi">
+                                <rect key="frame" x="168" y="119" width="264" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Best Time: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XhO-Qt-Fev">
                                 <rect key="frame" x="168" y="90" width="264" height="21"/>
                                 <constraints>
@@ -71,13 +85,8 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="High Score:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ibt-WB-Ywi">
-                                <rect key="frame" x="168" y="119" width="264" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="138" placeholderIntrinsicHeight="68" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="022-JI-IRC">
-                                <rect key="frame" x="410" y="232" width="138" height="68"/>
+                                <rect key="frame" x="422" y="232" width="138" height="68"/>
                                 <state key="normal" image="MenuButton.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -85,33 +94,30 @@
                                     <action selector="menuButtonTapped:" destination="Nkl-IQ-K25" eventType="touchUpInside" id="e2P-Mi-ViW"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="103" placeholderIntrinsicHeight="33" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hG3-Ui-QSt">
-                                <rect key="frame" x="233" y="249" width="103" height="33"/>
-                                <state key="normal" image="PlayButton.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="playButtonTapped:" destination="Nkl-IQ-K25" eventType="touchUpInside" id="zUL-cQ-LUW"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="XhO-Qt-Fev" firstAttribute="top" secondItem="stB-Ym-jNm" secondAttribute="bottom" constant="70" id="5Tb-q0-Bbf"/>
+                            <constraint firstItem="ms1-Lv-UtM" firstAttribute="leading" secondItem="stB-Ym-jNm" secondAttribute="leading" id="5fo-c0-fSs"/>
                             <constraint firstItem="022-JI-IRC" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hG3-Ui-QSt" secondAttribute="trailing" constant="74" id="6k6-IN-lHF"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="ms1-Lv-UtM" secondAttribute="bottom" constant="-13" id="7kS-FT-8eX"/>
                             <constraint firstItem="XhO-Qt-Fev" firstAttribute="leading" secondItem="BBJ-Wy-D6j" secondAttribute="leading" constant="168" id="9at-gd-amD"/>
+                            <constraint firstItem="ms1-Lv-UtM" firstAttribute="top" secondItem="BBJ-Wy-D6j" secondAttribute="top" id="A2H-sz-ZkB"/>
+                            <constraint firstItem="022-JI-IRC" firstAttribute="trailing" secondItem="ms1-Lv-UtM" secondAttribute="trailing" constant="-16" id="Eha-Q3-PKd"/>
                             <constraint firstItem="XhO-Qt-Fev" firstAttribute="trailing" secondItem="ibt-WB-Ywi" secondAttribute="trailing" id="Lfg-kr-p3G"/>
                             <constraint firstItem="XhO-Qt-Fev" firstAttribute="leading" secondItem="ibt-WB-Ywi" secondAttribute="leading" id="Ob0-1y-Ptt"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="ms1-Lv-UtM" secondAttribute="bottom" constant="-13" id="S10-Wk-k4y"/>
-                            <constraint firstItem="ms1-Lv-UtM" firstAttribute="trailing" secondItem="stB-Ym-jNm" secondAttribute="trailing" id="SYp-1J-Y59"/>
                             <constraint firstItem="022-JI-IRC" firstAttribute="leading" secondItem="hG3-Ui-QSt" secondAttribute="trailing" constant="74" id="ard-QZ-9QB"/>
-                            <constraint firstItem="ms1-Lv-UtM" firstAttribute="leading" secondItem="BBJ-Wy-D6j" secondAttribute="leadingMargin" constant="-24" id="gl3-QG-3e3"/>
                             <constraint firstItem="022-JI-IRC" firstAttribute="centerY" secondItem="hG3-Ui-QSt" secondAttribute="centerY" constant="0.5" id="kqz-4r-0OK"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ms1-Lv-UtM" secondAttribute="trailing" constant="-24" id="lXQ-XE-10i"/>
                             <constraint firstItem="hG3-Ui-QSt" firstAttribute="centerX" secondItem="BBJ-Wy-D6j" secondAttribute="centerX" id="n1C-pc-cFK"/>
                             <constraint firstItem="YEd-eS-VZe" firstAttribute="top" secondItem="hG3-Ui-QSt" secondAttribute="bottom" constant="38" id="vHB-KL-cJL"/>
-                            <constraint firstItem="ms1-Lv-UtM" firstAttribute="top" secondItem="BBJ-Wy-D6j" secondAttribute="top" id="yGd-Ic-9WT"/>
                             <constraint firstItem="ibt-WB-Ywi" firstAttribute="top" secondItem="XhO-Qt-Fev" secondAttribute="bottom" constant="8" symbolic="YES" id="zG4-Kw-lNM"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="ard-QZ-9QB"/>
+                            </mask>
+                        </variation>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="568" height="320"/>
@@ -155,7 +161,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZIu-Ri-g3I" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="522" y="1385"/>
+            <point key="canvasLocation" x="1919" y="953"/>
         </scene>
     </scenes>
     <resources>

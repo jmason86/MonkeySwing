@@ -42,6 +42,8 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
     CGPoint touchBeganPoint;
     
     // Object identification
+    SKSpriteNode *monkeySprite;
+    NSArray *monkeyReachingFrames;
     NSString *monkeyOnRopeWithName;
     SKNode *myWorld, *allFireNode;
     NSInteger numberOfBonusPointsObtained;
@@ -77,6 +79,22 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
         
         // Create world
         [self createNewWorld];
+        
+        // Add animated monkey
+        NSMutableArray *monkeyReachingFramesTemp = [NSMutableArray array];
+        SKTextureAtlas *monkeyScreamingTextureAtlas = [SKTextureAtlas atlasNamed:@"MonkeyReaching"];
+        NSUInteger numberOfMonkeyScreamingImages = monkeyScreamingTextureAtlas.textureNames.count;
+        for (int i = 1; i <= numberOfMonkeyScreamingImages/2; i++) {
+            NSString *textureName = [NSString stringWithFormat:@"Monkey%d", i];
+            SKTexture *temp = [monkeyScreamingTextureAtlas textureNamed:textureName];
+            [monkeyReachingFramesTemp addObject:temp];
+        }
+        monkeyReachingFrames = monkeyReachingFramesTemp;
+        SKTexture *temp = monkeyReachingFrames[0];
+        monkeySprite = [SKSpriteNode spriteNodeWithTexture:temp];
+        monkeySprite.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+        [self addChild:monkeySprite];
+        [self animateMonkeyReaching];
         
         // Listen to the LevelEndScene
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -320,6 +338,12 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
             [myWorld setPosition:CGPointMake(-scrollRightLimit, -scrollTopLimit)];
         }
     }
+}
+
+- (void)animateMonkeyReaching
+{
+    [monkeySprite runAction:[SKAction repeatActionForever:[SKAction animateWithTextures:monkeyReachingFrames timePerFrame:0.1f resize:NO restore:YES]] withKey:@"monkeyReaching"];
+    return;
 }
 
 - (void)monkeyDied

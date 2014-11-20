@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E40C320A19FDBDF400BC26FE /* MonkeyReaching.atlas in Resources */ = {isa = PBXBuildFile; fileRef = E40C320919FDBDF400BC26FE /* MonkeyReaching.atlas */; };
+		E40C320D1A0006CE00BC26FE /* MonkeyReaching.atlas in Resources */ = {isa = PBXBuildFile; fileRef = E40C320B1A0006CE00BC26FE /* MonkeyReaching.atlas */; };
+		E40C320E1A0006CE00BC26FE /* MonkeySwingForward.atlas in Resources */ = {isa = PBXBuildFile; fileRef = E40C320C1A0006CE00BC26FE /* MonkeySwingForward.atlas */; };
 		E41BEA531976073300EA7801 /* MainMenuContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E41BEA521976073300EA7801 /* MainMenuContentViewController.m */; };
 		E423238E18ADA93E00F852A0 /* BonusPointsObject.m in Sources */ = {isa = PBXBuildFile; fileRef = E423238D18ADA93E00F852A0 /* BonusPointsObject.m */; };
 		E43567C0190CB554002ED25D /* GameKitHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E43567BF190CB554002ED25D /* GameKitHelper.m */; };
@@ -16,6 +17,8 @@
 		E46317B618A5FEE600E911E6 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E4271007189E230400007F33 /* libz.dylib */; };
 		E468A283198B3831005D890F /* Level3SelectionScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = E468A281198B3831005D890F /* Level3SelectionScreen.png */; };
 		E468A284198B3831005D890F /* Level3SelectionScreen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E468A282198B3831005D890F /* Level3SelectionScreen@2x.png */; };
+		E469F4111A1E6E2000C705A6 /* JPMRope.m in Sources */ = {isa = PBXBuildFile; fileRef = E469F4101A1E6E2000C705A6 /* JPMRope.m */; };
+		E469F4131A1E7B0100C705A6 /* dummypixel_transparent.png in Resources */ = {isa = PBXBuildFile; fileRef = E469F4121A1E7B0100C705A6 /* dummypixel_transparent.png */; };
 		E4770F4D190F6636005E7200 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4770F4C190F6636005E7200 /* GameKit.framework */; };
 		E4794A1E19733C1C00CE739B /* LevelSelectionContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4794A1C19733C1C00CE739B /* LevelSelectionContentViewController.m */; };
 		E4794A5719733CAD00CE739B /* Apple.png in Resources */ = {isa = PBXBuildFile; fileRef = E4794A2119733CAD00CE739B /* Apple.png */; };
@@ -119,7 +122,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		E40C320919FDBDF400BC26FE /* MonkeyReaching.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = MonkeyReaching.atlas; sourceTree = "<group>"; };
+		E40C320B1A0006CE00BC26FE /* MonkeyReaching.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = MonkeyReaching.atlas; sourceTree = "<group>"; };
+		E40C320C1A0006CE00BC26FE /* MonkeySwingForward.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = MonkeySwingForward.atlas; sourceTree = "<group>"; };
 		E41BEA511976073300EA7801 /* MainMenuContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuContentViewController.h; sourceTree = "<group>"; };
 		E41BEA521976073300EA7801 /* MainMenuContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuContentViewController.m; sourceTree = "<group>"; };
 		E423238C18ADA93E00F852A0 /* BonusPointsObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BonusPointsObject.h; sourceTree = "<group>"; };
@@ -132,6 +136,9 @@
 		E45C90951913442B00956737 /* GameCenterFriendData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCenterFriendData.m; sourceTree = "<group>"; };
 		E468A281198B3831005D890F /* Level3SelectionScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Level3SelectionScreen.png; sourceTree = "<group>"; };
 		E468A282198B3831005D890F /* Level3SelectionScreen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Level3SelectionScreen@2x.png"; sourceTree = "<group>"; };
+		E469F40F1A1E6E2000C705A6 /* JPMRope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPMRope.h; sourceTree = "<group>"; };
+		E469F4101A1E6E2000C705A6 /* JPMRope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPMRope.m; sourceTree = "<group>"; };
+		E469F4121A1E7B0100C705A6 /* dummypixel_transparent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dummypixel_transparent.png; sourceTree = "<group>"; };
 		E4770F4C190F6636005E7200 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		E4794A1B19733C1C00CE739B /* LevelSelectionContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelSelectionContentViewController.h; sourceTree = "<group>"; };
 		E4794A1C19733C1C00CE739B /* LevelSelectionContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelSelectionContentViewController.m; sourceTree = "<group>"; };
@@ -286,7 +293,8 @@
 		E4794A2019733CAD00CE739B /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				E40C320919FDBDF400BC26FE /* MonkeyReaching.atlas */,
+				E40C320B1A0006CE00BC26FE /* MonkeyReaching.atlas */,
+				E40C320C1A0006CE00BC26FE /* MonkeySwingForward.atlas */,
 				E4794A2119733CAD00CE739B /* Apple.png */,
 				E4794A2219733CAD00CE739B /* Apple@2x.png */,
 				E4794A2319733CAD00CE739B /* Arrow.png */,
@@ -297,6 +305,7 @@
 				E4794A2819733CAD00CE739B /* ContinueButton@2x.png */,
 				E4794A2919733CAD00CE739B /* DeadMonkeysButton.png */,
 				E4794A2A19733CAD00CE739B /* DeadMonkeysButton@2x.png */,
+				E469F4121A1E7B0100C705A6 /* dummypixel_transparent.png */,
 				E4794A2B19733CAD00CE739B /* FullLevel1.png */,
 				E4794A2C19733CAD00CE739B /* FullLevel1@2x.png */,
 				E4794A2D19733CAD00CE739B /* FullLevel2.png */,
@@ -433,6 +442,8 @@
 				E4794A1C19733C1C00CE739B /* LevelSelectionContentViewController.m */,
 				E4DCD38C1874E6D20040643C /* GamePlayScene.h */,
 				E4DCD38D1874E6D20040643C /* GamePlayScene.m */,
+				E469F40F1A1E6E2000C705A6 /* JPMRope.h */,
+				E469F4101A1E6E2000C705A6 /* JPMRope.m */,
 				E4A6C21419AA5F8800C65656 /* ScrollingSpriteNode.h */,
 				E4A6C21519AA5F8800C65656 /* ScrollingSpriteNode.m */,
 				E4880C4C18B44DF700DBE7B2 /* LevelEndView.h */,
@@ -612,6 +623,7 @@
 				E4794A7B19733CAD00CE739B /* Monkey.png in Resources */,
 				E4794A6719733CAD00CE739B /* HudBanana.png in Resources */,
 				E4794A6219733CAD00CE739B /* FullLevel1@2x.png in Resources */,
+				E469F4131A1E7B0100C705A6 /* dummypixel_transparent.png in Resources */,
 				E4794A6119733CAD00CE739B /* FullLevel1.png in Resources */,
 				E4794A6319733CAD00CE739B /* FullLevel2.png in Resources */,
 				E4794A6619733CAD00CE739B /* GameOverByFireButton@2x.png in Resources */,
@@ -620,6 +632,7 @@
 				E4794A7519733CAD00CE739B /* MainMenuBackground.png in Resources */,
 				E4794A7C19733CAD00CE739B /* Monkey@2x.png in Resources */,
 				E4794A7319733CAD00CE739B /* LevelButton.png in Resources */,
+				E40C320E1A0006CE00BC26FE /* MonkeySwingForward.atlas in Resources */,
 				E4794A7619733CAD00CE739B /* MainMenuBackground@2x.png in Resources */,
 				E4794A8119733CAD00CE739B /* NextLevelButton@2x.png in Resources */,
 				E4794A7219733CAD00CE739B /* Level2SelectionScreen@2x.png in Resources */,
@@ -633,7 +646,7 @@
 				E4794A6D19733CAD00CE739B /* Leaf2.png in Resources */,
 				E468A284198B3831005D890F /* Level3SelectionScreen@2x.png in Resources */,
 				E4794A8719733CAD00CE739B /* RespawnButton.png in Resources */,
-				E40C320A19FDBDF400BC26FE /* MonkeyReaching.atlas in Resources */,
+				E40C320D1A0006CE00BC26FE /* MonkeyReaching.atlas in Resources */,
 				E4794A8519733CAD00CE739B /* ResetButton.png in Resources */,
 				E4794A6F19733CAD00CE739B /* Level1SelectionScreen.png in Resources */,
 				E4794A7A19733CAD00CE739B /* MenuButton@2x.png in Resources */,
@@ -667,6 +680,7 @@
 				E4A5F8F418AC9977001B28B6 /* JPMLevelInterpreter.m in Sources */,
 				E4A6C21619AA5F8800C65656 /* ScrollingSpriteNode.m in Sources */,
 				E41BEA531976073300EA7801 /* MainMenuContentViewController.m in Sources */,
+				E469F4111A1E6E2000C705A6 /* JPMRope.m in Sources */,
 				E4DCD3851874E6D20040643C /* AppDelegate.m in Sources */,
 				E4A880BA19BCC8290044B17C /* PBParallaxScrolling.m in Sources */,
 				E4794A1E19733C1C00CE739B /* LevelSelectionContentViewController.m in Sources */,

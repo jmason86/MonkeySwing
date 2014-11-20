@@ -12,6 +12,7 @@
 #import "BonusPointsObject.h"
 #import "LevelEndView.h"
 #import "PlayerLevelRunData.h"
+#import "JPMRope.h"
 
 // Collision categories
 static const uint32_t monkeyCategory = 0x1 << 0;
@@ -44,6 +45,8 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
     // Object identification
     SKSpriteNode *monkeySprite;
     NSArray *monkeyReachingFrames;
+    NSArray *monkeySwingLeftFrames;
+    NSArray *monkeySwingRightFrames;
     NSString *monkeyOnRopeWithName;
     SKNode *myWorld, *allFireNode;
     NSInteger numberOfBonusPointsObtained;
@@ -80,22 +83,6 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
         // Create world
         [self createNewWorld];
         
-        // Add animated monkey
-        NSMutableArray *monkeyReachingFramesTemp = [NSMutableArray array];
-        SKTextureAtlas *monkeyScreamingTextureAtlas = [SKTextureAtlas atlasNamed:@"MonkeyReaching"];
-        NSUInteger numberOfMonkeyScreamingImages = monkeyScreamingTextureAtlas.textureNames.count;
-        for (int i = 1; i <= numberOfMonkeyScreamingImages/2; i++) {
-            NSString *textureName = [NSString stringWithFormat:@"Monkey%d", i];
-            SKTexture *temp = [monkeyScreamingTextureAtlas textureNamed:textureName];
-            [monkeyReachingFramesTemp addObject:temp];
-        }
-        monkeyReachingFrames = monkeyReachingFramesTemp;
-        SKTexture *temp = monkeyReachingFrames[0];
-        monkeySprite = [SKSpriteNode spriteNodeWithTexture:temp];
-        monkeySprite.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
-        [self addChild:monkeySprite];
-        [self animateMonkeyReaching];
-        
         // Listen to the LevelEndScene
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(receiveLevelEndedUserSelection:)
@@ -108,7 +95,7 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
 - (void)createNewWorld
 {
     // Prepare world
-    self.anchorPoint = CGPointMake(0.5, 0.5);
+    //self.anchorPoint = CGPointMake(0.5, 0.5); // TODO: Delete this? If uncommented then it doens't match coordinate system of physicsWorld, causing joints to get messed up
     myWorld = [SKNode node];
     myWorld.scene.anchorPoint = CGPointMake(0.5, 0.5);
     myWorld.name = @"myWorld";
@@ -240,6 +227,13 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
 {
     [self centerOnNode:[self childNodeWithName:@"//monkey"]];
     [self resetRopeCategoryMasksForAllRopes:NO];
+    
+    // Run monkey reaching animation if appropriate
+    if (monkeyOnRopeWithName) { // TODO: 2014/11/9 This suddenly became a necessary if statement after I changed the xPosition and yPosition for ropes. Make sure it's getting assigned when appropriate
+        if ([self childNodeWithName:@"//monkey"].position.x > [self childNodeWithName:monkeyOnRopeWithName].position.x) {
+            [self animateMonkeyReaching];
+        }
+    }
 }
 
 - (void)centerOnNode:(SKNode *)monkeyNode
@@ -342,7 +336,19 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
 
 - (void)animateMonkeyReaching
 {
-    [monkeySprite runAction:[SKAction repeatActionForever:[SKAction animateWithTextures:monkeyReachingFrames timePerFrame:0.1f resize:NO restore:YES]] withKey:@"monkeyReaching"];
+    [[self childNodeWithName:@"//monkey"] runAction:[SKAction animateWithTextures:monkeyReachingFrames timePerFrame:0.1f resize:NO restore:YES] withKey:@"monkeyReaching"];
+    return;
+}
+
+- (void)animateMonkeySwingLeft
+{
+    [[self childNodeWithName:@"//monkey"] runAction:[SKAction animateWithTextures:monkeySwingLeftFrames timePerFrame:0.1f resize:NO restore:YES] withKey:@"monkeySwingLeft"];
+    return;
+}
+
+- (void)animateMonkeySwingRight
+{
+    [[self childNodeWithName:@"//monkey"] runAction:[SKAction animateWithTextures:monkeySwingRightFrames timePerFrame:0.1f resize:NO restore:YES] withKey:@"monkeySwingRight"];
     return;
 }
 
@@ -355,7 +361,7 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
     [fireTimer invalidate];
     
     // Reset rapid ropes count
-    //numberOfRapidRopes = 0;
+    numberOfRapidRopes = 0;
     
     // Get rid of the dead monkey sprite
     [monkeyNode removeFromParent];
@@ -629,76 +635,37 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
         // Handle ropes
         if ([[objectProperties objectForKey:@"objectType"] isEqualToString:@"rope.png"]) {
             // Cast object properties
-            CGFloat xPosition =  skyFarLeftSide.x + [[objectProperties objectForKey:@"xCenterPosition"] floatValue];
-            CGFloat yPosition =  skyFarTopSide.y - [[objectProperties objectForKey:@"yCenterPosition"] floatValue];
+            CGFloat yPosition = skyFarTopSide.y - [[objectProperties objectForKey:@"yCenterPosition"] floatValue];
+            CGFloat xPosition = [[objectProperties objectForKey:@"xCenterPosition"] floatValue];
+            CGPoint ropeAttachPosition = CGPointMake(xPosition, yPosition);
             NSInteger numberOfSegments = [[objectProperties objectForKey:@"property1"] integerValue];
             
-            // Make a full rope node to hold all the segments in a single object
-            SKNode *fullRopeNode = [[SKNode alloc] init];
-            fullRopeNode.name = [NSString stringWithFormat:@"%@%i", @"fullRope", ropeNumber];
-            [myWorld addChild:fullRopeNode];
+            // Make a hidden anchor
+            SKSpriteNode *anchor = [SKSpriteNode spriteNodeWithImageNamed:@"dummypixel_transparent.png"];
+            anchor.position = ropeAttachPosition;
+            anchor.size = CGSizeMake(1, 1);
+            anchor.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:anchor.size];
+            anchor.physicsBody.affectedByGravity = false;
+            anchor.physicsBody.mass = 99999999999;
+            anchor.name = [NSString stringWithFormat:@"%@%i", @"ropeAnchor", ropeNumber];
+            [myWorld addChild:anchor];
             
-            // Make a bunch of rope segments
-            SKPhysicsBody *ropeSegment1PhysicsBody, *ropeSegment2PhysicsBody;
-            for (int i = 0; i < numberOfSegments; i = i + 2) {
-                // Add first segment image
-                SKSpriteNode *ropeSegment1 = [SKSpriteNode spriteNodeWithImageNamed:@"Rope Segment"];
-                ropeSegment1.position = CGPointMake(xPosition, yPosition - i * ropeSegment1.size.height * 0.9);
-                ropeSegment1.name = [NSString stringWithFormat:@"%@%i", @"rope", i];
-                [fullRopeNode addChild:ropeSegment1];
-                ropeSegment1.zPosition = 110;
-                
-                // Add first segment physics
-                ropeSegment1PhysicsBody = [SKPhysicsBody bodyWithRectangleOfSize:ropeSegment1.size];
-                ropeSegment1.physicsBody = ropeSegment1PhysicsBody;
-                ropeSegment1.physicsBody.density = physicsParameters.ropeDensity;
-                ropeSegment1.physicsBody.linearDamping = physicsParameters.ropeLinearDamping;
-                ropeSegment1.physicsBody.angularDamping = physicsParameters.ropeAngularDamping;
-                ropeSegment1.physicsBody.restitution = physicsParameters.ropeRestitution;
-                ropeSegment1.physicsBody.usesPreciseCollisionDetection = YES;
-                ropeSegment1.physicsBody.categoryBitMask = ropeCategory;
-                ropeSegment1.physicsBody.contactTestBitMask = monkeyCategory;
-                ropeSegment1.physicsBody.collisionBitMask = 0x0;
-                if (i == 0) {
-                    ropeSegment1.physicsBody.dynamic = NO;
-                }
-                
-                // Add joint between new ropeSegment1 and previous ropeSegment2
-                if (i > 0) {
-                    SKPhysicsBody *previousBottomRopeSegmentPhysicsBody = ropeSegment2PhysicsBody;
-                    SKPhysicsJointPin *jointPin = [SKPhysicsJointPin jointWithBodyA:ropeSegment1.physicsBody bodyB:previousBottomRopeSegmentPhysicsBody anchor:CGPointMake(ropeSegment1.position.x, ropeSegment1.position.y + ropeSegment1.size.height)];
-                    jointPin.upperAngleLimit = physicsParameters.ropeRotationLimit;
-                    jointPin.lowerAngleLimit = -physicsParameters.ropeRotationLimit;
-                    jointPin.shouldEnableLimits = YES;
-                    [self.physicsWorld addJoint:jointPin];
-                }
-                
-                // Add new ropeSegment
-                SKSpriteNode *ropeSegment2 = [SKSpriteNode spriteNodeWithImageNamed:@"Rope Segment"];
-                ropeSegment2.position = CGPointMake(ropeSegment1.position.x, yPosition - (i + 1) * ropeSegment2.size.height * 0.9);
-                ropeSegment2.name = [NSString stringWithFormat:@"%@%i", @"rope", i + 1];
-                [fullRopeNode addChild:ropeSegment2];
-                ropeSegment2.zPosition = 110;
-                
-                // Add physics to segments
-                ropeSegment2PhysicsBody = [SKPhysicsBody bodyWithRectangleOfSize:ropeSegment2.size];
-                ropeSegment2.physicsBody = ropeSegment2PhysicsBody;
-                ropeSegment2.physicsBody.density = physicsParameters.ropeDensity;
-                ropeSegment2.physicsBody.linearDamping = physicsParameters.ropeLinearDamping;
-                ropeSegment2.physicsBody.angularDamping = physicsParameters.ropeAngularDamping;
-                ropeSegment2.physicsBody.restitution = physicsParameters.ropeRestitution;
-                ropeSegment2.physicsBody.usesPreciseCollisionDetection = YES;
-                ropeSegment2.physicsBody.categoryBitMask = ropeCategory;
-                ropeSegment2.physicsBody.contactTestBitMask = monkeyCategory;
-                ropeSegment2.physicsBody.collisionBitMask = 0x0;
-                
-                // Add joints between segments
-                SKPhysicsJointPin *jointPin = [SKPhysicsJointPin jointWithBodyA:ropeSegment1.physicsBody bodyB:ropeSegment2.physicsBody anchor:CGPointMake(ropeSegment1.position.x, ropeSegment1.position.y - ropeSegment1.size.height)];
-                jointPin.upperAngleLimit = physicsParameters.ropeRotationLimit;
-                jointPin.lowerAngleLimit = -physicsParameters.ropeRotationLimit;
-                jointPin.shouldEnableLimits = YES;
-                [self.physicsWorld addJoint:jointPin];
-            }
+            // Make a full rope node to hold all the segments in a single object
+            NSString *fullRopeName = [NSString stringWithFormat:@"%@%i", @"fullRope", ropeNumber];
+            
+            JPMRope *rope = [JPMRope new];
+            [myWorld addChild:rope];
+            
+            // Attach rope to anchor
+            [rope setAttachmentPoint:ropeAttachPosition toNode:anchor];
+            
+            // Set length of rope
+            rope.ropeLength = (int)numberOfSegments;
+            
+            // Set name of rope
+            rope.name = fullRopeName;
+            
+            // Update rope number for names
             ropeNumber++;
 
         } else if ([[objectProperties objectForKey:@"objectType"] isEqualToString:@"apple.png"]) { // Handle bonus point objects
@@ -727,11 +694,37 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
 
 - (void)addMonkeyToWorld
 {
-    SKSpriteNode *monkeySpriteNode = [SKSpriteNode spriteNodeWithImageNamed:@"Monkey"];
+    SKSpriteNode *monkeySpriteNode;
     monkeySpriteNode.position = CGPointMake(sceneFarLeftSide.x + 30, sceneFarTopSide.y - 50);
     monkeySpriteNode.zPosition = 104;
     monkeySpriteNode.name = @"monkey";
+    
+    
+    // Prep for an animated monkey - reaching
+    NSMutableArray *monkeyReachingFramesTemp = [NSMutableArray array];
+    SKTextureAtlas *monkeyReachingTextureAtlas = [SKTextureAtlas atlasNamed:@"MonkeyReaching"];
+    NSUInteger numberOfMonkeyReachingImages = monkeyReachingTextureAtlas.textureNames.count;
+    for (int i = 1; i <= numberOfMonkeyReachingImages/2; i++) {
+        NSString *textureName = [NSString stringWithFormat:@"MonkeyReaching%d", i];
+        SKTexture *temp = [monkeyReachingTextureAtlas textureNamed:textureName];
+        [monkeyReachingFramesTemp addObject:temp];
+    }
+    monkeyReachingFrames = monkeyReachingFramesTemp;
+    SKTexture *temp = monkeyReachingFrames[0];
+    monkeySpriteNode = [SKSpriteNode spriteNodeWithTexture:temp];
     [myWorld addChild:monkeySpriteNode];
+    
+    // Prep for an animated monkey - swing right
+    NSMutableArray *monkeySwingRightFramesTemp = [NSMutableArray array];
+    SKTextureAtlas *monkeySwingRightTextureAtlas = [SKTextureAtlas atlasNamed:@"MonkeySwingForward"];
+    NSUInteger numberOfMonkeySwingRightImages = monkeySwingRightTextureAtlas.textureNames.count;
+    for (int i = 1; i < numberOfMonkeySwingRightImages/2; i++) {
+        NSString *textureName = [NSString stringWithFormat:@"MonkeySwingForward%d", i];
+        SKTexture *temp = [monkeySwingRightTextureAtlas textureNamed:textureName];
+        [monkeySwingRightFramesTemp addObject:temp];
+    }
+    monkeySwingRightFrames = monkeySwingRightFramesTemp;
+    
     
     // Basic properties
     monkeySpriteNode.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:monkeySpriteNode.size];
@@ -835,6 +828,13 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
     SKPhysicsBody *monkeyPhysicsBody = [myWorld childNodeWithName:@"monkey"].physicsBody;
     if (monkeyPhysicsBody.joints.count != 0) {
         [monkeyPhysicsBody applyImpulse:swipeVelocity];
+    }
+    
+    // Animate the monkey
+    if (swipeVelocity.dx < 0) {
+        [self animateMonkeySwingLeft];
+    } else if (swipeVelocity.dx > 0) {
+        [self animateMonkeySwingRight];
     }
 }
 

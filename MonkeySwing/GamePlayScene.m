@@ -693,11 +693,10 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
 
 - (void)addMonkeyToWorld
 {
-    SKSpriteNode *monkeySpriteNode;
+    SKSpriteNode *monkeySpriteNode = [SKSpriteNode spriteNodeWithImageNamed:@"Monkey"];
     monkeySpriteNode.position = CGPointMake(sceneFarLeftSide.x + 30, sceneFarTopSide.y - 50);
     monkeySpriteNode.zPosition = 104;
     monkeySpriteNode.name = @"monkey";
-    
     
     // Prep for an animated monkey - reaching
     NSMutableArray *monkeyReachingFramesTemp = [NSMutableArray array];
@@ -724,6 +723,12 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
     }
     monkeySwingRightFrames = monkeySwingRightFramesTemp;
     
+    [monkeySpriteNode runAction:[SKAction repeatActionForever:
+                                 [SKAction animateWithTextures:monkeySwingRightFrames
+                                                  timePerFrame:0.1f
+                                                        resize:NO
+                                                       restore:YES]]
+                                                      withKey:@"monkeySwingRight"];
     
     // Basic properties
     monkeySpriteNode.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:monkeySpriteNode.size];

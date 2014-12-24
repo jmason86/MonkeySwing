@@ -95,7 +95,6 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
 - (void)createNewWorld
 {
     // Prepare world
-    //self.anchorPoint = CGPointMake(0.5, 0.5); // TODO: Delete this? If uncommented then it doens't match coordinate system of physicsWorld, causing joints to get messed up
     myWorld = [SKNode node];
     myWorld.scene.anchorPoint = CGPointMake(0.5, 0.5);
     myWorld.name = @"myWorld";
@@ -899,10 +898,24 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
 {
     if (monkeyPhysicsBody.joints.count == 0) {
         // Create a new joint between the monkey and the rope segment
-        SKPhysicsJointPin *jointPin = [SKPhysicsJointPin jointWithBodyA:monkeyPhysicsBody bodyB:ropePhysicsBody anchor:contactPoint];
+        CGPoint convertedMonkeyPosition  = CGPointMake(monkeyPhysicsBody.node.position.x + sceneWidth/2., monkeyPhysicsBody.node.position.y + sceneHeight/2.);
+        CGPoint convertedRopePosition = CGPointMake(ropePhysicsBody.node.position.x + sceneWidth/2., ropePhysicsBody.node.position.y + sceneHeight/2.);
+        CGFloat leftMostX = convertedMonkeyPosition.x < convertedRopePosition.x ? convertedMonkeyPosition.x : convertedRopePosition.x;
+        CGFloat bottomMostY = convertedMonkeyPosition.y < convertedRopePosition.y ? convertedMonkeyPosition.y : convertedRopePosition.y;
+        CGPoint midPointMonkeyAndRope = CGPointMake(leftMostX + fabsf(ropePhysicsBody.node.position.x - monkeyPhysicsBody.node.position.x) / 2.,
+                                                    bottomMostY + fabsf(ropePhysicsBody.node.position.y - monkeyPhysicsBody.node.position.y) / 2.);
+        SKPhysicsJointPin *jointPin = [SKPhysicsJointPin jointWithBodyA:monkeyPhysicsBody bodyB:ropePhysicsBody anchor:midPointMonkeyAndRope]; // FIXME: Monkey-rope joint going to weird position
         jointPin.upperAngleLimit = M_PI/4;
         jointPin.shouldEnableLimits = YES;
-        [self.physicsWorld addJoint:jointPin];
+        [self.scene.physicsWorld addJoint:jointPin];
+        
+        /*
+        // DEBUG: Draw a rectangle in a coordinate system
+        SKSpriteNode *bla = [SKSpriteNode spriteNodeWithColor:[UIColor redColor] size:CGSizeMake(100, 100)];
+        [self.scene addChild:bla]; // If I use bla.scene, it doesn't work. self, self.scene, myworld all do work though.
+        bla.position = convertedRopePosition;
+        bla.zPosition = 999;
+        */
         
         // Flag the name of the fullRope that the monkey is currently on
         monkeyOnRopeWithName = ropePhysicsBody.node.parent.name;

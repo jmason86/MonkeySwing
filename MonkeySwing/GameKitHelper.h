@@ -10,8 +10,9 @@
 #import "GameCenterFriendData.h"
 
 extern NSString *const PresentAuthenticationViewController;
+extern NSString *const GameCenterViewControllerDismissed;
 
-@interface GameKitHelper : NSObject
+@interface GameKitHelper : NSObject <GKGameCenterControllerDelegate>
 
 @property (nonatomic, readonly) UIViewController *authenticationViewController;
 @property (nonatomic, readonly) NSError *lastError;

@@ -47,7 +47,7 @@ static const uint32_t ropeCategory = 0x1 << 1;
     
     for (int i = 1; i < ropeLength; i++) {
         SKSpriteNode *ropePart = [SKSpriteNode spriteNodeWithImageNamed:@"Rope Segment"];
-        ropePart.position = CGPointMake(firstPart.position.x, firstPart.position.y - (i * ropePart.size.height));
+        ropePart.position = CGPointMake(firstPart.position.x, firstPart.position.y - (i * ropePart.size.height/1.2));
         ropePart.zPosition = 110;
         ropePart.name = [NSString stringWithFormat:@"%@%i", @"RopeSegment", i];
         ropePart.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:ropePart.size.height];
@@ -73,6 +73,7 @@ static const uint32_t ropeCategory = 0x1 << 1;
     SKPhysicsJointPin *joint = [SKPhysicsJointPin jointWithBodyA:nodeA.physicsBody
                                                            bodyB:nodeB.physicsBody
                                                           anchor:_positionOnStartNode];
+    joint.frictionTorque = 1.0;
     [self.scene.physicsWorld addJoint:joint];
     
     // Then add rest of the joints and physics parameters
@@ -89,12 +90,11 @@ static const uint32_t ropeCategory = 0x1 << 1;
         nodeB.physicsBody.linearDamping = physicsParameters.ropeLinearDamping;
         nodeB.physicsBody.angularDamping = physicsParameters.ropeAngularDamping;
         nodeB.physicsBody.affectedByGravity = YES;
-        /*nodeB.physicsBody.restitution = physicsParameters.ropeRestitution;
+        nodeB.physicsBody.restitution = physicsParameters.ropeRestitution;
         nodeB.physicsBody.usesPreciseCollisionDetection = YES;
         nodeB.physicsBody.categoryBitMask = ropeCategory;
         nodeB.physicsBody.contactTestBitMask = ropeCategory;
         nodeB.physicsBody.collisionBitMask = 0x0;
-         */
     }
 }
 

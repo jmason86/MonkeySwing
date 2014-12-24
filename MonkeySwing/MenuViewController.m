@@ -1,5 +1,5 @@
 //
-//  ViewController.m
+//  MenuViewController
 //  MonkeySwing
 //
 //  Created by James Paul Mason on 1/1/14.
@@ -35,6 +35,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(continueButtonTappedNotification) name:@"continueButtonTapped" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(menuButtonTappedNotification:) name:@"levelEndedUserSelection" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showAuthenticationViewController) name:PresentAuthenticationViewController object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissAuthenticationViewController) name:GameCenterViewControllerDismissed object:nil];
     
     // Game center
     [[GameKitHelper sharedGameKitHelper] authenticateLocalPlayer];
@@ -136,7 +137,7 @@
     [self.pageViewController.view removeFromSuperview];
     [self.pageControl removeFromSuperview];
     skViewToPresent = (SKView *)self.view;
-    skViewToPresent.showsPhysics =YES;
+    //skViewToPresent.showsPhysics = YES;
     
     // Create and configure the scene
     sceneToPresent = [GamePlayScene sceneWithSize:skViewToPresent.bounds.size];
@@ -167,12 +168,18 @@
 
 - (void)showAuthenticationViewController
 {
+     // TODO: Uncomment this to start game center again
     [sceneToPresent.scene.view setPaused:YES];
     GameKitHelper *gameKitHelper = [GameKitHelper sharedGameKitHelper];
     [self presentViewController:gameKitHelper.authenticationViewController animated:YES completion:nil];
 }
 
-// TODO: Method to unpause after authenticationViewController dismissed
+- (void)dismissAuthenticationViewController
+{
+    
+    [sceneToPresent.scene.view setPaused:NO];
+    
+}
 
 #pragma mark - Scroll View
 

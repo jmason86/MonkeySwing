@@ -9,6 +9,7 @@
 #import "GameKitHelper.h"
 
 NSString *const PresentAuthenticationViewController = @"present_authentication_view_controller";
+NSString *const GameCenterViewControllerDismissed = @"game_center_view_controller_dismissed";
 NSString *const CompetitorScoreReceived = @"competitor_score_received";
 NSString *const CompetitorDisplayNameSaved = @"competitor_display_name_saved";
 NSString *const CompetitorPhotoReceived = @"competitor_photo_received";
@@ -81,7 +82,12 @@ NSString *const CompetitorPhotoReceived = @"competitor_photo_received";
     }
 }
 
-// TODO: Add method NSNotification for authenticationViewController being dismissed
+- (void)gameCenterViewControllerDidFinish:(GKGameCenterViewController *)gameCenterViewController
+{
+    if (gameCenterViewController != nil) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:GameCenterViewControllerDismissed object:self];
+    }
+}
 
 - (void)setLastError:(NSError *)lastError
 {

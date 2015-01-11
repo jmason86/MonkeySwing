@@ -333,24 +333,6 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
     }
 }
 
-- (void)animateMonkeyReaching
-{
-    [[self childNodeWithName:@"//monkey"] runAction:[SKAction animateWithTextures:monkeyReachingFrames timePerFrame:0.1f resize:NO restore:YES] withKey:@"monkeyReaching"];
-    return;
-}
-
-- (void)animateMonkeySwingLeft
-{
-    [[self childNodeWithName:@"//monkey"] runAction:[SKAction animateWithTextures:monkeySwingLeftFrames timePerFrame:0.1f resize:NO restore:YES] withKey:@"monkeySwingLeft"];
-    return;
-}
-
-- (void)animateMonkeySwingRight
-{
-    [[self childNodeWithName:@"//monkey"] runAction:[SKAction animateWithTextures:monkeySwingRightFrames timePerFrame:0.1f resize:NO restore:YES] withKey:@"monkeySwingRight"];
-    return;
-}
-
 - (void)monkeyDied
 {
     // Grab monkey node
@@ -693,10 +675,7 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
 
 - (void)addMonkeyToWorld
 {
-    SKSpriteNode *monkeySpriteNode = [SKSpriteNode spriteNodeWithImageNamed:@"Monkey"];
-    monkeySpriteNode.position = CGPointMake(sceneFarLeftSide.x + 30, sceneFarTopSide.y - 50);
-    monkeySpriteNode.zPosition = 104;
-    monkeySpriteNode.name = @"monkey";
+    SKSpriteNode *monkeySpriteNode; // = [SKSpriteNode spriteNodeWithImageNamed:@"Monkey"];
     
     // Prep for an animated monkey - reaching
     NSMutableArray *monkeyReachingFramesTemp = [NSMutableArray array];
@@ -710,6 +689,9 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
     monkeyReachingFrames = monkeyReachingFramesTemp;
     SKTexture *temp = monkeyReachingFrames[0];
     monkeySpriteNode = [SKSpriteNode spriteNodeWithTexture:temp];
+    monkeySpriteNode.position = CGPointMake(sceneFarLeftSide.x + 30, sceneFarTopSide.y - 50);
+    monkeySpriteNode.zPosition = 104;
+    monkeySpriteNode.name = @"monkey";
     [myWorld addChild:monkeySpriteNode];
     
     // Prep for an animated monkey - swing right
@@ -723,15 +705,9 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
     }
     monkeySwingRightFrames = monkeySwingRightFramesTemp;
     
-    [monkeySpriteNode runAction:[SKAction repeatActionForever:
-                                 [SKAction animateWithTextures:monkeySwingRightFrames
-                                                  timePerFrame:0.1f
-                                                        resize:NO
-                                                       restore:YES]]
-                                                      withKey:@"monkeySwingRight"];
-    
     // Basic properties
-    monkeySpriteNode.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:monkeySpriteNode.size];
+    monkeySpriteNode.anchorPoint = CGPointMake(0.5, 0.5);
+    monkeySpriteNode.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:monkeySpriteNode.size center:CGPointMake(0, 0)];
     monkeySpriteNode.physicsBody.density = physicsParameters.monkeyDensity;
     monkeySpriteNode.physicsBody.restitution = physicsParameters.monkeyRestitution;
     monkeySpriteNode.physicsBody.linearDamping = physicsParameters.monkeyLinearDamping;
@@ -801,6 +777,12 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
     hudFireHeight = 2 * hudFireSpriteNode.size.height;
 }
 
+-(CGPoint)convertSceneToFrameCoordinates:(CGPoint)scenePoint
+{
+    return CGPointMake(scenePoint.x + self.frame.size.width/2, scenePoint.y + self.frame.size.height/2);
+}
+
+
 #pragma mark - Touch response methods
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -869,6 +851,32 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
     [monkeyPhysicsBody applyImpulse:physicsParameters.monkeyJumpImpulse];
 }
 
+- (void)animateMonkeyReaching
+{
+    [[self childNodeWithName:@"//monkey"] runAction:[SKAction animateWithTextures:monkeyReachingFrames timePerFrame:0.1f resize:NO restore:YES] withKey:@"monkeyReaching"];
+    return;
+}
+
+- (void)animateMonkeySwingLeft
+{
+    [[self childNodeWithName:@"//monkey"] runAction:[SKAction animateWithTextures:monkeySwingLeftFrames timePerFrame:0.1f resize:NO restore:YES] withKey:@"monkeySwingLeft"];
+    return;
+}
+
+- (void)animateMonkeySwingRight
+{
+    // DEBUG: Loop monkey swinging infinitely
+    SKSpriteNode *monkey = [self childNodeWithName:@"//monkey"];
+    [[self childNodeWithName:@"//monkey"] runAction:[SKAction repeatActionForever:
+                                                     [SKAction animateWithTextures:monkeySwingRightFrames
+                                                                      timePerFrame:0.1f
+                                                                            resize:NO
+                                                                           restore:YES]]
+                                            withKey:@"monkeySwingRight"];
+    //[[self childNodeWithName:@"//monkey"] runAction:[SKAction animateWithTextures:monkeySwingRightFrames timePerFrame:0.1f resize:NO restore:YES] withKey:@"monkeySwingRight"];
+    return;
+}
+
 #pragma mark - Collision response methods
 
 - (void)didBeginContact:(SKPhysicsContact *)contact
@@ -903,13 +911,8 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
 {
     if (monkeyPhysicsBody.joints.count == 0) {
         // Create a new joint between the monkey and the rope segment
-        CGPoint convertedMonkeyPosition  = CGPointMake(monkeyPhysicsBody.node.position.x + sceneWidth/2., monkeyPhysicsBody.node.position.y + sceneHeight/2.);
-        CGPoint convertedRopePosition = CGPointMake(ropePhysicsBody.node.position.x + sceneWidth/2., ropePhysicsBody.node.position.y + sceneHeight/2.);
-        CGFloat leftMostX = convertedMonkeyPosition.x < convertedRopePosition.x ? convertedMonkeyPosition.x : convertedRopePosition.x;
-        CGFloat bottomMostY = convertedMonkeyPosition.y < convertedRopePosition.y ? convertedMonkeyPosition.y : convertedRopePosition.y;
-        CGPoint midPointMonkeyAndRope = CGPointMake(leftMostX + fabsf(ropePhysicsBody.node.position.x - monkeyPhysicsBody.node.position.x) / 2.,
-                                                    bottomMostY + fabsf(ropePhysicsBody.node.position.y - monkeyPhysicsBody.node.position.y) / 2.);
-        SKPhysicsJointPin *jointPin = [SKPhysicsJointPin jointWithBodyA:monkeyPhysicsBody bodyB:ropePhysicsBody anchor:midPointMonkeyAndRope]; // FIXME: Monkey-rope joint going to weird position
+        CGPoint convertedRopePosition = [self convertSceneToFrameCoordinates:ropePhysicsBody.node.position];
+        SKPhysicsJointPin *jointPin = [SKPhysicsJointPin jointWithBodyA:monkeyPhysicsBody bodyB:ropePhysicsBody anchor:convertedRopePosition]; // FIXME: Monkey-rope joint going to weird position
         jointPin.upperAngleLimit = M_PI/4;
         jointPin.shouldEnableLimits = YES;
         [self.scene.physicsWorld addJoint:jointPin];

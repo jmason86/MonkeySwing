@@ -20,7 +20,7 @@
 - (id)init
 {
     // World parameters
-    gravity = CGVectorMake(0, -3.0); // SI, default = (0, -9.8), my default = (0, -3)
+    gravity = CGVectorMake(0, -2.5); // SI, default = (0, -9.8), my default = (0, -3)
     
     // Rope parameters
     ropeDensity = 13.0;            // SI, default = 1.0
@@ -34,7 +34,7 @@
     monkeyRestitution = 0.2;      // range = 0-1, default = 0.2
     monkeyLinearDamping = 0.1;    // range = 0-1, default = 0.1
     monkeyAngularDamping = 0.1;   // range = 0-1, default = 0.1
-    monkeyInitialVelocity = CGVectorMake(240, 100); // default = (120, 0)
+    monkeyInitialVelocity = CGVectorMake(300, 180); // default = (120, 0)
     monkeyJumpImpulse = CGVectorMake(200, 80);
     
     // Leaf parameters

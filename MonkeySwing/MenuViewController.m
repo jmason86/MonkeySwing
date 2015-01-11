@@ -137,7 +137,7 @@
     [self.pageViewController.view removeFromSuperview];
     [self.pageControl removeFromSuperview];
     skViewToPresent = (SKView *)self.view;
-    //skViewToPresent.showsPhysics = YES;
+    skViewToPresent.showsPhysics = YES; // DEBUG
     
     // Create and configure the scene
     sceneToPresent = [GamePlayScene sceneWithSize:skViewToPresent.bounds.size];

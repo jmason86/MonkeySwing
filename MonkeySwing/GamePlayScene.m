@@ -28,7 +28,7 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
 @implementation GamePlayScene
 {
     // Locations
-    CGPoint sceneFarLeftSide, sceneFarRightSide, sceneFarTopSide, sceneFarBottomSide, skyFarLeftSide, skyFarRightSide, skyFarTopSide, skyFarBottomSide;
+    CGPoint sceneFarLeftSide, sceneFarRightSide, sceneFarTopSide, sceneFarBottomSide, skyFarLeftSide, skyFarRightSide, skyFarTopSide, skyFarBottomSide, monkeyInitialPosition;
     
     // Sizes
     CGFloat sceneWidth, sceneHeight, skyWidth, skyHeight;
@@ -79,6 +79,7 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
         
         // Initialize the physics parameters
         physicsParameters = [[PhysicsParameters alloc] init];
+        self.physicsWorld.speed = 0.5; // DEBUG: simulation speed
         
         // Create world
         [self createNewWorld];
@@ -689,7 +690,8 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
     monkeyReachingFrames = monkeyReachingFramesTemp;
     SKTexture *temp = monkeyReachingFrames[0];
     monkeySpriteNode = [SKSpriteNode spriteNodeWithTexture:temp];
-    monkeySpriteNode.position = CGPointMake(sceneFarLeftSide.x + 30, sceneFarTopSide.y - 50);
+    monkeyInitialPosition = CGPointMake(sceneFarLeftSide.x + 30, sceneFarTopSide.y - 50);
+    monkeySpriteNode.position = monkeyInitialPosition;
     monkeySpriteNode.zPosition = 104;
     monkeySpriteNode.name = @"monkey";
     [myWorld addChild:monkeySpriteNode];
@@ -779,7 +781,9 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
 
 -(CGPoint)convertSceneToFrameCoordinates:(CGPoint)scenePoint
 {
-    return CGPointMake(scenePoint.x + self.frame.size.width/2, scenePoint.y + self.frame.size.height/2);
+    CGFloat xDiff = myWorld.position.x - self.position.x;
+    CGFloat yDiff = myWorld.position.y - self.position.y;
+    return CGPointMake(scenePoint.x + self.frame.size.width/2 + xDiff, scenePoint.y + self.frame.size.height/2 + yDiff);
 }
 
 
@@ -917,9 +921,9 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
         jointPin.shouldEnableLimits = YES;
         [self.scene.physicsWorld addJoint:jointPin];
         
-        /*
+        
         // DEBUG: Draw a rectangle in a coordinate system
-        SKSpriteNode *bla = [SKSpriteNode spriteNodeWithColor:[UIColor redColor] size:CGSizeMake(100, 100)];
+        /*SKSpriteNode *bla = [SKSpriteNode spriteNodeWithColor:[UIColor redColor] size:CGSizeMake(20, 20)];
         [self.scene addChild:bla]; // If I use bla.scene, it doesn't work. self, self.scene, myworld all do work though.
         bla.position = convertedRopePosition;
         bla.zPosition = 999;

@@ -46,6 +46,7 @@
     // Create page view controller
     self.pageViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
     self.pageViewController.dataSource = self;
+    self.pageViewController.delegate = self;
     
     // Prepare content views for the page view controller
     NSArray *viewControllers;
@@ -73,10 +74,7 @@
         // Extend the view controller to the bottom of the screen
         self.pageViewController.view.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height + 40);
     }
-    [self.pageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
-    
-    // Change the size of page view controller
-    //self.pageViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 30); // TODO: Don't think this is useful for anything
+    [self.pageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
     
     // Add view controller and views
     [self addChildViewController:_pageViewController];
@@ -186,11 +184,6 @@
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
 {
     NSUInteger index = ((MainMenuContentViewController *) viewController).pageIndex;
-    
-    if (self.pageControl.currentPage != 0) {
-        self.pageControl.currentPage = 0;
-    }
-    
     if ((index == 0) || (index == NSNotFound)) {
         return nil;
     }
@@ -205,11 +198,6 @@
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
 {
     NSUInteger index = ((MainMenuContentViewController*) viewController).pageIndex;
-    
-    if (self.pageControl.currentPage != 1) {
-        self.pageControl.currentPage = 1;
-    }
-    
     if (index == NSNotFound) {
         return nil;
     }
@@ -250,6 +238,17 @@
 - (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController
 {
     return 0;
+}
+
+- (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed
+{
+    if (completed) {
+        if ([[self.pageViewController.viewControllers firstObject] isKindOfClass:[MainMenuContentViewController class]]) {
+            MainMenuContentViewController *currentContentViewController = [self.pageViewController.viewControllers firstObject];
+            self.pageControl.currentPage = currentContentViewController.pageIndex;
+            
+        }
+    }
 }
 
 @end

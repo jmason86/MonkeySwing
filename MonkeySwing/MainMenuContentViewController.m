@@ -83,14 +83,29 @@
             continueButton.opaque = YES;
             [self.view addSubview:continueButton];
             continueButton.translatesAutoresizingMaskIntoConstraints = NO;
-            [self.view addConstraint:[NSLayoutConstraint constraintWithItem:continueButton attribute:NSLayoutAttributeTrailing
+            [self.view addConstraint:[NSLayoutConstraint constraintWithItem:continueButton attribute:NSLayoutAttributeRight
                                                                   relatedBy:NSLayoutRelationEqual
-                                                                     toItem:self.backgroundImageView attribute:NSLayoutAttributeTrailing
+                                                                     toItem:self.backgroundImageView attribute:NSLayoutAttributeRight
                                                                  multiplier:1.0 constant:-16]];
             [self.view addConstraint:[NSLayoutConstraint constraintWithItem:continueButton attribute:NSLayoutAttributeBottom
                                                                   relatedBy:NSLayoutRelationEqual
                                                                      toItem:self.backgroundImageView attribute:NSLayoutAttributeBottom
                                                                  multiplier:1.0 constant:-16]];
+            // DEBUG: Figure out autolayout for iPad mini and iPhone 5s
+            /*NSLog(@"%@", [continueButton constraintsAffectingLayoutForAxis:1]);
+            NSLog(@"%@", [continueButton constraintsAffectingLayoutForAxis:0]);
+            */
+            for (UIView *aView in [self.view subviews]) {
+                if ([aView hasAmbiguousLayout]) {
+                    NSLog(@"View Frame %@", NSStringFromCGRect(aView.frame));
+                    NSLog(@"%@", [aView class]);
+                    NSLog(@"%@", [aView constraintsAffectingLayoutForAxis:1]);
+                    NSLog(@"%@", [aView constraintsAffectingLayoutForAxis:0]);
+                    
+                    [aView exerciseAmbiguityInLayout];
+                }
+            }
+            
         }
     }
     

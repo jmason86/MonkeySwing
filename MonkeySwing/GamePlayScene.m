@@ -869,8 +869,7 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
 
 - (void)animateMonkeySwingRight
 {
-    // DEBUG: Loop monkey swinging infinitely
-    SKSpriteNode *monkey = [self childNodeWithName:@"//monkey"];
+    // DEBUG: Loop monkey swinging infinitely.
     [[self childNodeWithName:@"//monkey"] runAction:[SKAction repeatActionForever:
                                                      [SKAction animateWithTextures:monkeySwingRightFrames
                                                                       timePerFrame:0.1f
@@ -916,7 +915,7 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
     if (monkeyPhysicsBody.joints.count == 0) {
         // Create a new joint between the monkey and the rope segment
         CGPoint convertedRopePosition = [self convertSceneToFrameCoordinates:ropePhysicsBody.node.position];
-        SKPhysicsJointPin *jointPin = [SKPhysicsJointPin jointWithBodyA:monkeyPhysicsBody bodyB:ropePhysicsBody anchor:convertedRopePosition]; // FIXME: Monkey-rope joint going to weird position
+        SKPhysicsJointPin *jointPin = [SKPhysicsJointPin jointWithBodyA:monkeyPhysicsBody bodyB:ropePhysicsBody anchor:convertedRopePosition];
         jointPin.upperAngleLimit = M_PI/4;
         jointPin.shouldEnableLimits = YES;
         [self.scene.physicsWorld addJoint:jointPin];

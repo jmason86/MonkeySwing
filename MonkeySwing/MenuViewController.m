@@ -87,6 +87,16 @@
             UIPageControl *pageControl = (UIPageControl *)view;
             pageControl.pageIndicatorTintColor = [UIColor redColor];
             pageControl.backgroundColor = [UIColor clearColor];
+            
+            // Autolayout for page control
+            [self.view addConstraint:[NSLayoutConstraint constraintWithItem:pageControl attribute:NSLayoutAttributeBottom
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:self.view attribute:NSLayoutAttributeBottom
+                                                                 multiplier:1.0 constant:-16]];
+            [self.view addConstraint:[NSLayoutConstraint constraintWithItem:pageControl attribute:NSLayoutAttributeCenterX
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:self.view attribute:NSLayoutAttributeCenterX
+                                                                 multiplier:1.0 constant:16]];
         }
     }
     
@@ -183,7 +193,13 @@
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
 {
-    NSUInteger index = ((MainMenuContentViewController *) viewController).pageIndex;
+    NSUInteger index = 0;
+    if ([viewController isKindOfClass:[MainMenuContentViewController class]]) {
+        index = ((MainMenuContentViewController *) viewController).pageIndex;
+    } else if ([viewController isKindOfClass:[LevelSelectionContentViewController class]]) {
+        index = ((LevelSelectionContentViewController *) viewController).pageIndex;
+    }
+    
     if ((index == 0) || (index == NSNotFound)) {
         return nil;
     }
@@ -197,7 +213,13 @@
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
 {
-    NSUInteger index = ((MainMenuContentViewController*) viewController).pageIndex;
+    NSUInteger index = 0;
+    if ([viewController isKindOfClass:[MainMenuContentViewController class]]) {
+        index = ((MainMenuContentViewController *) viewController).pageIndex;
+    } else if ([viewController isKindOfClass:[LevelSelectionContentViewController class]]) {
+        index = ((LevelSelectionContentViewController *) viewController).pageIndex;
+    }
+    
     if (index == NSNotFound) {
         return nil;
     }
@@ -247,6 +269,10 @@
             MainMenuContentViewController *currentContentViewController = [self.pageViewController.viewControllers firstObject];
             self.pageControl.currentPage = currentContentViewController.pageIndex;
             
+        }
+        if ([[self.pageViewController.viewControllers firstObject] isKindOfClass:[LevelSelectionContentViewController class]]) {
+            LevelSelectionContentViewController *currentContentViewController = [self.pageViewController.viewControllers firstObject];
+            self.pageControl.currentPage = currentContentViewController.pageIndex;
         }
     }
 }

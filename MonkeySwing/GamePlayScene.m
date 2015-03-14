@@ -79,7 +79,7 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
         
         // Initialize the physics parameters
         physicsParameters = [[PhysicsParameters alloc] init];
-        self.physicsWorld.speed = 0.5; // DEBUG: simulation speed
+        //self.physicsWorld.speed = 0.5; // DEBUG: simulation speed
         
         // Create world
         [self createNewWorld];

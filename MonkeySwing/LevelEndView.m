@@ -130,7 +130,7 @@
     [gameOverButton setImage:[UIImage imageNamed:@"GameOverByFireButtonClicked"] forState:UIControlStateSelected];
     [gameOverButton addTarget:self action:@selector(playAgainAction) forControlEvents:UIControlEventTouchUpInside];
     gameOverButton.opaque = YES;
-    [self insertSubview:gameOverButton atIndex:0];
+    [self insertSubview:gameOverButton atIndex:self.subviews.count];
     
     // Game over label
     gameOverLabel.font = [UIFont fontWithName:@"Flux Architect" size:23];

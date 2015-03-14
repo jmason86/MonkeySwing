@@ -63,6 +63,7 @@
         self.pageViewController = nil;
         self.pageViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
         self.pageViewController.dataSource = self;
+        self.pageViewController.delegate = self;
         
         // Make the stuff for the level selection view
         isLevelScreen = YES;
@@ -205,8 +206,6 @@
     }
     
     index--;
-    
-    self.pageControl.currentPage = index;
     
     return [self viewControllerAtIndex:index];
 }

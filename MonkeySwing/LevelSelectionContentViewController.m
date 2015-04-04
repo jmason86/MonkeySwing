@@ -24,6 +24,16 @@
 {
     [super viewDidLoad];
     
+    // Use programmatic autolayout to get image to go to edges of screen
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.backgroundImageView attribute:NSLayoutAttributeLeft
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view attribute:NSLayoutAttributeLeft
+                                                         multiplier:1.0 constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.backgroundImageView attribute:NSLayoutAttributeRight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view attribute:NSLayoutAttributeRight
+                                                         multiplier:1.0 constant:1]];
+    
     // Check for best time and high score
     if (!self.bestTimeString) {
         self.bestTimeString = @"--";
@@ -43,6 +53,7 @@
     self.bestTimeLabel.textColor = [UIColor whiteColor];
     self.bestTimeLabel.shadowColor = [UIColor blackColor];
     self.bestTimeLabel.shadowOffset = CGSizeMake(-1.0, 0.0);
+    [self.view bringSubviewToFront:self.bestTimeLabel];
     
     // Update the high score label with the proper font and value
     self.highScoreLabel.text = [NSString stringWithFormat:@"%@%@", @"High Score: ", self.highScoreString];
@@ -52,6 +63,12 @@
     self.highScoreLabel.textColor = [UIColor whiteColor];
     self.highScoreLabel.shadowColor = [UIColor blackColor];
     self.highScoreLabel.shadowOffset = CGSizeMake(-1.0, 0.0);
+    [self.view bringSubviewToFront:self.highScoreLabel];
+    
+    // Move the buttons to the frong of the view hierarchy too
+    [self.view bringSubviewToFront:self.menuButton];
+    [self.view bringSubviewToFront:self.playButton];
+
 }
 
 - (void)didReceiveMemoryWarning

@@ -13,6 +13,7 @@
 #import "LevelEndView.h"
 #import "PlayerLevelRunData.h"
 #import "JPMRope.h"
+#import "CountDownView.h"
 
 // Collision categories
 static const uint32_t monkeyCategory = 0x1 << 0;
@@ -81,8 +82,18 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
         physicsParameters = [[PhysicsParameters alloc] init];
         //self.physicsWorld.speed = 0.5; // DEBUG: simulation speed
         
-        // Create world
-        [self createNewWorld];
+        // Initiate countdown and then start gameplay
+        CountDownView *countDownView = [[CountDownView alloc] init];
+        CGPoint centerInView = [self convertPointToView:CGPointMake(sceneFarLeftSide.x + sceneWidth/2, 0)];
+        countDownView.center = centerInView;
+        [self.view addSubview:countDownView];
+        for (int i = 0; i < 2000; i++) {
+            [countDownView addCountDownAnimation];
+        }
+        
+        [countDownView addCountDownAnimationAndRemoveOnCompletion:YES completion:^(BOOL finished) {
+            [self createNewWorld];
+        }];
         
         // Listen to the LevelEndScene
         [[NSNotificationCenter defaultCenter] addObserver:self

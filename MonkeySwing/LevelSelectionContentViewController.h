@@ -17,6 +17,8 @@
 @property (strong, nonatomic) IBOutlet UIImageView *backgroundImageView;
 @property (strong, nonatomic) IBOutlet UILabel *bestTimeLabel;
 @property (strong, nonatomic) IBOutlet UILabel *highScoreLabel;
+@property (strong, nonatomic) IBOutlet UIButton *playButton;
+@property (strong, nonatomic) IBOutlet UIButton *menuButton;
 
 - (IBAction)menuButtonTapped:(UIButton *)sender;
 - (IBAction)playButtonTapped:(UIButton *)sender;

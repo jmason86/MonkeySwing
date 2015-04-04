@@ -177,7 +177,6 @@
 
 - (void)showAuthenticationViewController
 {
-     // TODO: Uncomment this to start game center again
     [sceneToPresent.scene.view setPaused:YES];
     GameKitHelper *gameKitHelper = [GameKitHelper sharedGameKitHelper];
     [self presentViewController:gameKitHelper.authenticationViewController animated:YES completion:nil];

@@ -75,6 +75,14 @@
 		E4794A8A19733CAD00CE739B /* Rope Segment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4794A5419733CAD00CE739B /* Rope Segment@2x.png */; };
 		E4794A8B19733CAD00CE739B /* Rope.png in Resources */ = {isa = PBXBuildFile; fileRef = E4794A5519733CAD00CE739B /* Rope.png */; };
 		E4794A8C19733CAD00CE739B /* Rope@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4794A5619733CAD00CE739B /* Rope@2x.png */; };
+		E484B6481AB62B0A00A0101E /* CountDown1.png in Resources */ = {isa = PBXBuildFile; fileRef = E484B6401AB62B0A00A0101E /* CountDown1.png */; };
+		E484B6491AB62B0A00A0101E /* CountDown1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E484B6411AB62B0A00A0101E /* CountDown1@2x.png */; };
+		E484B64A1AB62B0A00A0101E /* CountDown2.png in Resources */ = {isa = PBXBuildFile; fileRef = E484B6421AB62B0A00A0101E /* CountDown2.png */; };
+		E484B64B1AB62B0A00A0101E /* CountDown2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E484B6431AB62B0A00A0101E /* CountDown2@2x.png */; };
+		E484B64C1AB62B0A00A0101E /* CountDown3.png in Resources */ = {isa = PBXBuildFile; fileRef = E484B6441AB62B0A00A0101E /* CountDown3.png */; };
+		E484B64D1AB62B0A00A0101E /* CountDown3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E484B6451AB62B0A00A0101E /* CountDown3@2x.png */; };
+		E484B64E1AB62B0A00A0101E /* CountDownView.m in Sources */ = {isa = PBXBuildFile; fileRef = E484B6471AB62B0A00A0101E /* CountDownView.m */; };
+		E484B6501AB631C600A0101E /* CountDown.coreanimator in Resources */ = {isa = PBXBuildFile; fileRef = E484B64F1AB631C600A0101E /* CountDown.coreanimator */; };
 		E4880C4E18B44DF700DBE7B2 /* LevelEndView.m in Sources */ = {isa = PBXBuildFile; fileRef = E4880C4D18B44DF700DBE7B2 /* LevelEndView.m */; };
 		E49F78AE1883598900BDA47C /* JPMButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E49F78AD1883598900BDA47C /* JPMButton.m */; };
 		E4A5F8F418AC9977001B28B6 /* JPMLevelInterpreter.m in Sources */ = {isa = PBXBuildFile; fileRef = E4A5F8F318AC9977001B28B6 /* JPMLevelInterpreter.m */; };
@@ -196,6 +204,15 @@
 		E4794A5419733CAD00CE739B /* Rope Segment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Rope Segment@2x.png"; sourceTree = "<group>"; };
 		E4794A5519733CAD00CE739B /* Rope.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Rope.png; sourceTree = "<group>"; };
 		E4794A5619733CAD00CE739B /* Rope@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Rope@2x.png"; sourceTree = "<group>"; };
+		E484B6401AB62B0A00A0101E /* CountDown1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CountDown1.png; sourceTree = "<group>"; };
+		E484B6411AB62B0A00A0101E /* CountDown1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CountDown1@2x.png"; sourceTree = "<group>"; };
+		E484B6421AB62B0A00A0101E /* CountDown2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CountDown2.png; sourceTree = "<group>"; };
+		E484B6431AB62B0A00A0101E /* CountDown2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CountDown2@2x.png"; sourceTree = "<group>"; };
+		E484B6441AB62B0A00A0101E /* CountDown3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CountDown3.png; sourceTree = "<group>"; };
+		E484B6451AB62B0A00A0101E /* CountDown3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CountDown3@2x.png"; sourceTree = "<group>"; };
+		E484B6461AB62B0A00A0101E /* CountDownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountDownView.h; sourceTree = "<group>"; };
+		E484B6471AB62B0A00A0101E /* CountDownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountDownView.m; sourceTree = "<group>"; };
+		E484B64F1AB631C600A0101E /* CountDown.coreanimator */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = CountDown.coreanimator; sourceTree = "<group>"; };
 		E4880C4C18B44DF700DBE7B2 /* LevelEndView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelEndView.h; sourceTree = "<group>"; };
 		E4880C4D18B44DF700DBE7B2 /* LevelEndView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelEndView.m; sourceTree = "<group>"; };
 		E49F78AC1883598900BDA47C /* JPMButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPMButton.h; sourceTree = "<group>"; };
@@ -358,6 +375,19 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
+		E484B63F1AB62B0A00A0101E /* CountDownImages */ = {
+			isa = PBXGroup;
+			children = (
+				E484B6401AB62B0A00A0101E /* CountDown1.png */,
+				E484B6411AB62B0A00A0101E /* CountDown1@2x.png */,
+				E484B6421AB62B0A00A0101E /* CountDown2.png */,
+				E484B6431AB62B0A00A0101E /* CountDown2@2x.png */,
+				E484B6441AB62B0A00A0101E /* CountDown3.png */,
+				E484B6451AB62B0A00A0101E /* CountDown3@2x.png */,
+			);
+			path = CountDownImages;
+			sourceTree = "<group>";
+		};
 		E4A5F8F518ACA646001B28B6 /* Levels */ = {
 			isa = PBXGroup;
 			children = (
@@ -456,6 +486,10 @@
 				E4D6DF6F18931D7100F916D0 /* PhysicsParameters.m */,
 				E423238C18ADA93E00F852A0 /* BonusPointsObject.h */,
 				E423238D18ADA93E00F852A0 /* BonusPointsObject.m */,
+				E484B63F1AB62B0A00A0101E /* CountDownImages */,
+				E484B6461AB62B0A00A0101E /* CountDownView.h */,
+				E484B6471AB62B0A00A0101E /* CountDownView.m */,
+				E484B64F1AB631C600A0101E /* CountDown.coreanimator */,
 				E43567BD190CB521002ED25D /* GameKit */,
 				E4A5F8F518ACA646001B28B6 /* Levels */,
 				E4DCD37B1874E6D20040643C /* Supporting Files */,
@@ -592,11 +626,13 @@
 				E4794A8319733CAD00CE739B /* PlayAgainButton.png in Resources */,
 				E4794A7719733CAD00CE739B /* MainMenuSettingsBackground.png in Resources */,
 				E4794A5D19733CAD00CE739B /* ContinueButton.png in Resources */,
+				E484B64B1AB62B0A00A0101E /* CountDown2@2x.png in Resources */,
 				E4794A5A19733CAD00CE739B /* Arrow@2x.png in Resources */,
 				E4DCD3881874E6D20040643C /* Main.storyboard in Resources */,
 				E4794A5919733CAD00CE739B /* Arrow.png in Resources */,
 				E4794A6E19733CAD00CE739B /* Leaf2@2x.png in Resources */,
 				E4A6C21219A8E6A600C65656 /* PlayButton.png in Resources */,
+				E484B6491AB62B0A00A0101E /* CountDown1@2x.png in Resources */,
 				E4794A5B19733CAD00CE739B /* Banana.png in Resources */,
 				E4794A7E19733CAD00CE739B /* MonkeyAngry@2x.png in Resources */,
 				E4794A5719733CAD00CE739B /* Apple.png in Resources */,
@@ -605,8 +641,10 @@
 				E4794A6819733CAD00CE739B /* HudBanana@2x.png in Resources */,
 				E4794A7019733CAD00CE739B /* Level1SelectionScreen@2x.png in Resources */,
 				E4794A8819733CAD00CE739B /* RespawnButton@2x.png in Resources */,
+				E484B64A1AB62B0A00A0101E /* CountDown2.png in Resources */,
 				E4794A8219733CAD00CE739B /* NextLevelButtons.png in Resources */,
 				E4F23707193BA6C400850B61 /* Level2.csv in Resources */,
+				E484B64C1AB62B0A00A0101E /* CountDown3.png in Resources */,
 				E4794A8C19733CAD00CE739B /* Rope@2x.png in Resources */,
 				E4794A6A19733CAD00CE739B /* HudFire@2x.png in Resources */,
 				E4794A7F19733CAD00CE739B /* MonkeyGearTail.png in Resources */,
@@ -617,6 +655,7 @@
 				E4A6C21319A8E6A600C65656 /* PlayButton@2x.png in Resources */,
 				E4794A8919733CAD00CE739B /* Rope Segment.png in Resources */,
 				E4DCD3EE1874FD120040643C /* spark.png in Resources */,
+				E484B6481AB62B0A00A0101E /* CountDown1.png in Resources */,
 				E4794A8019733CAD00CE739B /* MonkeyGearTail@2x.png in Resources */,
 				E458D7D518BDAC1C005D8D03 /* Level1.csv in Resources */,
 				E4794A6519733CAD00CE739B /* GameOverByFireButton.png in Resources */,
@@ -626,6 +665,7 @@
 				E469F4131A1E7B0100C705A6 /* dummypixel_transparent.png in Resources */,
 				E4794A6119733CAD00CE739B /* FullLevel1.png in Resources */,
 				E4794A6319733CAD00CE739B /* FullLevel2.png in Resources */,
+				E484B64D1AB62B0A00A0101E /* CountDown3@2x.png in Resources */,
 				E4794A6619733CAD00CE739B /* GameOverByFireButton@2x.png in Resources */,
 				E4794A5F19733CAD00CE739B /* DeadMonkeysButton.png in Resources */,
 				E4D34A9E1969AF94000E7210 /* Flux_Architect_Regular.ttf in Resources */,
@@ -648,6 +688,7 @@
 				E4794A8719733CAD00CE739B /* RespawnButton.png in Resources */,
 				E40C320D1A0006CE00BC26FE /* MonkeyReaching.atlas in Resources */,
 				E4794A8519733CAD00CE739B /* ResetButton.png in Resources */,
+				E484B6501AB631C600A0101E /* CountDown.coreanimator in Resources */,
 				E4794A6F19733CAD00CE739B /* Level1SelectionScreen.png in Resources */,
 				E4794A7A19733CAD00CE739B /* MenuButton@2x.png in Resources */,
 				E4794A7D19733CAD00CE739B /* MonkeyAngry.png in Resources */,
@@ -671,6 +712,7 @@
 			files = (
 				E43567C0190CB554002ED25D /* GameKitHelper.m in Sources */,
 				E45C90961913442B00956737 /* GameCenterFriendData.m in Sources */,
+				E484B64E1AB62B0A00A0101E /* CountDownView.m in Sources */,
 				E49F78AE1883598900BDA47C /* JPMButton.m in Sources */,
 				E423238E18ADA93E00F852A0 /* BonusPointsObject.m in Sources */,
 				E4880C4E18B44DF700DBE7B2 /* LevelEndView.m in Sources */,

@@ -168,8 +168,8 @@ NSString *const CompetitorPhotoReceived = @"competitor_photo_received";
 - (void)playerScoreReceived
 {
     // Get player name
-    if (_gameCenterFriendData.score.playerID != nil) {
-        [GKPlayer loadPlayersForIdentifiers:@[_gameCenterFriendData.score.playerID] withCompletionHandler: ^(NSArray *players, NSError *error) {
+    if (_gameCenterFriendData.score.player != nil) {
+        [GKPlayer loadPlayersForIdentifiers:@[_gameCenterFriendData.score.player] withCompletionHandler: ^(NSArray *players, NSError *error) {
             if (error != nil) {
                 // Handle error
             }

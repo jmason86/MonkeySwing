@@ -49,10 +49,11 @@ static inline CGFloat roundFloatToTwoDecimalPlaces(CGFloat num) { return floorf(
 
 /** The size of the parallax background set */
 @property (nonatomic) CGSize size;
-
 @end
 
+
 @implementation PBParallaxScrolling
+@dynamic size;
 
 - (id) initWithBackgrounds: (NSArray *) backgrounds size: (CGSize) size direction: (PBParallaxBackgroundDirection) direction fastestSpeed: (CGFloat) speed andSpeedDecrease: (CGFloat) differential {
     self = [super init];
@@ -221,7 +222,7 @@ static inline CGFloat roundFloatToTwoDecimalPlaces(CGFloat num) { return floorf(
         // adjust positions
         SKSpriteNode * bg = [self.backgrounds objectAtIndex:i];
         SKSpriteNode * cBg = [self.clonedBackgrounds objectAtIndex:i];
-        NSLog(@"Layer %u: background1 at (%f, %f), background2 at (%f, %f), speed: %f", i, bg.position.x,bg.position.y, cBg.position.x, cBg.position.y, speed);
+        NSLog(@"Layer %lu: background1 at (%f, %f), background2 at (%f, %f), speed: %f", (unsigned long)i, bg.position.x,bg.position.y, cBg.position.x, cBg.position.y, speed);
  
     }
 }

@@ -812,7 +812,7 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
     for (UITouch *touch in touches) {
         CGPoint touchEndPoint = [touch locationInNode:self];
         
-        if (fabsf(touchEndPoint.x - touchBeganPoint.x) < 100 && fabsf(touchEndPoint.y - touchBeganPoint.y) < 100) {
+        if (fabs(touchEndPoint.x - touchBeganPoint.x) < 100 && fabs(touchEndPoint.y - touchBeganPoint.y) < 100) {
             [self monkeyReleaseRope];
         } else {
             NSTimeInterval touchEndTime = touch.timestamp;

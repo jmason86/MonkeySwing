@@ -68,7 +68,6 @@
     // Move the buttons to the frong of the view hierarchy too
     [self.view bringSubviewToFront:self.menuButton];
     [self.view bringSubviewToFront:self.playButton];
-
 }
 
 - (void)didReceiveMemoryWarning

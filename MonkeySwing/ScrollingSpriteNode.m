@@ -43,7 +43,7 @@
         [self.scrollingSpeeds addObject:[NSNumber numberWithFloat:self.currentSpeed]];
         self.currentSpeed = self.currentSpeed / (1 + differential);
         
-        self = node;
+        self = (ScrollingSpriteNode *) node;
     }
     return self;
 }

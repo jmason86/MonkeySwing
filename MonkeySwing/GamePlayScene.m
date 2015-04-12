@@ -68,44 +68,42 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
 
 #pragma mark - View life cycle
 
--(id)initWithSize:(CGSize)size
+-(void)didMoveToView:(SKView *)view
 {
-    if (self = [super initWithSize:size]) {
-        // TODO: Delete this - Set level number to 1 always for now. Should instead have levelNumber passed in.
-        levelNumber = 1;
-        
-        // Get stored high score
-        NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
-        storedHighScore = [standardDefaults integerForKey:[NSString stringWithFormat:@"%@%i", @"Level", levelNumber]];
-        
-        // Initialize the physics parameters
-        physicsParameters = [[PhysicsParameters alloc] init];
-        //self.physicsWorld.speed = 0.5; // DEBUG: simulation speed
-        
-        // Initiate countdown and then start gameplay
-        CountDownView *countDownView = [[CountDownView alloc] init];
-        CGPoint centerInView = [self convertPointToView:CGPointMake(sceneFarLeftSide.x + sceneWidth/2, 0)];
-        countDownView.center = centerInView;
-        [self.view addSubview:countDownView];
-        for (int i = 0; i < 2000; i++) {
-            [countDownView addCountDownAnimation];
-        }
-        
-        [countDownView addCountDownAnimationAndRemoveOnCompletion:YES completion:^(BOOL finished) {
-            [self createNewWorld];
-        }];
-        
-        // Listen to the LevelEndScene
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(receiveLevelEndedUserSelection:)
-                                                     name:@"levelEndedUserSelection"
-                                                   object:nil];
-    }
-    return self;
+    // TODO: Delete this - Set level number to 1 always for now. Should instead have levelNumber passed in.
+    levelNumber = 1;
+    
+    // Get stored high score
+    NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
+    storedHighScore = [standardDefaults integerForKey:[NSString stringWithFormat:@"%@%i", @"Level", levelNumber]];
+    
+    // Initialize the physics parameters
+    physicsParameters = [[PhysicsParameters alloc] init];
+    //self.physicsWorld.speed = 0.5; // DEBUG: simulation speed
+    
+    // Add world
+    [self createNewWorld];
+  
+    // Listen to the LevelEndScene
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(receiveLevelEndedUserSelection:)
+                                                 name:@"levelEndedUserSelection"
+                                               object:nil];
 }
 
 - (void)createNewWorld
 {
+    self.paused = YES;
+    
+    // Initiate countdown and then start gameplay
+    CountDownView *countDownView = [[CountDownView alloc] init];
+    [self.view addSubview:countDownView];
+    CGPoint centerInView = self.view.center; //[self convertPointToView:CGPointMake(sceneFarLeftSide.x + sceneWidth/2, 0)];
+    countDownView.center = centerInView;
+    [countDownView addCountDownAnimationAndRemoveOnCompletion:NO completion:^(BOOL finished) { // Should be YES but that results in the 3 coming back and staying
+        self.paused = NO;
+    }];
+    
     // Prepare world
     myWorld = [SKNode node];
     myWorld.scene.anchorPoint = CGPointMake(0.5, 0.5);

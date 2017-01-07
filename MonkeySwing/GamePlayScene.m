@@ -98,7 +98,7 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
     // Initiate countdown and then start gameplay
     CountDownView *countDownView = [[CountDownView alloc] init];
     [self.view addSubview:countDownView];
-    CGPoint centerInView = self.view.center; //[self convertPointToView:CGPointMake(sceneFarLeftSide.x + sceneWidth/2, 0)];
+    CGPoint centerInView = self.view.center;
     countDownView.center = centerInView;
     [countDownView addCountDownAnimationAndRemoveOnCompletion:NO completion:^(BOOL finished) { // Should be YES but that results in the 3 coming back and staying
         self.paused = NO;
@@ -121,10 +121,13 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
         self.direction = kPBParallaxBackgroundDirectionRight;
     }
     NSArray *imageNames = @[@"LevelButton", @"MonkeyGearTail"];
-    PBParallaxScrolling *parallax = [[PBParallaxScrolling alloc] initWithBackgrounds:imageNames size:self.view.bounds.size direction:_direction fastestSpeed:kPBParallaxBackgroundDefaultSpeed andSpeedDecrease:kPBParallaxBackgroundDefaultSpeedDifferential];
+    PBParallaxScrolling *parallax = [[PBParallaxScrolling alloc] initWithBackgrounds:imageNames
+                                                                                size:self.view.bounds.size
+                                                                           direction:_direction
+                                                                        fastestSpeed:kPBParallaxBackgroundDefaultSpeed
+                                                                    andSpeedDecrease:kPBParallaxBackgroundDefaultSpeedDifferential];
     self.parallaxBackground = parallax;
     [self insertChild:parallax atIndex:self.children.count];
-    
     
     // Add fire
     [self addFireToWorld];
@@ -790,8 +793,8 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
 
 -(CGPoint)convertSceneToFrameCoordinates:(CGPoint)scenePoint
 {
-    CGFloat xDiff = myWorld.position.x - self.position.x;
-    CGFloat yDiff = myWorld.position.y - self.position.y;
+    CGFloat xDiff = myWorld.position.x + self.position.x;
+    CGFloat yDiff = myWorld.position.y + self.position.y;
     return CGPointMake(scenePoint.x + self.frame.size.width/2 + xDiff, scenePoint.y + self.frame.size.height/2 + yDiff);
 }
 
@@ -904,7 +907,7 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
         secondBody = contact.bodyA;
     }
     
-    // Verify that the two bodies were the monkey and rope, then handle collision
+    // Verify that the two bodies were the monkey and rope, thcen handle collision
     if ((firstBody.categoryBitMask & ropeCategory) != 0 && (secondBody.categoryBitMask & monkeyCategory) != 0)
     {
         [self monkey:secondBody didCollideWithRope:firstBody atPoint:contact.contactPoint];

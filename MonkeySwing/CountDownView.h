@@ -8,7 +8,7 @@
 #import <UIKit/UIKit.h>
 
 IB_DESIGNABLE
-@interface CountDownView : UIView
+@interface CountDownView : UIView <CAAnimationDelegate>
 
 @property (strong, nonatomic) NSDictionary *viewsByName;
 

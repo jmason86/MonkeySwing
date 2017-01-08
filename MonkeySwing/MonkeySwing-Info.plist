@@ -26,8 +26,8 @@
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Flux_Architect_Regular.ttf</string>
-		<string>Flux_Architect_Bold.ttf</string>
+		<string>Flux_Regular.ttf</string>
+		<string>Flux_Bold.ttf</string>
 	</array>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>

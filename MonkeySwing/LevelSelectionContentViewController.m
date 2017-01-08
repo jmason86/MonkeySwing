@@ -47,7 +47,7 @@
     
     // Update the best time label with the proper font and value
     self.bestTimeLabel.text = [NSString stringWithFormat:@"%@%@", @"Best Time: ", self.bestTimeString];
-    self.bestTimeLabel.font = [UIFont fontWithName:@"Flux Architect" size:16];
+    self.bestTimeLabel.font = [UIFont fontWithName:@"Flux" size:16];
     self.bestTimeLabel.numberOfLines = 0; // Uses as many as needed
     self.bestTimeLabel.textAlignment = NSTextAlignmentLeft;
     self.bestTimeLabel.textColor = [UIColor whiteColor];
@@ -57,7 +57,7 @@
     
     // Update the high score label with the proper font and value
     self.highScoreLabel.text = [NSString stringWithFormat:@"%@%@", @"High Score: ", self.highScoreString];
-    self.highScoreLabel.font = [UIFont fontWithName:@"Flux Architect" size:16];
+    self.highScoreLabel.font = [UIFont fontWithName:@"Flux" size:16];
     self.highScoreLabel.numberOfLines = 0; // Uses as many as needed
     self.highScoreLabel.textAlignment = NSTextAlignmentLeft;
     self.highScoreLabel.textColor = [UIColor whiteColor];

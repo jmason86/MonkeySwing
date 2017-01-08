@@ -15,6 +15,8 @@
 		E458D7D518BDAC1C005D8D03 /* Level1.csv in Resources */ = {isa = PBXBuildFile; fileRef = E458D7D418BDAC1C005D8D03 /* Level1.csv */; };
 		E45C90961913442B00956737 /* GameCenterFriendData.m in Sources */ = {isa = PBXBuildFile; fileRef = E45C90951913442B00956737 /* GameCenterFriendData.m */; };
 		E46317B618A5FEE600E911E6 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E4271007189E230400007F33 /* libz.dylib */; };
+		E464D2961E22B6DA0094D40B /* Flux_Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E464D2941E22B6DA0094D40B /* Flux_Bold.ttf */; };
+		E464D2971E22B6DA0094D40B /* Flux_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E464D2951E22B6DA0094D40B /* Flux_Regular.ttf */; };
 		E468A283198B3831005D890F /* Level3SelectionScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = E468A281198B3831005D890F /* Level3SelectionScreen.png */; };
 		E468A284198B3831005D890F /* Level3SelectionScreen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E468A282198B3831005D890F /* Level3SelectionScreen@2x.png */; };
 		E469F4111A1E6E2000C705A6 /* JPMRope.m in Sources */ = {isa = PBXBuildFile; fileRef = E469F4101A1E6E2000C705A6 /* JPMRope.m */; };
@@ -91,8 +93,6 @@
 		E4A6C21619AA5F8800C65656 /* ScrollingSpriteNode.m in Sources */ = {isa = PBXBuildFile; fileRef = E4A6C21519AA5F8800C65656 /* ScrollingSpriteNode.m */; };
 		E4A880BA19BCC8290044B17C /* PBParallaxScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = E4A880B919BCC8290044B17C /* PBParallaxScrolling.m */; };
 		E4B5B97C18DAB9B60092E231 /* PlayerLevelRunData.m in Sources */ = {isa = PBXBuildFile; fileRef = E4B5B97B18DAB9B60092E231 /* PlayerLevelRunData.m */; };
-		E4D34A9D1969AF94000E7210 /* Flux_Architect_Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4D34A9B1969AF94000E7210 /* Flux_Architect_Bold.ttf */; };
-		E4D34A9E1969AF94000E7210 /* Flux_Architect_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4D34A9C1969AF94000E7210 /* Flux_Architect_Regular.ttf */; };
 		E4D34AC21969BFFD000E7210 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4D34AC11969BFFD000E7210 /* AVFoundation.framework */; };
 		E4D34AD71969C58E000E7210 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4D34AD61969C58E000E7210 /* Accelerate.framework */; };
 		E4D34ADC1969C7CB000E7210 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4D34ADB1969C7CB000E7210 /* CoreImage.framework */; };
@@ -142,6 +142,8 @@
 		E458D7D418BDAC1C005D8D03 /* Level1.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Level1.csv; sourceTree = "<group>"; };
 		E45C90941913442B00956737 /* GameCenterFriendData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCenterFriendData.h; sourceTree = "<group>"; };
 		E45C90951913442B00956737 /* GameCenterFriendData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCenterFriendData.m; sourceTree = "<group>"; };
+		E464D2941E22B6DA0094D40B /* Flux_Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Flux_Bold.ttf; sourceTree = "<group>"; };
+		E464D2951E22B6DA0094D40B /* Flux_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Flux_Regular.ttf; sourceTree = "<group>"; };
 		E468A281198B3831005D890F /* Level3SelectionScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Level3SelectionScreen.png; sourceTree = "<group>"; };
 		E468A282198B3831005D890F /* Level3SelectionScreen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Level3SelectionScreen@2x.png"; sourceTree = "<group>"; };
 		E469F40F1A1E6E2000C705A6 /* JPMRope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPMRope.h; sourceTree = "<group>"; };
@@ -227,8 +229,6 @@
 		E4A880B919BCC8290044B17C /* PBParallaxScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBParallaxScrolling.m; sourceTree = "<group>"; };
 		E4B5B97A18DAB9B60092E231 /* PlayerLevelRunData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerLevelRunData.h; sourceTree = "<group>"; };
 		E4B5B97B18DAB9B60092E231 /* PlayerLevelRunData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerLevelRunData.m; sourceTree = "<group>"; };
-		E4D34A9B1969AF94000E7210 /* Flux_Architect_Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Flux_Architect_Bold.ttf; sourceTree = "<group>"; };
-		E4D34A9C1969AF94000E7210 /* Flux_Architect_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Flux_Architect_Regular.ttf; sourceTree = "<group>"; };
 		E4D34ABB1969BFE5000E7210 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		E4D34ABD1969BFED000E7210 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		E4D34ABF1969BFF4000E7210 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -412,8 +412,8 @@
 		E4B169EA1905D0E4004657EB /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				E4D34A9B1969AF94000E7210 /* Flux_Architect_Bold.ttf */,
-				E4D34A9C1969AF94000E7210 /* Flux_Architect_Regular.ttf */,
+				E464D2941E22B6DA0094D40B /* Flux_Bold.ttf */,
+				E464D2951E22B6DA0094D40B /* Flux_Regular.ttf */,
 			);
 			name = Fonts;
 			sourceTree = "<group>";
@@ -622,7 +622,6 @@
 				E4794A5819733CAD00CE739B /* Apple@2x.png in Resources */,
 				E4794A6419733CAD00CE739B /* FullLevel2@2x.png in Resources */,
 				E4DCD3921874E6D20040643C /* Images.xcassets in Resources */,
-				E4D34A9D1969AF94000E7210 /* Flux_Architect_Bold.ttf in Resources */,
 				E4794A8319733CAD00CE739B /* PlayAgainButton.png in Resources */,
 				E4794A7719733CAD00CE739B /* MainMenuSettingsBackground.png in Resources */,
 				E4794A5D19733CAD00CE739B /* ContinueButton.png in Resources */,
@@ -668,7 +667,6 @@
 				E484B64D1AB62B0A00A0101E /* CountDown3@2x.png in Resources */,
 				E4794A6619733CAD00CE739B /* GameOverByFireButton@2x.png in Resources */,
 				E4794A5F19733CAD00CE739B /* DeadMonkeysButton.png in Resources */,
-				E4D34A9E1969AF94000E7210 /* Flux_Architect_Regular.ttf in Resources */,
 				E4794A7519733CAD00CE739B /* MainMenuBackground.png in Resources */,
 				E4794A7C19733CAD00CE739B /* Monkey@2x.png in Resources */,
 				E4794A7319733CAD00CE739B /* LevelButton.png in Resources */,
@@ -677,6 +675,7 @@
 				E4794A8119733CAD00CE739B /* NextLevelButton@2x.png in Resources */,
 				E4794A7219733CAD00CE739B /* Level2SelectionScreen@2x.png in Resources */,
 				E4794A8B19733CAD00CE739B /* Rope.png in Resources */,
+				E464D2961E22B6DA0094D40B /* Flux_Bold.ttf in Resources */,
 				E4794A6B19733CAD00CE739B /* Leaf1.png in Resources */,
 				E4794A5C19733CAD00CE739B /* Banana@2x.png in Resources */,
 				E4794A6C19733CAD00CE739B /* Leaf1@2x.png in Resources */,
@@ -686,6 +685,7 @@
 				E4794A6D19733CAD00CE739B /* Leaf2.png in Resources */,
 				E468A284198B3831005D890F /* Level3SelectionScreen@2x.png in Resources */,
 				E4794A8719733CAD00CE739B /* RespawnButton.png in Resources */,
+				E464D2971E22B6DA0094D40B /* Flux_Regular.ttf in Resources */,
 				E40C320D1A0006CE00BC26FE /* MonkeyReaching.atlas in Resources */,
 				E4794A8519733CAD00CE739B /* ResetButton.png in Resources */,
 				E484B6501AB631C600A0101E /* CountDown.coreanimator in Resources */,

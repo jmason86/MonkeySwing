@@ -183,7 +183,7 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
     
     // Add score
     playerScore = 0;
-    SKLabelNode *scoreHudLabel = [SKLabelNode labelNodeWithFontNamed:@"Flux Architect"];
+    SKLabelNode *scoreHudLabel = [SKLabelNode labelNodeWithFontNamed:@"Flux"];
     scoreHudLabel.position = CGPointMake(sceneFarLeftSide.x + hudBanana.size.width + 20, sceneFarTopSide.y);
     scoreHudLabel.verticalAlignmentMode = SKLabelVerticalAlignmentModeTop;
     scoreHudLabel.zPosition = 120;
@@ -791,14 +791,6 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
     hudFireHeight = 2 * hudFireSpriteNode.size.height;
 }
 
--(CGPoint)convertSceneToFrameCoordinates:(CGPoint)scenePoint
-{
-    CGFloat xDiff = myWorld.position.x + self.position.x;
-    CGFloat yDiff = myWorld.position.y + self.position.y;
-    return CGPointMake(scenePoint.x + self.frame.size.width/2 + xDiff, scenePoint.y + self.frame.size.height/2 + yDiff);
-}
-
-
 #pragma mark - Touch response methods
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -926,12 +918,12 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
 {
     if (monkeyPhysicsBody.joints.count == 0) {
         // Create a new joint between the monkey and the rope segment
-        CGPoint convertedRopePosition = [self convertSceneToFrameCoordinates:ropePhysicsBody.node.position];
+        // Need to convert the rope segment back to scene coordinates by combining it's position with its parent (the full rope)
+        CGPoint convertedRopePosition = CGPointMake(ropePhysicsBody.node.parent.position.x + ropePhysicsBody.node.position.x, ropePhysicsBody.node.parent.position.y + ropePhysicsBody.node.position.y);
         SKPhysicsJointPin *jointPin = [SKPhysicsJointPin jointWithBodyA:monkeyPhysicsBody bodyB:ropePhysicsBody anchor:convertedRopePosition];
         jointPin.upperAngleLimit = M_PI/4;
         jointPin.shouldEnableLimits = YES;
         [self.scene.physicsWorld addJoint:jointPin];
-        
         
         // DEBUG: Draw a rectangle in a coordinate system
         /*SKSpriteNode *bla = [SKSpriteNode spriteNodeWithColor:[UIColor redColor] size:CGSizeMake(20, 20)];
@@ -963,7 +955,7 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
     
     // Show bonus value
     SKNode *scoreHudLabel = [self childNodeWithName:@"scoreHudLabel"];
-    SKLabelNode *bonusPointsLabel = [SKLabelNode labelNodeWithFontNamed:@"Flux Architect"];
+    SKLabelNode *bonusPointsLabel = [SKLabelNode labelNodeWithFontNamed:@"Flux"];
     bonusPointsLabel.text = [NSString stringWithFormat:@"%@%i", @"+", bonusPointsObject.numberOfPoints];
     bonusPointsLabel.position = CGPointMake(scoreHudLabel.position.x + scoreHudLabel.frame.size.width + 10.0, scoreHudLabel.position.y);
     bonusPointsLabel.verticalAlignmentMode = SKLabelVerticalAlignmentModeTop;

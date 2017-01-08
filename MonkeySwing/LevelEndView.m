@@ -79,7 +79,7 @@
     } else {
         numberOfDeadMonkeysLabel.text = [NSString stringWithFormat:@"%@%li%@", @"You've killed ", (long)playerLevelRunData.numberOfTimesDied, @" monkeys"];
     }
-    numberOfDeadMonkeysLabel.font = [UIFont fontWithName:@"Flux Architect" size:26];
+    numberOfDeadMonkeysLabel.font = [UIFont fontWithName:@"Flux" size:26];
     numberOfDeadMonkeysLabel.textAlignment = NSTextAlignmentCenter;
     //numberOfDeadMonkeysLabel.textColor = [UIColor whiteColor];
     //numberOfDeadMonkeysLabel.shadowColor = [UIColor blackColor];
@@ -91,7 +91,7 @@
     UILabel *fireProgressionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 120, 200)];
     int fireProgression = roundf(playerLevelRunData.fireProgression * 100.);
     fireProgressionLabel.text = [NSString stringWithFormat:@"%@%i%@", @"Fire is ", fireProgression, @"% of the way to your banana!"];
-    fireProgressionLabel.font = [UIFont fontWithName:@"Flux Architect" size:16];
+    fireProgressionLabel.font = [UIFont fontWithName:@"Flux" size:16];
     fireProgressionLabel.numberOfLines = 0; // Uses as many as needed
     fireProgressionLabel.textAlignment = NSTextAlignmentLeft;
     //fireProgressionLabel.textColor = [UIColor whiteColor];
@@ -133,7 +133,7 @@
     [self insertSubview:gameOverButton atIndex:self.subviews.count];
     
     // Game over label
-    gameOverLabel.font = [UIFont fontWithName:@"Flux Architect" size:23];
+    gameOverLabel.font = [UIFont fontWithName:@"Flux" size:23];
     gameOverLabel.textAlignment = NSTextAlignmentCenter;
     gameOverLabel.center = CGPointMake(self.center.x, 26);
     //gameOverLabel.textColor = [UIColor whiteColor];
@@ -197,7 +197,7 @@
     // Label showing final score
     UILabel *playerScoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 50)];
     playerScoreLabel.text = [NSString stringWithFormat:@"%@%li%@", @"You got ", (long)playerLevelRunData.totalPoints, @" points!"];
-    playerScoreLabel.font = [UIFont fontWithName:@"Flux Architect" size:36];
+    playerScoreLabel.font = [UIFont fontWithName:@"Flux" size:36];
     playerScoreLabel.textAlignment = NSTextAlignmentCenter;
     //playerScoreLabel.textColor = [UIColor whiteColor];
     //playerScoreLabel.shadowColor = [UIColor blackColor];
@@ -207,7 +207,7 @@
     // Label showing number of apples
     UILabel *numberOfApplesLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, playerScoreLabel.center.y + 10, self.bounds.size.width, 40)];
     numberOfApplesLabel.text = [NSString stringWithFormat:@"%@%li%@%li", @"Apples: ", (long)playerLevelRunData.numberOfBonusObjectsObtained, @"/", (long)playerLevelRunData.numberOfBonusObjectsAvailable];
-    numberOfApplesLabel.font = [UIFont fontWithName:@"Flux Architect" size:30];
+    numberOfApplesLabel.font = [UIFont fontWithName:@"Flux" size:30];
     numberOfApplesLabel.textAlignment = NSTextAlignmentCenter;
     //numberOfApplesLabel.textColor = [UIColor whiteColor];
     //numberOfApplesLabel.shadowColor = [UIColor blackColor];
@@ -217,7 +217,7 @@
     // Label showing number of dead monkeys
     UILabel *numberOfDeadMonkeysLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, numberOfApplesLabel.center.y + 5, self.bounds.size.width, 40)];
     numberOfDeadMonkeysLabel.text = [NSString stringWithFormat:@"%@%li", @"Dead monkeys: ", (long)playerLevelRunData.numberOfTimesDied];
-    numberOfDeadMonkeysLabel.font = [UIFont fontWithName:@"Flux Architect" size:30];
+    numberOfDeadMonkeysLabel.font = [UIFont fontWithName:@"Flux" size:30];
     numberOfDeadMonkeysLabel.textAlignment = NSTextAlignmentCenter;
     //numberOfDeadMonkeysLabel.textColor = [UIColor whiteColor];
     //numberOfDeadMonkeysLabel.shadowColor = [UIColor blackColor];
@@ -227,7 +227,7 @@
     // Label showing number of rapid ropes
     UILabel *numberOfRapidRopesLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, numberOfDeadMonkeysLabel.center.y + 5, self.bounds.size.width, 40)];
     numberOfRapidRopesLabel.text = [NSString stringWithFormat:@"%@%li", @"Rapid Ropes: ", (long)playerLevelRunData.numberOfRapidRopes];
-    numberOfRapidRopesLabel.font = [UIFont fontWithName:@"Flux Architect" size:30];
+    numberOfRapidRopesLabel.font = [UIFont fontWithName:@"Flux" size:30];
     numberOfRapidRopesLabel.textAlignment = NSTextAlignmentCenter;
     //numberOfRapidRopesLabel.textColor = [UIColor whiteColor];
     //numberOfRapidRopesLabel.shadowColor = [UIColor blackColor];
@@ -244,7 +244,7 @@
     if (playerLevelRunData.totalPoints > 0) {//playerLevelRunData.storedHighScore) {
         UILabel *newHighScoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.size.width - 120, 0, 180, 40)];
         newHighScoreLabel.text = @"New high score!";
-        newHighScoreLabel.font = [UIFont fontWithName:@"Flux Architect" size:16];
+        newHighScoreLabel.font = [UIFont fontWithName:@"Flux" size:16];
         newHighScoreLabel.textAlignment = NSTextAlignmentLeft;
         //newHighScoreLabel.textColor = [UIColor orangeColor];
         //newHighScoreLabel.shadowColor = [UIColor blackColor];
@@ -279,7 +279,7 @@
     if (competitorScore != nil) {
         UILabel *competitorScoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, -50, self.frame.size.width, self.frame.size.height)];
         competitorScoreLabel.text = [NSString stringWithFormat:@"%@ beat you with %@!", playerName, competitorScore];
-        competitorScoreLabel.font = [UIFont fontWithName:@"Flux Architect" size:14];
+        competitorScoreLabel.font = [UIFont fontWithName:@"Flux" size:14];
         //competitorScoreLabel.textColor = [UIColor orangeColor];
         //competitorScoreLabel.shadowColor = [UIColor blackColor];
         competitorScoreLabel.shadowOffset = CGSizeMake(-1.0, 0.0);

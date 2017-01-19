@@ -24,16 +24,16 @@
     
     // Rope parameters
     ropeDensity = 13.0;            // SI, default = 1.0
-    ropeRestitution = 0.05;        // range = 0-1, default = 0.2
+    ropeRestitution = 0.0;         // range = 0-1, default = 0.2
     ropeLinearDamping = 0.99;      // range = 0-1, default = 0.1
     ropeAngularDamping = 0.99;     // range = 0-1, default = 0.1
-    ropeRotationLimit = M_PI/12;  // Rope allowed to swing +/- this value
+    ropeRotationLimit = M_PI/12;   // Rope allowed to swing +/- this value
     
     // Monkey parameters
-    monkeyDensity = 12.0;         // SI, default = 1.0
-    monkeyRestitution = 0.2;      // range = 0-1, default = 0.2
-    monkeyLinearDamping = 0.1;    // range = 0-1, default = 0.1
-    monkeyAngularDamping = 0.1;   // range = 0-1, default = 0.1
+    monkeyDensity = 1.0;          // SI, default = 1.0
+    monkeyRestitution = 0.0;       // range = 0-1, default = 0.2
+    monkeyLinearDamping = 0.1;     // range = 0-1, default = 0.1
+    monkeyAngularDamping = 0.99;   // range = 0-1, default = 0.1
     monkeyInitialVelocity = CGVectorMake(300, 180); // default = (120, 0)
     monkeyJumpImpulse = CGVectorMake(200, 80);
     

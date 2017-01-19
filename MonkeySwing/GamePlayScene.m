@@ -867,7 +867,8 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
 
 - (void)animateMonkeySwingLeft
 {
-    [[self childNodeWithName:@"//monkey"] runAction:[SKAction animateWithTextures:monkeySwingLeftFrames timePerFrame:0.1f resize:NO restore:YES] withKey:@"monkeySwingLeft"];
+    // FIXME: Don't have this texture atlas set up yet
+    //[[self childNodeWithName:@"//monkey"] runAction:[SKAction animateWithTextures:monkeySwingLeftFrames timePerFrame:0.1f resize:NO restore:YES] withKey:@"monkeySwingLeft"];
     return;
 }
 

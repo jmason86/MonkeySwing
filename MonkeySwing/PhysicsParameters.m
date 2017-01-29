@@ -35,7 +35,7 @@
     monkeyLinearDamping = 0.1;     // range = 0-1, default = 0.1
     monkeyAngularDamping = 0.99;   // range = 0-1, default = 0.1
     monkeyInitialVelocity = CGVectorMake(300, 180); // default = (120, 0)
-    monkeyJumpImpulse = CGVectorMake(200, 80);
+    monkeyJumpImpulse = CGVectorMake(20, 8);
     
     // Leaf parameters
     leafMass = 0.3;               // SI, default = 1.0
@@ -49,8 +49,8 @@
     fireTimerRate = 0.75;
     
     // Touch parameters
-    swipeToXVelocityConversion = 0.2;
-    swipeToYVelocityConversion = 0.03;
+    swipeToXVelocityConversion = 0.02;
+    swipeToYVelocityConversion = 0.003;
     
     return self;
 }

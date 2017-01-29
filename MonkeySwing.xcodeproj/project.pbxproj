@@ -14,6 +14,7 @@
 		E43567C0190CB554002ED25D /* GameKitHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E43567BF190CB554002ED25D /* GameKitHelper.m */; };
 		E458D7D518BDAC1C005D8D03 /* Level1.csv in Resources */ = {isa = PBXBuildFile; fileRef = E458D7D418BDAC1C005D8D03 /* Level1.csv */; };
 		E45C90961913442B00956737 /* GameCenterFriendData.m in Sources */ = {isa = PBXBuildFile; fileRef = E45C90951913442B00956737 /* GameCenterFriendData.m */; };
+		E461216A1E3E6D97005193A9 /* fire.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E46121691E3E6D97005193A9 /* fire.mp3 */; };
 		E46317B618A5FEE600E911E6 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E4271007189E230400007F33 /* libz.dylib */; };
 		E464D2961E22B6DA0094D40B /* Flux_Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E464D2941E22B6DA0094D40B /* Flux_Bold.ttf */; };
 		E464D2971E22B6DA0094D40B /* Flux_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E464D2951E22B6DA0094D40B /* Flux_Regular.ttf */; };
@@ -142,6 +143,7 @@
 		E458D7D418BDAC1C005D8D03 /* Level1.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Level1.csv; sourceTree = "<group>"; };
 		E45C90941913442B00956737 /* GameCenterFriendData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCenterFriendData.h; sourceTree = "<group>"; };
 		E45C90951913442B00956737 /* GameCenterFriendData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCenterFriendData.m; sourceTree = "<group>"; };
+		E46121691E3E6D97005193A9 /* fire.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fire.mp3; sourceTree = "<group>"; };
 		E464D2941E22B6DA0094D40B /* Flux_Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Flux_Bold.ttf; sourceTree = "<group>"; };
 		E464D2951E22B6DA0094D40B /* Flux_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Flux_Regular.ttf; sourceTree = "<group>"; };
 		E468A281198B3831005D890F /* Level3SelectionScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Level3SelectionScreen.png; sourceTree = "<group>"; };
@@ -307,9 +309,18 @@
 			name = GameKit;
 			sourceTree = "<group>";
 		};
+		E46121681E3E6D83005193A9 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				E46121691E3E6D97005193A9 /* fire.mp3 */,
+			);
+			name = Sounds;
+			sourceTree = "<group>";
+		};
 		E4794A2019733CAD00CE739B /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				E46121681E3E6D83005193A9 /* Sounds */,
 				E40C320B1A0006CE00BC26FE /* MonkeyReaching.atlas */,
 				E40C320C1A0006CE00BC26FE /* MonkeySwingForward.atlas */,
 				E4794A2119733CAD00CE739B /* Apple.png */,
@@ -624,6 +635,7 @@
 				E4794A6419733CAD00CE739B /* FullLevel2@2x.png in Resources */,
 				E4DCD3921874E6D20040643C /* Images.xcassets in Resources */,
 				E4794A8319733CAD00CE739B /* PlayAgainButton.png in Resources */,
+				E461216A1E3E6D97005193A9 /* fire.mp3 in Resources */,
 				E4794A7719733CAD00CE739B /* MainMenuSettingsBackground.png in Resources */,
 				E4794A5D19733CAD00CE739B /* ContinueButton.png in Resources */,
 				E484B64B1AB62B0A00A0101E /* CountDown2@2x.png in Resources */,

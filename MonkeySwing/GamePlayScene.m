@@ -443,8 +443,8 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
     
     // Add parallax
     UIInterpolatingMotionEffect *horizontalMotionEffect = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.x" type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
-    horizontalMotionEffect.minimumRelativeValue = @(-1000);
-    horizontalMotionEffect.maximumRelativeValue = @(1000);
+    horizontalMotionEffect.minimumRelativeValue = @(-15);
+    horizontalMotionEffect.maximumRelativeValue = @(15);
     [background.scene.view addMotionEffect:horizontalMotionEffect];
     
     // Update global parameters with sky values
@@ -470,8 +470,17 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
     [fireEmitterNode setParticlePositionRange:CGVectorMake(physicsParameters.fireNodeXSize, 0)];
     fireEmitterNode.position = CGPointMake(sceneFarLeftSide.x, sceneFarBottomSide.y);
     fireEmitterNode.name = @"fire0";
+    
+    // Add sound for fire
+    SKAudioNode *fireAudioNode = [[SKAudioNode alloc] initWithFileNamed:@"fire.mp3"];
+    [fireAudioNode runAction:[SKAction changeVolumeTo:0.1 duration:0]];
+    [fireAudioNode setPositional:NO];
+    fireAudioNode.name = @"fireAudioNode";
+    [fireAudioNode runAction:[SKAction play]];
+    
+    // Add the fire to the world
+    [fireEmitterNode addChild:fireAudioNode];
     [allFireNode addChild:fireEmitterNode];
-
     [myWorld addChild:allFireNode];
     
     // Update fire periodically
@@ -499,6 +508,7 @@ static const uint32_t leafCategory = 0; // Means that these should not interact 
         willAddNewFlame = YES;
     }
     if (willAddNewFlame) {
+        [[allFireNode childNodeWithName:@"//fireAudioNode"] runAction:[SKAction changeVolumeBy:0.3 duration:1]];
         [allFireNode addChild:fireEmitterNode];
     }
     
